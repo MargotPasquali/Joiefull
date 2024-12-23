@@ -7,10 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE42EB052D14575500BA41BD /* JoiefullModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EB042D14575500BA41BD /* JoiefullModels.framework */; };
+		AE42EB062D14575500BA41BD /* JoiefullModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EB042D14575500BA41BD /* JoiefullModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AE42EB092D14575800BA41BD /* JoiefullService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EB082D14575800BA41BD /* JoiefullService.framework */; };
+		AE42EB0A2D14575800BA41BD /* JoiefullService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EB082D14575800BA41BD /* JoiefullService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AE8F8B412D109F6900CF8102 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE8F8B402D109F6900CF8102 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		AE42EB072D14575500BA41BD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AE42EB0A2D14575800BA41BD /* JoiefullService.framework in Embed Frameworks */,
+				AE42EB062D14575500BA41BD /* JoiefullModels.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		AE42EB042D14575500BA41BD /* JoiefullModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE42EB082D14575800BA41BD /* JoiefullService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE8F8B392D109F6800CF8102 /* Joiefull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Joiefull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE8F8B402D109F6900CF8102 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -33,17 +54,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE42EB092D14575800BA41BD /* JoiefullService.framework in Frameworks */,
+				AE42EB052D14575500BA41BD /* JoiefullModels.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE42EB032D14575500BA41BD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AE42EB082D14575800BA41BD /* JoiefullService.framework */,
+				AE42EB042D14575500BA41BD /* JoiefullModels.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AE8F8B302D109F6800CF8102 = {
 			isa = PBXGroup;
 			children = (
 				AE8F8B4A2D109F8600CF8102 /* Resources */,
 				AE8F8B3B2D109F6800CF8102 /* Sources */,
+				AE42EB032D14575500BA41BD /* Frameworks */,
 				AE8F8B3A2D109F6800CF8102 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -75,6 +108,7 @@
 				AE8F8B352D109F6800CF8102 /* Sources */,
 				AE8F8B362D109F6800CF8102 /* Frameworks */,
 				AE8F8B372D109F6800CF8102 /* Resources */,
+				AE42EB072D14575500BA41BD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

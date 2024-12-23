@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import JoiefullModels
 
 @main
 struct JoiefullApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ListView()
         }
     }
 }
+
