@@ -17,7 +17,7 @@ public final class NetworkManager: NetworkManagerProtocol {
 
     // MARK: - Properties
     public static let shared = NetworkManager()
-    private var urlSession: URLSession
+    private let urlSession: URLSession
 
     // MARK: - Initializer
     public init(urlSession: URLSession = .shared) {
