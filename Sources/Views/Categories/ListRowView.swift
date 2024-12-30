@@ -9,15 +9,15 @@ import SwiftUI
 import JoiefullModels
 
 struct ListRowView: View {
-    let products: [Clothes]
-    @Binding var selectedClothes: Clothes?
+    let products: [Product]
+    @Binding var selectedClothes: Product?
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
                 ForEach(products, id: \.id) { clothes in
                     NavigationLink(destination: DetailView(clothes: clothes), tag: clothes, selection: $selectedClothes) {
-                        ListItemView(clothes: clothes)
+                        ListItemView(product: clothes)
                     }
                 }
             }
@@ -27,34 +27,34 @@ struct ListRowView: View {
 
 // MARK: - Preview
 #Preview {
-    let sampleProducts: [Clothes] = [
-        Clothes(
+    let sampleProducts: [Product] = [
+        Product(
             id: 1,
-            picture: Clothes.Picture(
+            picture: Picture(
                 url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/tops/1.jpg",
                 description: "Image de test"
             ),
             name: "Pull torsadé",
-            category: Clothes.Category.tops, // Utilisation du type complet
+            category: Product.Category.tops, // Utilisation du type complet
             likes: 18,
             price: 69.99,
             originalPrice: 95.00
         ),
-        Clothes(
+        Product(
             id: 2,
-            picture: Clothes.Picture(
+            picture: Picture(
                 url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/bottoms/1.jpg",
                 description: "Image de test"
             ),
             name: "Jean slim",
-            category: Clothes.Category.bottoms, // Utilisation du type complet
+            category: Product.Category.bottoms, // Utilisation du type complet
             likes: 34,
             price: 49.99,
             originalPrice: 65.00
         )
     ]
 
-    @State var selectedClothes: Clothes? = nil
+    @State var selectedClothes: Product? = nil
 
     ListRowView(products: sampleProducts, selectedClothes: $selectedClothes)
 }

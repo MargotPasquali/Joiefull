@@ -9,10 +9,10 @@ import Foundation
 import JoiefullModels
 
 // MARK: - Service Protocol
-public protocol Service {
+public protocol ProductService {
     var networkManager: NetworkManagerProtocol { get }
-    func fetchClothesData() async throws -> [Clothes]
-    func decodeClothes(from jsonData: Data) -> [Clothes]?
+    func fetchClothesData() async throws -> [Product]
+    func decodeClothes(from jsonData: Data) -> [ProductDTO]?
 }
 
 // MARK: - ServiceError Enum
@@ -28,7 +28,7 @@ public enum ServiceError: Error {
 }
 
 // MARK: - RemoteService Class
-public final class RemoteService: Service {
+public final class RemoteProductService: ProductService {
 
     // MARK: - Properties
     public let networkManager: NetworkManagerProtocol
@@ -39,27 +39,33 @@ public final class RemoteService: Service {
         self.networkManager = networkManager
     }
     // MARK: - Fetch Clothes Data
-    public func fetchClothesData() async throws -> [Clothes] {
+    public func fetchClothesData() async throws -> [Product] {
         guard let url = URL(string: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/api/clothes.json") else {
             throw ServiceError.invalidResponse
         }
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-            guard let clothesList = decodeClothes(from: data) else {
+            
+            // Décodage en ProductDTO
+            guard let clothesDTOList = decodeClothes(from: data) else {
                 throw ServiceError.decodingError(DecodingError.dataCorrupted(.init(codingPath: [], debugDescription: "Invalid data format")))
             }
+            
+            // Conversion en Product
+            let clothesList = clothesDTOList.map { $0.toDomainModel() }
             return clothesList
         } catch {
             throw ServiceError.networkError(error)
         }
     }
 
+
     // MARK: - Decode Clothes
-    public func decodeClothes(from jsonData: Data) -> [Clothes]? {
+    public func decodeClothes(from jsonData: Data) -> [ProductDTO]? {
         let decoder = JSONDecoder()
         do {
-            let clothesList = try decoder.decode([Clothes].self, from: jsonData)
+            let clothesList = try decoder.decode([ProductDTO].self, from: jsonData)
             return clothesList
         } catch {
             print("Erreur de décodage : \(error)")

@@ -100,11 +100,11 @@ struct DetailView: View {
 // MARK: - Preview
 #Preview {
     // Exemple de données pour la Preview
-    let samplePicture = Clothes.Picture(
+    let samplePicture = Picture(
         url:"https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
         description: "Sac à main orange posé sur une poignée de porte"
     )
-    let sampleClothes = Clothes(
+    let sampleClothes = Product(
         id: 1,
         picture: samplePicture,
         name: "Pull torsadé",
