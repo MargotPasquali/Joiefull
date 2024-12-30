@@ -9,7 +9,7 @@ import SwiftUI
 import JoiefullModels
 
 struct DetailView: View {
-    var clothes: Clothes // Propriété pour afficher les détails d'un vêtement
+    var clothes: Product // Propriété pour afficher les détails d'un vêtement
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -31,7 +31,7 @@ struct DetailView: View {
             }
 
             // Chargement de l'image
-            if let url = clothes.picture.imageUrl {
+            if let url = clothes.picture.imageURL {
                 AsyncImage(url: url) { phase in
                     switch phase {
                     case .empty:
@@ -73,11 +73,11 @@ struct DetailView: View {
 // MARK: - Preview
 #Preview {
     // Exemple de données pour la Preview
-    let samplePicture = Clothes.Picture(
+    let samplePicture = Picture(
         url:"https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
         description: "Image de test"
     )
-    let sampleClothes = Clothes(
+    let sampleClothes = Product(
         id: 1,
         picture: samplePicture,
         name: "Pull torsadé",

@@ -7,10 +7,11 @@
 
 import SwiftUI
 import JoiefullModels
+import JoiefullService
 
 struct ListView: View {
-    @StateObject private var viewModel = ProductListViewModel()
-    @State private var selectedClothes: Clothes? = nil
+    @StateObject private var viewModel = ProductListViewModel(productService: RemoteProductService())
+    @State private var selectedClothes: Product? = nil
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
 
     var body: some View {
@@ -65,12 +66,11 @@ struct ListView: View {
     }
 }
 
-// MARK: - Preview
 #Preview {
-    let sampleProducts: [Clothes] = [
-        Clothes(
+    let sampleProducts: [Product] = [
+        Product(
             id: 1,
-            picture: Clothes.Picture(
+            picture: Picture(
                 url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/tops/1.jpg",
                 description: "Image de test"
             ),
@@ -80,9 +80,9 @@ struct ListView: View {
             price: 69.99,
             originalPrice: 95.00
         ),
-        Clothes(
+        Product(
             id: 2,
-            picture: Clothes.Picture(
+            picture: Picture(
                 url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/bottoms/1.jpg",
                 description: "Image de test"
             ),
@@ -94,9 +94,12 @@ struct ListView: View {
         )
     ]
 
-    let viewModel = ProductListViewModel()
-    viewModel.products = sampleProducts
+    let viewModel = ProductListViewModel(
+        productService: RemoteProductService(),
+        products: sampleProducts
+    )
 
-    return ListView()
+    // Retourne une vue valide
+    ListView()
         .environmentObject(viewModel)
 }

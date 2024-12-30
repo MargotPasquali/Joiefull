@@ -9,13 +9,13 @@ import SwiftUI
 import JoiefullModels
 
 struct ListItemView: View {
-    let clothes: Clothes
+    let product: Product
 
     var body: some View {
         VStack(alignment: .leading) {
             // MARK: - Image Section
             ZStack(alignment: .bottomTrailing) {
-                AsyncImage(url: clothes.picture.imageUrl) { phase in
+                AsyncImage(url: product.picture.imageURL) { phase in
                     switch phase {
                     case .empty:
                         ProgressView()
@@ -46,7 +46,7 @@ struct ListItemView: View {
                         Image(systemName: "heart")
                             .foregroundStyle(Color.black)
                             .frame(width: 14, height: 12)
-                        Text(String(clothes.likes))
+                        Text(String(product.likes))
                             .fontWeight(.semibold)
                             .foregroundStyle(Color.black)
                             .font(.caption)
@@ -58,7 +58,7 @@ struct ListItemView: View {
 
             // MARK: - Product Name and Rating
             HStack {
-                Text(clothes.name)
+                Text(product.name)
                     .font(.caption)
                     .fontWeight(.semibold)
                     .lineLimit(1)
@@ -67,7 +67,7 @@ struct ListItemView: View {
                 Image(systemName: "star.fill")
                     .foregroundStyle(Color.yellow)
                     .frame(width: 12, height: 12)
-                Text(String(format: "%.1f", clothes.price))
+                Text(String(format: "%.1f", product.price))
                     .font(.caption)
                     .fontWeight(.regular)
                     .foregroundStyle(Color.black)
@@ -75,13 +75,13 @@ struct ListItemView: View {
 
             // MARK: - Price Section
             HStack {
-                Text(String(format: "%.2f €", clothes.price))
+                Text(String(format: "%.2f €", product.price))
                     .font(.caption)
                     .fontWeight(.regular)
                     .foregroundStyle(Color.black)
                 Spacer()
-                if clothes.originalPrice != clothes.price {
-                    Text(String(format: "%.2f €", clothes.originalPrice))
+                if product.originalPrice != product.price {
+                    Text(String(format: "%.2f €", product.originalPrice))
                         .font(.caption)
                         .fontWeight(.regular)
                         .foregroundStyle(Color.gray)
@@ -95,12 +95,12 @@ struct ListItemView: View {
 
 // MARK: - Preview
 #Preview {
-    let samplePicture = Clothes.Picture(
+    let samplePicture = Picture(
         url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
         description: "Image de test"
     )
 
-    let sampleClothes = Clothes(
+    let sampleClothes = Product(
         id: 1,
         picture: samplePicture,
         name: "Pull torsadé",
@@ -110,5 +110,5 @@ struct ListItemView: View {
         originalPrice: 95.00
     )
 
-    return ListItemView(clothes: sampleClothes)
+    ListItemView(product: sampleClothes)
 }

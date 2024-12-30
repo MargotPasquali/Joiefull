@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE42EAF12D14539100BA41BD /* Clothes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EAF02D14539100BA41BD /* Clothes.swift */; };
+		AE42EAF12D14539100BA41BD /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EAF02D14539100BA41BD /* Product.swift */; };
+		AE42EB5A2D2306F000BA41BD /* ProductDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EB592D2306F000BA41BD /* ProductDTO.swift */; };
+		AE42EB5C2D230A9200BA41BD /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EB5B2D230A9200BA41BD /* Picture.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AE42EAE52D14537200BA41BD /* JoiefullModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JoiefullModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE42EAF02D14539100BA41BD /* Clothes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clothes.swift; sourceTree = "<group>"; };
+		AE42EAF02D14539100BA41BD /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		AE42EB182D14772400BA41BD /* JoiefullService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE42EB592D2306F000BA41BD /* ProductDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDTO.swift; sourceTree = "<group>"; };
+		AE42EB5B2D230A9200BA41BD /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,7 +34,9 @@
 		AE42EADB2D14537200BA41BD = {
 			isa = PBXGroup;
 			children = (
-				AE42EAF02D14539100BA41BD /* Clothes.swift */,
+				AE42EB5B2D230A9200BA41BD /* Picture.swift */,
+				AE42EB592D2306F000BA41BD /* ProductDTO.swift */,
+				AE42EAF02D14539100BA41BD /* Product.swift */,
 				AE42EB172D14772400BA41BD /* Frameworks */,
 				AE42EAE62D14537200BA41BD /* Products */,
 			);
@@ -134,7 +140,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE42EAF12D14539100BA41BD /* Clothes.swift in Sources */,
+				AE42EB5C2D230A9200BA41BD /* Picture.swift in Sources */,
+				AE42EAF12D14539100BA41BD /* Product.swift in Sources */,
+				AE42EB5A2D2306F000BA41BD /* ProductDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

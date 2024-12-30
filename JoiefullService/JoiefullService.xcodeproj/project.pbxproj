@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE42EAD82D14522400BA41BD /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EAD72D14522400BA41BD /* Service.swift */; };
+		AE42EAD82D14522400BA41BD /* ProductService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EAD72D14522400BA41BD /* ProductService.swift */; };
 		AE42EADA2D1452D400BA41BD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EAD92D1452D400BA41BD /* NetworkManager.swift */; };
 		AE42EAFD2D14559000BA41BD /* JoiefullModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EAFC2D14559000BA41BD /* JoiefullModels.framework */; };
 		AE42EAFE2D14559000BA41BD /* JoiefullModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EAFC2D14559000BA41BD /* JoiefullModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -29,7 +29,7 @@
 
 /* Begin PBXFileReference section */
 		AE42EACC2D1451E300BA41BD /* JoiefullService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JoiefullService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE42EAD72D14522400BA41BD /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		AE42EAD72D14522400BA41BD /* ProductService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductService.swift; sourceTree = "<group>"; };
 		AE42EAD92D1452D400BA41BD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		AE42EAFC2D14559000BA41BD /* JoiefullModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -50,7 +50,7 @@
 			isa = PBXGroup;
 			children = (
 				AE42EAD92D1452D400BA41BD /* NetworkManager.swift */,
-				AE42EAD72D14522400BA41BD /* Service.swift */,
+				AE42EAD72D14522400BA41BD /* ProductService.swift */,
 				AE42EAFB2D14559000BA41BD /* Frameworks */,
 				AE42EACD2D1451E300BA41BD /* Products */,
 			);
@@ -156,7 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE42EADA2D1452D400BA41BD /* NetworkManager.swift in Sources */,
-				AE42EAD82D14522400BA41BD /* Service.swift in Sources */,
+				AE42EAD82D14522400BA41BD /* ProductService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

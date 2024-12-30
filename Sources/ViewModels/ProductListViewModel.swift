@@ -12,33 +12,23 @@ import JoiefullService
 // MARK: - ProductListViewModel
 final class ProductListViewModel: ObservableObject {
 
-    // MARK: - ServiceError Enum
-    public enum ServiceError: Error {
-        case invalidCredentials
-        case invalidResponse
-        case unauthorized
-        case missingToken
-        case networkError(Error)
-        case decodingError(DecodingError)
-        case unknown
-    }
-
     // MARK: - Properties
-    @Published var products: [Clothes] = []
-    @Published var isLoading: Bool = false
+    @Published var products = [Product]()
+    @Published var isLoading = false
     @Published var errorMessage: String?
     
-    var Service: Service
+    var productService: ProductService
 
     // MARK: - Computed Properties
-    var categories: [Clothes.Category: [Clothes]] {
+    var categories: [Product.Category: [Product]] {
         Dictionary(grouping: products, by: { $0.category })
     }
 
     // MARK: - Initializer
-    init(Service: Service = RemoteService()) {
-        self.Service = Service
-    }
+    init(productService: ProductService, products: [Product] = []) {
+            self.productService = productService
+            self.products = products
+        }
 
     // MARK: - Public Methods
     @MainActor
@@ -48,8 +38,7 @@ final class ProductListViewModel: ObservableObject {
         isLoading = true
         
         do {
-            let productList = try await Service.fetchClothesData()
-            products = productList
+            products = try await productService.fetchClothesData()
             isLoading = false
         } catch {
             // Gestion des erreurs
