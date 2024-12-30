@@ -10,63 +10,90 @@ import JoiefullModels
 
 struct DetailView: View {
     var clothes: Clothes // Propriété pour afficher les détails d'un vêtement
-
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            // Nom du vêtement
-            Text(clothes.name)
-                .font(.title)
-                .fontWeight(.bold)
-
-            // Prix actuel et ancien prix
-            HStack {
-                Text(String(format: "%.2f €", clothes.price))
-                    .font(.headline)
-                    .foregroundColor(.green)
-                if clothes.price < clothes.originalPrice {
-                    Text(String(format: "%.2f €", clothes.originalPrice))
-                        .strikethrough()
-                        .foregroundColor(.gray)
-                }
-            }
-
-            // Chargement de l'image
-            if let url = clothes.picture.imageUrl {
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 200)
-                            .cornerRadius(12)
-                    case .failure:
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 200)
-                            .foregroundColor(.gray)
-                    @unknown default:
-                        EmptyView()
+        
+        VStack {
+            
+            ZStack(alignment: .trailing) {
+                // Chargement de l'image
+                if let url = clothes.picture.imageUrl {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 369, height: 431)
+                                .cornerRadius(20)
+                        case .failure:
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 369, height: 431)
+                                .foregroundColor(.gray)
+                        @unknown default:
+                            EmptyView()
+                        }
                     }
                 }
+                Image("Share")
+                    .offset(x: -12, y: -190)
+                
+                ZStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.white)
+                        .frame(width: 51, height: 27)
+                    HStack {
+                        Image(systemName: "heart")
+                            .foregroundStyle(Color.black)
+                            .frame(width: 14, height: 12)
+                        Text(String(clothes.likes))
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color.black)
+                            .font(.caption)
+                    }
+                }.offset(x: -10, y: 190)
             }
-
-            // Catégorie et likes
+            // MARK: - Product Name and Rating
+            
             HStack {
-                Text("Catégorie : \(clothes.category.rawValue.capitalized)")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                Text(clothes.name)
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .lineLimit(1)
+                    .foregroundStyle(Color.black)
                 Spacer()
-                Text("❤️ \(clothes.likes) likes")
-                    .font(.subheadline)
+                Image(systemName: "star.fill")
+                    .foregroundStyle(Color.yellow)
+                    .frame(width: 12, height: 12)
+                Text(String(format: "%.1f", clothes.price))
+                    .font(.title3)
+                    .fontWeight(.regular)
+                    .foregroundStyle(Color.black)
             }
-
-            Spacer()
+            .padding(.horizontal, 15.0)
+            
+            // MARK: - Price Section
+            HStack {
+                Text(String(format: "%.2f €", clothes.price))
+                    .font(.title3)
+                    .fontWeight(.regular)
+                    .foregroundStyle(Color.black)
+                Spacer()
+                if clothes.originalPrice != clothes.price {
+                    Text(String(format: "%.2f €", clothes.originalPrice))
+                        .font(.title3)
+                        .fontWeight(.regular)
+                        .foregroundStyle(Color.gray)
+                        .strikethrough()
+                }
+            }
+            .padding(.horizontal, 15.0)
+            Text(clothes.picture.description)
         }
-        .padding()
     }
 }
 
@@ -75,7 +102,7 @@ struct DetailView: View {
     // Exemple de données pour la Preview
     let samplePicture = Clothes.Picture(
         url:"https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
-        description: "Image de test"
+        description: "Sac à main orange posé sur une poignée de porte"
     )
     let sampleClothes = Clothes(
         id: 1,
@@ -86,6 +113,6 @@ struct DetailView: View {
         price: 69.99,
         originalPrice: 95.00
     )
-
+    
     DetailView(clothes: sampleClothes)
 }
