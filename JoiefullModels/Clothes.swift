@@ -7,11 +7,11 @@
 
 import Foundation
 
-// MARK: - Clothes Class
-public final class Clothes: Identifiable, Decodable, Hashable, Equatable {
+// MARK: - Clothes Struct
+public struct Clothes: Identifiable, Decodable, Hashable {
 
     // MARK: - Category Enum
-    public enum Category: String, Codable, Comparable {
+    public enum Category: String, Codable, Comparable, Hashable {
         case shoes = "SHOES"
         case bottoms = "BOTTOMS"
         case tops = "TOPS"
@@ -20,10 +20,10 @@ public final class Clothes: Identifiable, Decodable, Hashable, Equatable {
         // Ordre basé sur une priorité
         private var order: Int {
             switch self {
-            case .tops: return 0
-            case .bottoms: return 1
-            case .shoes: return 2
-            case .accessories: return 3
+            case .tops: 0
+            case .bottoms: 1
+            case .shoes: 2
+            case .accessories: 3
             }
         }
 
@@ -33,9 +33,9 @@ public final class Clothes: Identifiable, Decodable, Hashable, Equatable {
     }
 
     // MARK: - Picture Struct
-    public struct Picture: Decodable {
-        public var url: String
-        public var description: String
+    public struct Picture: Decodable, Hashable {
+        public let url: String
+        public let description: String
 
         // Propriété calculée pour retourner une URL
         public var imageUrl: URL? {
@@ -50,24 +50,18 @@ public final class Clothes: Identifiable, Decodable, Hashable, Equatable {
     }
 
     // MARK: - Properties
-    public var id: Int
-    public var picture: Picture
-    public var name: String
-    public var category: Category
-    public var likes: Int
-    public var price: Double
-    public var originalPrice: Double
+    public let id: Int
+    public let picture: Picture
+    public let name: String
+    public let category: Category
+    public let likes: Int
+    public let price: Double
+    public let originalPrice: Double
 
-    // MARK: - Initializer
-    public init(
-        id: Int,
-        picture: Picture,
-        name: String,
-        category: Category,
-        likes: Int,
-        price: Double,
-        originalPrice: Double
-    ) {
+    
+    // MARK: - Public init
+    
+    public init(id: Int, picture: Picture, name: String, category: Category, likes: Int, price: Double, originalPrice: Double) {
         self.id = id
         self.picture = picture
         self.name = name
@@ -76,7 +70,7 @@ public final class Clothes: Identifiable, Decodable, Hashable, Equatable {
         self.price = price
         self.originalPrice = originalPrice
     }
-
+    
     // MARK: - CodingKeys Enum
     private enum CodingKeys: String, CodingKey {
         case id
@@ -87,26 +81,4 @@ public final class Clothes: Identifiable, Decodable, Hashable, Equatable {
         case price
         case originalPrice = "original_price"
     }
-    
-    // MARK: - Equatable
-        public static func == (lhs: Clothes, rhs: Clothes) -> Bool {
-            return lhs.id == rhs.id &&
-                lhs.picture.url == rhs.picture.url &&
-                lhs.name == rhs.name &&
-                lhs.category == rhs.category &&
-                lhs.likes == rhs.likes &&
-                lhs.price == rhs.price &&
-                lhs.originalPrice == rhs.originalPrice
-        }
-
-        // MARK: - Hashable
-        public func hash(into hasher: inout Hasher) {
-            hasher.combine(id)
-            hasher.combine(picture.url)
-            hasher.combine(name)
-            hasher.combine(category)
-            hasher.combine(likes)
-            hasher.combine(price)
-            hasher.combine(originalPrice)
-        }
 }

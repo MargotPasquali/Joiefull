@@ -34,10 +34,10 @@ public final class RemoteService: Service {
     public let networkManager: NetworkManagerProtocol
 
     // MARK: - Initializer
-    public init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+
+    public init(networkManager: NetworkManagerProtocol = NetworkManager()) {
         self.networkManager = networkManager
     }
-
     // MARK: - Fetch Clothes Data
     public func fetchClothesData() async throws -> [Clothes] {
         guard let url = URL(string: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/api/clothes.json") else {

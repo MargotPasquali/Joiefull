@@ -16,7 +16,6 @@ public protocol NetworkManagerProtocol {
 public final class NetworkManager: NetworkManagerProtocol {
 
     // MARK: - Properties
-    public static let shared = NetworkManager()
     private var urlSession: URLSession
 
     // MARK: - Initializer
@@ -26,7 +25,7 @@ public final class NetworkManager: NetworkManagerProtocol {
 
     // MARK: - Public Methods
     public func data(for request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        var customRequest = request
+        let customRequest = request
 
         // MARK: Debugging Logs
         print("Sending request to URL: \(customRequest.url?.absoluteString ?? "No URL")")

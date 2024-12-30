@@ -35,7 +35,7 @@ struct ListRowView: View {
                 description: "Image de test"
             ),
             name: "Pull torsadé",
-            category: .tops,
+            category: Clothes.Category.tops, // Utilisation du type complet
             likes: 18,
             price: 69.99,
             originalPrice: 95.00
@@ -47,7 +47,7 @@ struct ListRowView: View {
                 description: "Image de test"
             ),
             name: "Jean slim",
-            category: .bottoms,
+            category: Clothes.Category.bottoms, // Utilisation du type complet
             likes: 34,
             price: 49.99,
             originalPrice: 65.00
@@ -56,5 +56,5 @@ struct ListRowView: View {
 
     @State var selectedClothes: Clothes? = nil
 
-    return ListRowView(products: sampleProducts, selectedClothes: $selectedClothes)
+    ListRowView(products: sampleProducts, selectedClothes: $selectedClothes)
 }
