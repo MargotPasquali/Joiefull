@@ -15,9 +15,9 @@ struct ListRowView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach(products, id: \.id) { clothes in
-                    NavigationLink(destination: DetailView(clothes: clothes), tag: clothes, selection: $selectedClothes) {
-                        ListItemView(product: clothes)
+                ForEach(products, id: \.id) { products in
+                    NavigationLink(destination: DetailView(product: products), tag: products, selection: $selectedClothes) {
+                        ListItemView(product: products)
                     }
                 }
             }

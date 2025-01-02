@@ -42,8 +42,8 @@ struct ListView: View {
             .navigationSplitViewColumnWidth(min: 600, ideal: 700, max: 800)
         } detail: {
             // Section droite : Vue des détails pour l'article sélectionné
-            if let selectedClothes = selectedClothes {
-                DetailView(clothes: selectedClothes)
+            if let selectedProduct = selectedClothes {
+                DetailView(product: selectedProduct)
             } else {
                 Text("Choisissez un article")
                     .foregroundColor(.gray)
