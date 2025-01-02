@@ -9,9 +9,13 @@ import SwiftUI
 import JoiefullModels
 
 struct ListRowView: View {
+    // MARK: - Constants
     let products: [Product]
+    
+    // MARK: - Properties
     @Binding var selectedClothes: Product?
 
+    // MARK: - Views
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {

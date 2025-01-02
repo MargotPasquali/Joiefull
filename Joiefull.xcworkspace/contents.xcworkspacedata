@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:JoiefullPersistenceService/JoiefullPersistenceService.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:JoiefullModels/JoiefullModels.xcodeproj">
    </FileRef>
    <FileRef
