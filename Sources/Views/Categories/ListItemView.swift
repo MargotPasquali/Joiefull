@@ -9,8 +9,17 @@ import SwiftUI
 import JoiefullModels
 
 struct ListItemView: View {
-    let product: Product
-
+    
+    // MARK: - Constants
+    private let product: Product
+    
+    init(product: Product) {
+        self.product = product
+    }
+    // MARK: - Properties
+    let imageSize: CGFloat = 198
+    
+    // MARK: - Views
     var body: some View {
         VStack(alignment: .leading) {
             // MARK: - Image Section
@@ -19,18 +28,18 @@ struct ListItemView: View {
                     switch phase {
                     case .empty:
                         ProgressView()
-                            .frame(width: 198, height: 198)
+                            .frame(width: imageSize, height: imageSize)
                     case .success(let image):
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 198, height: 198)
+                            .frame(width: imageSize, height: imageSize)
                             .cornerRadius(20)
                     case .failure:
                         Image(systemName: "photo")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 198, height: 198)
+                            .frame(width: imageSize, height: imageSize)
                             .cornerRadius(20)
                     @unknown default:
                         EmptyView()
@@ -67,7 +76,7 @@ struct ListItemView: View {
                 Image(systemName: "star.fill")
                     .foregroundStyle(Color.yellow)
                     .frame(width: 12, height: 12)
-                Text(String(format: "%.1f", product.price))
+                Text("0")
                     .font(.caption)
                     .fontWeight(.regular)
                     .foregroundStyle(Color.black)

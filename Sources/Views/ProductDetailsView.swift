@@ -8,7 +8,7 @@
 import SwiftUI
 import JoiefullModels
 
-struct DetailView: View {
+struct ProductDetailsView: View {
     var clothes: Product // Propriété pour afficher les détails d'un vêtement
 
     var body: some View {
@@ -87,5 +87,5 @@ struct DetailView: View {
         originalPrice: 95.00
     )
 
-    DetailView(clothes: sampleClothes)
+    ProductDetailsView(clothes: sampleClothes)
 }

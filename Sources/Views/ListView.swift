@@ -43,7 +43,7 @@ struct ListView: View {
         } detail: {
             // Section droite : Vue des détails pour l'article sélectionné
             if let selectedClothes = selectedClothes {
-                DetailView(clothes: selectedClothes)
+                ProductDetailsView(clothes: selectedClothes)
             } else {
                 Text("Choisissez un article")
                     .foregroundColor(.gray)

@@ -24,7 +24,7 @@ public struct ProductDTO: Decodable {
 
 extension ProductDTO {
     public func toDomainModel() -> Product {
-        return Product(
+        Product(
             id: id,
             picture: Picture(
                 url: picture.url,

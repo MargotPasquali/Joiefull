@@ -9,14 +9,18 @@ import SwiftUI
 import JoiefullModels
 
 struct ListRowView: View {
+    // MARK: - Constants
     let products: [Product]
+    
+    // MARK: - Properties
     @Binding var selectedClothes: Product?
 
+    // MARK: - Views
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
                 ForEach(products, id: \.id) { clothes in
-                    NavigationLink(destination: DetailView(clothes: clothes), tag: clothes, selection: $selectedClothes) {
+                    NavigationLink(destination: ProductDetailsView(clothes: clothes), tag: clothes, selection: $selectedClothes) {
                         ListItemView(product: clothes)
                     }
                 }
