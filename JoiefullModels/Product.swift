@@ -12,7 +12,7 @@ public struct Product: Identifiable, Hashable {
     public let picture: Picture
     public let name: String
     public let category: Category
-    public let likes: Int
+    public var likes: Int
     public let price: Double
     public let originalPrice: Double
     

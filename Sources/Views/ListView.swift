@@ -4,19 +4,22 @@
 //
 //  Created by Margot Pasquali on 19/12/2024.
 //
-
 import SwiftUI
 import JoiefullModels
 import JoiefullService
+import JoiefullPersistence
 
 struct ListView: View {
-    @StateObject private var viewModel = ProductListViewModel(productService: RemoteProductService())
+    @StateObject private var viewModel = ProductListViewModel(
+        productService: RemoteProductService(),
+        persistenceService: UserDefaultsManager()
+    )
     @State private var selectedClothes: Product? = nil
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            // Section gauche : Liste des catégories et produits
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     let sortedCategories = viewModel.categories.keys.sorted()
@@ -24,14 +27,14 @@ struct ListView: View {
                     ForEach(sortedCategories, id: \.self) { category in
                         if let items = viewModel.categories[category] {
                             VStack(alignment: .leading) {
-                                // Titre de la catégorie
+                               
                                 Text(category.rawValue.capitalized)
                                     .font(.body)
                                     .fontWeight(.semibold)
                                     .padding(.leading, 15)
 
                                 // Utilisation de ListRowView
-                                ListRowView(products: items, selectedClothes: $selectedClothes)
+                                ListRowView(products: items, selectedClothes: $selectedClothes, viewModel: viewModel)
                                     .padding(.horizontal, 15)
                             }
                         }
@@ -41,9 +44,9 @@ struct ListView: View {
             }
             .navigationSplitViewColumnWidth(min: 600, ideal: 700, max: 800)
         } detail: {
-            // Section droite : Vue des détails pour l'article sélectionné
+            
             if let selectedClothes = selectedClothes {
-                ProductDetailsView(clothes: selectedClothes)
+                ProductDetailsView(product: selectedClothes)
             } else {
                 Text("Choisissez un article")
                     .foregroundColor(.gray)
@@ -96,10 +99,10 @@ struct ListView: View {
 
     let viewModel = ProductListViewModel(
         productService: RemoteProductService(),
-        products: sampleProducts
+        products: sampleProducts,
+        persistenceService: UserDefaultsManager()
     )
 
-    // Retourne une vue valide
     ListView()
         .environmentObject(viewModel)
 }

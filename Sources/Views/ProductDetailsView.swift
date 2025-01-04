@@ -9,29 +9,29 @@ import SwiftUI
 import JoiefullModels
 
 struct ProductDetailsView: View {
-    var clothes: Product // Propriété pour afficher les détails d'un vêtement
+    var product: Product
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             // Nom du vêtement
-            Text(clothes.name)
+            Text(product.name)
                 .font(.title)
                 .fontWeight(.bold)
 
             // Prix actuel et ancien prix
             HStack {
-                Text(String(format: "%.2f €", clothes.price))
+                Text(String(format: "%.2f €", product.price))
                     .font(.headline)
                     .foregroundColor(.green)
-                if clothes.price < clothes.originalPrice {
-                    Text(String(format: "%.2f €", clothes.originalPrice))
+                if product.price < product.originalPrice {
+                    Text(String(format: "%.2f €", product.originalPrice))
                         .strikethrough()
                         .foregroundColor(.gray)
                 }
             }
 
             // Chargement de l'image
-            if let url = clothes.picture.imageURL {
+            if let url = product.picture.imageURL {
                 AsyncImage(url: url) { phase in
                     switch phase {
                     case .empty:
@@ -56,11 +56,11 @@ struct ProductDetailsView: View {
 
             // Catégorie et likes
             HStack {
-                Text("Catégorie : \(clothes.category.rawValue.capitalized)")
+                Text("Catégorie : \(product.category.rawValue.capitalized)")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                 Spacer()
-                Text("❤️ \(clothes.likes) likes")
+                Text("❤️ \(product.likes) likes")
                     .font(.subheadline)
             }
 
@@ -87,5 +87,5 @@ struct ProductDetailsView: View {
         originalPrice: 95.00
     )
 
-    ProductDetailsView(clothes: sampleClothes)
+    ProductDetailsView(product: sampleClothes)
 }

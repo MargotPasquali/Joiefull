@@ -11,6 +11,8 @@
 		AE42EB062D14575500BA41BD /* JoiefullModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EB042D14575500BA41BD /* JoiefullModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AE42EB092D14575800BA41BD /* JoiefullService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EB082D14575800BA41BD /* JoiefullService.framework */; };
 		AE42EB0A2D14575800BA41BD /* JoiefullService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EB082D14575800BA41BD /* JoiefullService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AE6869532D2977F300152305 /* JoiefullPersistenceService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE6869522D2977F300152305 /* JoiefullPersistenceService.framework */; };
+		AE6869542D2977F300152305 /* JoiefullPersistenceService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE6869522D2977F300152305 /* JoiefullPersistenceService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AE8F8B412D109F6900CF8102 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE8F8B402D109F6900CF8102 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -21,6 +23,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				AE6869542D2977F300152305 /* JoiefullPersistenceService.framework in Embed Frameworks */,
 				AE42EB0A2D14575800BA41BD /* JoiefullService.framework in Embed Frameworks */,
 				AE42EB062D14575500BA41BD /* JoiefullModels.framework in Embed Frameworks */,
 			);
@@ -32,6 +35,10 @@
 /* Begin PBXFileReference section */
 		AE42EB042D14575500BA41BD /* JoiefullModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE42EB082D14575800BA41BD /* JoiefullService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE6869522D2977F300152305 /* JoiefullPersistenceService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullPersistenceService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE71183A2D283B0500C3FF07 /* JoiefullPersistence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullPersistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE7F35E32D29765200E54749 /* JoiefullPersistence2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullPersistence2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE7F35E62D29769200E54749 /* JoiefullPersistence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullPersistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE8F8B392D109F6800CF8102 /* Joiefull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Joiefull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE8F8B402D109F6900CF8102 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -54,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE6869532D2977F300152305 /* JoiefullPersistenceService.framework in Frameworks */,
 				AE42EB092D14575800BA41BD /* JoiefullService.framework in Frameworks */,
 				AE42EB052D14575500BA41BD /* JoiefullModels.framework in Frameworks */,
 			);
@@ -65,6 +73,10 @@
 		AE42EB032D14575500BA41BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE6869522D2977F300152305 /* JoiefullPersistenceService.framework */,
+				AE7F35E62D29769200E54749 /* JoiefullPersistence.framework */,
+				AE7F35E32D29765200E54749 /* JoiefullPersistence2.framework */,
+				AE71183A2D283B0500C3FF07 /* JoiefullPersistence.framework */,
 				AE42EB082D14575800BA41BD /* JoiefullService.framework */,
 				AE42EB042D14575500BA41BD /* JoiefullModels.framework */,
 			);

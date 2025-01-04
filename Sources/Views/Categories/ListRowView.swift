@@ -7,21 +7,28 @@
 
 import SwiftUI
 import JoiefullModels
+import JoiefullService
+import JoiefullPersistence
 
 struct ListRowView: View {
-    // MARK: - Constants
     let products: [Product]
-    
-    // MARK: - Properties
     @Binding var selectedClothes: Product?
+    let viewModel: ProductListViewModel
 
-    // MARK: - Views
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach(products, id: \.id) { clothes in
-                    NavigationLink(destination: ProductDetailsView(clothes: clothes), tag: clothes, selection: $selectedClothes) {
-                        ListItemView(product: clothes)
+                ForEach(products, id: \.id) { product in
+                    NavigationLink(
+                        destination: ProductDetailsView(product: product),
+                        tag: product,
+                        selection: $selectedClothes
+                    ) {
+                        ListItemView(
+                            product: product,
+                            isLiked: viewModel.isLiked(product: product),
+                            onLikeToggle: { viewModel.toggleLike(for: product) }
+                        )
                     }
                 }
             }
@@ -39,7 +46,7 @@ struct ListRowView: View {
                 description: "Image de test"
             ),
             name: "Pull torsadé",
-            category: Product.Category.tops, // Utilisation du type complet
+            category: .tops,
             likes: 18,
             price: 69.99,
             originalPrice: 95.00
@@ -51,7 +58,7 @@ struct ListRowView: View {
                 description: "Image de test"
             ),
             name: "Jean slim",
-            category: Product.Category.bottoms, // Utilisation du type complet
+            category: .bottoms,
             likes: 34,
             price: 49.99,
             originalPrice: 65.00
@@ -60,5 +67,15 @@ struct ListRowView: View {
 
     @State var selectedClothes: Product? = nil
 
-    ListRowView(products: sampleProducts, selectedClothes: $selectedClothes)
+    let mockViewModel = ProductListViewModel(
+        productService: RemoteProductService(),
+        products: sampleProducts,
+        persistenceService: UserDefaultsManager()
+    )
+
+    ListRowView(
+        products: sampleProducts,
+        selectedClothes: $selectedClothes,
+        viewModel: mockViewModel
+    )
 }
