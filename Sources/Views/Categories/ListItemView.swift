@@ -118,12 +118,18 @@ struct ListItemView: View {
         description: "Image de test"
     )
 
+    let sampleRatings = [
+        Rating(score: 5, comment: "Très bon produit !"),
+        Rating(score: 4, comment: nil)
+    ]
+
     let sampleProduct = Product(
         id: 1,
         picture: samplePicture,
         name: "Pull torsadé",
         category: .tops,
         likes: 18,
+        ratings: sampleRatings,
         price: 69.99,
         originalPrice: 95.00
     )
@@ -134,4 +140,3 @@ struct ListItemView: View {
         onLikeToggle: { print("Toggled like for product \(sampleProduct.name)") }
     )
 }
-

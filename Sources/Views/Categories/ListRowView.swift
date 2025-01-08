@@ -8,7 +8,7 @@
 import SwiftUI
 import JoiefullModels
 import JoiefullService
-import JoiefullPersistence
+import JoiefullPersistenceService
 
 struct ListRowView: View {
     let products: [Product]
@@ -20,7 +20,7 @@ struct ListRowView: View {
             HStack(spacing: 15) {
                 ForEach(products, id: \.id) { product in
                     NavigationLink(
-                        destination: ProductDetailsView(product: product),
+                        destination: ProductDetailsView(product: product, persistenceService: UserDefaultsManager()),
                         tag: product,
                         selection: $selectedClothes
                     ) {
@@ -48,6 +48,10 @@ struct ListRowView: View {
             name: "Pull torsadé",
             category: .tops,
             likes: 18,
+            ratings: [ // Ajout de ratings
+                Rating(score: 5, comment: "Super produit!"),
+                Rating(score: 4, comment: nil)
+            ],
             price: 69.99,
             originalPrice: 95.00
         ),
@@ -60,6 +64,10 @@ struct ListRowView: View {
             name: "Jean slim",
             category: .bottoms,
             likes: 34,
+            ratings: [ // Ajout de ratings
+                Rating(score: 4, comment: "Très confortable"),
+                Rating(score: 3, comment: nil)
+            ],
             price: 49.99,
             originalPrice: 65.00
         )

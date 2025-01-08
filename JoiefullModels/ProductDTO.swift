@@ -16,11 +16,22 @@ public struct ProductDTO: Decodable {
     public let price: Double
     public let originalPrice: Double?
 
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case picture
+        case name
+        case category
+        case likes
+        case price
+        case originalPrice = "original_price"
+    }
+    
     public struct PictureDTO: Decodable {
         public let url: String
         public let description: String
     }
 }
+
 
 extension ProductDTO {
     public func toDomainModel() -> Product {
@@ -33,6 +44,7 @@ extension ProductDTO {
             name: name,
             category: Product.Category(rawValue: category.lowercased()) ?? .accessories,
             likes: likes,
+            ratings: [],
             price: price,
             originalPrice: originalPrice ?? price
         )

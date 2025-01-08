@@ -7,7 +7,7 @@
 import SwiftUI
 import JoiefullModels
 import JoiefullService
-import JoiefullPersistence
+import JoiefullPersistenceService
 
 struct ListView: View {
     @StateObject private var viewModel = ProductListViewModel(
@@ -46,7 +46,7 @@ struct ListView: View {
         } detail: {
             
             if let selectedClothes = selectedClothes {
-                ProductDetailsView(product: selectedClothes)
+                ProductDetailsView(product: selectedClothes, persistenceService: UserDefaultsManager())
             } else {
                 Text("Choisissez un article")
                     .foregroundColor(.gray)
@@ -80,6 +80,10 @@ struct ListView: View {
             name: "Pull torsadé",
             category: .tops,
             likes: 18,
+            ratings: [ // Ajout des notes
+                Rating(score: 5, comment: "Très beau produit!"),
+                Rating(score: 4, comment: "Bon rapport qualité-prix")
+            ],
             price: 69.99,
             originalPrice: 95.00
         ),
@@ -92,6 +96,10 @@ struct ListView: View {
             name: "Jean slim",
             category: .bottoms,
             likes: 34,
+            ratings: [ // Ajout des notes
+                Rating(score: 4, comment: "Très confortable"),
+                Rating(score: 3, comment: nil)
+            ],
             price: 49.99,
             originalPrice: 65.00
         )

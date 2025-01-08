@@ -13,15 +13,17 @@ public struct Product: Identifiable, Hashable {
     public let name: String
     public let category: Category
     public var likes: Int
+    public var ratings : [Rating]
     public let price: Double
     public let originalPrice: Double
     
-    public init(id: Int, picture: Picture, name: String, category: Category, likes: Int, price: Double, originalPrice: Double) {
+    public init(id: Int, picture: Picture, name: String, category: Category, likes: Int, ratings: [Rating], price: Double, originalPrice: Double) {
         self.id = id
         self.picture = picture
         self.name = name
         self.category = category
         self.likes = likes
+        self.ratings = ratings
         self.price = price
         self.originalPrice = originalPrice
     }

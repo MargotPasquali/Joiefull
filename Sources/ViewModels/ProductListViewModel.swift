@@ -8,7 +8,7 @@
 import Foundation
 import JoiefullModels
 import JoiefullService
-import JoiefullPersistence
+import JoiefullPersistenceService
 
 // MARK: - ProductListViewModel
 final class ProductListViewModel: ObservableObject {
