@@ -9,22 +9,31 @@ import SwiftUI
 import JoiefullModels
 import JoiefullPersistenceService
 
+@MainActor
 struct ProductDetailsView: View {
-    
-    var product: Product
+    @Binding var product: Product
+    private let isLiked: Bool
+    private let onLikeToggle: () -> Void
     
     @StateObject private var viewModel: ProductDetailsViewModel
+    @State private var isLoading: Bool = true
     
     // MARK: - Initializer
-    init(product: Product, persistenceService: UserDefaultsManager) {
-        self.product = product
-        _viewModel = StateObject(wrappedValue: ProductDetailsViewModel(productID: product.id, persistenceService: persistenceService))
+    init(product: Binding<Product>, isLiked: Bool, onLikeToggle: @escaping () -> Void, persistenceService: UserDefaultsManager) {
+        self._product = product
+        self.isLiked = isLiked
+        self.onLikeToggle = onLikeToggle
+        _viewModel = StateObject(wrappedValue: ProductDetailsViewModel(product: product.wrappedValue, persistenceService: persistenceService))
     }
     
-    
     var body: some View {
- 
-            ScrollView {
+        ScrollView {
+            if isLoading {
+                ProgressView("Chargement des détails...")
+                    .font(.headline)
+                    .foregroundColor(.gray)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
                 VStack {
                     ZStack(alignment: .trailing) {
                         if let url = product.picture.imageURL {
@@ -61,21 +70,25 @@ struct ProductDetailsView: View {
                             
                         }.offset(x: -10, y: -190)
                         
-                        
-                        ZStack {
+                        Button(action: {
+                            onLikeToggle()
+                        }) {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.white)
                                 .frame(width: 51, height: 27)
-                            HStack {
-                                Image(systemName: "heart")
-                                    .foregroundStyle(Color.black)
-                                    .frame(width: 14, height: 12)
-                                Text(String(product.likes))
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(Color.black)
-                                    .font(.caption)
-                            }
+                                .overlay(
+                                    HStack {
+                                        Image(systemName: isLiked ? "heart.fill" : "heart")
+                                            .foregroundColor(isLiked ? .red : .black)
+                                            .frame(width: 14, height: 12)
+                                        Text(String(product.likes))
+                                            .fontWeight(.semibold)
+                                            .foregroundStyle(Color.black)
+                                            .font(.caption)
+                                    }
+                                )
                         }
+                        .buttonStyle(.plain)
                         .offset(x: -10, y: 190)
                     }
                     
@@ -90,7 +103,7 @@ struct ProductDetailsView: View {
                         Image(systemName: "star.fill")
                             .foregroundStyle(Color.yellow)
                             .frame(width: 12, height: 12)
-                        Text(String(format: "%.1f", viewModel.averageRating))
+                        Text(String(format: "%.1f", viewModel.product.averageRating))
                             .font(.title3)
                             .fontWeight(.regular)
                             .foregroundStyle(Color.black)
@@ -123,35 +136,45 @@ struct ProductDetailsView: View {
                     
                     // MARK: - Rating Section
                     RatingView(viewModel: viewModel)
-                    
                 }
             }
         }
+        .onAppear {
+            Task {
+                await viewModel.loadPersistedData()
+                    isLoading = false
+                
+            }
+        }
     }
-
+}
 
 
 // MARK: - Preview
 #Preview {
-    let samplePicture = Picture(
-        url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
-        description: "Sac à main orange posé sur une poignée de porte"
-    )
-    let sampleRatings = [
-        Rating(score: 5, comment: "Parfait !"),
-        Rating(score: 4, comment: "Très bon produit."),
-        Rating(score: 3, comment: nil)
-    ]
-    let sampleClothes = Product(
+    @Previewable @State var sampleClothes = Product(
         id: 1,
-        picture: samplePicture,
+        picture: Picture(
+            url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
+            description: "Sac à main orange posé sur une poignée de porte"
+        ),
         name: "Pull torsadé",
         category: .tops,
         likes: 56,
-        ratings: sampleRatings,
+        ratings: [
+            Rating(score: 5, comment: "Parfait !"),
+            Rating(score: 4, comment: "Très bon produit."),
+            Rating(score: 3, comment: nil)
+        ],
         price: 69.99,
         originalPrice: 95.00
     )
     
-    ProductDetailsView(product: sampleClothes, persistenceService: UserDefaultsManager())
+    ProductDetailsView(
+        product: $sampleClothes,
+        isLiked: true,
+        onLikeToggle: { print("Toggled like for product \(sampleClothes.name)") },
+        persistenceService: UserDefaultsManager()
+    )
 }
+

@@ -6,25 +6,30 @@
 //
 
 import Foundation
+import JoiefullModels
 
 public final class UserDefaultsManager {
     
     // MARK: - Constants
-    
     private let userDefaults: UserDefaults
     private let likesKey = "likedProducts"
     private let ratingsKey = "productRatings"
+    private let commentsKey = "productComments"
+    private let userID = "101"
     
-    
+    // MARK: - Initializer
+    /// Initializes `UserDefaultsManager` with a `UserDefaults` instance.
     public init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
     }
     
-    // MARK: - Like Methods
+    // MARK: - Like Management
+    /// Fetches the list of liked product IDs.
     public func getLikedProductIDs() -> [Int] {
         userDefaults.array(forKey: likesKey) as? [Int] ?? []
     }
     
+    /// Adds a product ID to the liked products list.
     public func likeProduct(productID: Int) {
         var likedProductIDs = getLikedProductIDs()
         if !likedProductIDs.contains(productID) {
@@ -33,125 +38,91 @@ public final class UserDefaultsManager {
         }
     }
     
+    /// Removes a product ID from the liked products list.
     public func unlikeProduct(productID: Int) {
         var likedProductIDs = getLikedProductIDs()
-        if let index = likedProductIDs.firstIndex(of: productID) {
-            likedProductIDs.remove(at: index)
-            userDefaults.set(likedProductIDs, forKey: likesKey)
-        }
+        likedProductIDs.removeAll { $0 == productID }
+        userDefaults.set(likedProductIDs, forKey: likesKey)
     }
     
+    /// Checks if a product is liked.
     public func isProductLiked(productID: Int) -> Bool {
         getLikedProductIDs().contains(productID)
     }
     
-    // MARK: - Rating Methods
-    
-    /// Add or update a rating for product by static userID (101).
+    // MARK: - Rating Management
+    /// Adds or updates a rating for a specific product.
     public func addOrUpdateRating(for productID: Int, rating: Int) {
+        guard (1...5).contains(rating) else { return } // Ensure rating is valid
+        
         var allRatings = getAllRatings()
         var productRatings = allRatings[productID] ?? [:]
-        productRatings["101"] = rating // Fixed userID
+        productRatings[userID] = rating
         allRatings[productID] = productRatings
-        
-        // Serialize to JSON
-        do {
-            let data = try JSONEncoder().encode(allRatings)
-            userDefaults.set(data, forKey: ratingsKey)
-            print("Debug: Successfully saved ratings.")
-        } catch {
-            print("Error: Failed to save ratings. \(error)")
-        }
+
+        saveData(allRatings, forKey: ratingsKey)
     }
     
-    /// Get a rating for a specific product by userID 101.
+    /// Fetches the current user's rating for a specific product.
     public func getRating(for productID: Int) -> Int? {
         let allRatings = getAllRatings()
-        let productRatings = allRatings[productID] ?? [:]
-        return productRatings["101"]
+        return allRatings[productID]?[userID]
     }
     
-    /// Get the average rating for a product.
+    /// Calculates the average rating for a specific product.
     public func getAverageRating(for productID: Int) -> Double {
         let allRatings = getAllRatings()
         guard let productRatings = allRatings[productID] else { return 0.0 }
+        
         let total = productRatings.values.reduce(0, +)
-        let count = productRatings.count
-        return count > 0 ? Double(total) / Double(count) : 0.0
+        return Double(total) / Double(productRatings.count)
     }
     
-    /// Retrieve all ratings.
-    private func getAllRatings() -> [Int: [String: Int]] {
-        guard let data = userDefaults.data(forKey: ratingsKey) else {
-            print("Debug: No ratings data found.")
-            return [:]
-        }
-        do {
-            // Attempt to decode the new format
-            let ratings = try JSONDecoder().decode([Int: [String: Int]].self, from: data)
-            print("Debug: Retrieved ratings: \(ratings)")
-            return ratings
-        } catch {
-            print("Error: Failed to decode ratings. \(error)")
-            
-            // Attempt recovery for legacy format (if stored as a dictionary)
-            if let legacyRatings = userDefaults.dictionary(forKey: ratingsKey) as? [Int: [String: Any]] {
-                var convertedRatings: [Int: [String: Int]] = [:]
-                for (productID, userRatings) in legacyRatings {
-                    let filteredRatings = userRatings.compactMapValues { $0 as? Int }
-                    convertedRatings[productID] = filteredRatings
-                }
-                
-                print("Debug: Converted legacy ratings: \(convertedRatings)")
-                
-                // Save converted data in the new format
-                do {
-                    let newData = try JSONEncoder().encode(convertedRatings)
-                    userDefaults.set(newData, forKey: ratingsKey)
-                    print("Debug: Saved converted ratings.")
-                } catch {
-                    print("Error: Failed to save converted ratings. \(error)")
-                }
-                
-                return convertedRatings
-            }
-            
-            return [:]
-        }
-    }
-    
+    // MARK: - Comment Management
+    /// Adds or updates a comment for a specific product.
     public func addOrUpdateComment(for productID: Int, comment: String) {
         var allComments = getAllComments()
         var productComments = allComments[productID] ?? [:]
-        productComments["101"] = comment // Fixed user ID
+        productComments[userID] = comment
         allComments[productID] = productComments
-        
-        // Serialize to JSON
-        do {
-            let data = try JSONEncoder().encode(allComments)
-            userDefaults.set(data, forKey: "productComments")
-            print("Debug: Successfully saved comments.")
-        } catch {
-            print("Error: Failed to save comments. \(error)")
-        }
-    }
 
+        saveData(allComments, forKey: commentsKey)
+    }
+    
+    /// Fetches the current user's comment for a specific product.
     public func getComment(for productID: Int) -> String? {
         let allComments = getAllComments()
-        let productComments = allComments[productID] ?? [:]
-        return productComments["101"]
+        return allComments[productID]?[userID]
     }
-
+    
+    // MARK: - Private Helper Methods
+    /// Retrieves all ratings from persistent storage.
+    private func getAllRatings() -> [Int: [String: Int]] {
+        fetchData(forKey: ratingsKey, defaultValue: [:])
+    }
+    
+    /// Retrieves all comments from persistent storage.
     private func getAllComments() -> [Int: [String: String]] {
-        guard let data = userDefaults.data(forKey: "productComments") else {
-            print("Debug: No comments data found.")
-            return [:]
-        }
+        fetchData(forKey: commentsKey, defaultValue: [:])
+    }
+    
+    /// Fetches data for a specific key or returns a default value.
+    private func fetchData<T: Decodable>(forKey key: String, defaultValue: T) -> T {
+        guard let data = userDefaults.data(forKey: key) else { return defaultValue }
         do {
-            return try JSONDecoder().decode([Int: [String: String]].self, from: data)
+            return try JSONDecoder().decode(T.self, from: data)
         } catch {
-            print("Error: Failed to decode comments. \(error)")
-            return [:]
+            return defaultValue
+        }
+    }
+    
+    /// Saves data for a specific key.
+    private func saveData<T: Encodable>(_ data: T, forKey key: String) {
+        do {
+            let encodedData = try JSONEncoder().encode(data)
+            userDefaults.set(encodedData, forKey: key)
+        } catch {
+            print("Error saving data: \(error)")
         }
     }
 }

@@ -11,21 +11,25 @@ import JoiefullService
 import JoiefullPersistenceService
 
 struct ListRowView: View {
-    let products: [Product]
-    @Binding var selectedClothes: Product?
+    @Binding var products: [Product]
+    @Binding var selectedProduct: Product?
     let viewModel: ProductListViewModel
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach(products, id: \.id) { product in
+                ForEach($products, id: \.id) { $product in
                     NavigationLink(
-                        destination: ProductDetailsView(product: product, persistenceService: UserDefaultsManager()),
-                        tag: product,
-                        selection: $selectedClothes
+                        destination: ProductDetailsView(
+                            product: $product,
+                            isLiked: viewModel.isLiked(product: product),
+                            onLikeToggle: { viewModel.toggleLike(for: product) },
+                            persistenceService: UserDefaultsManager()
+                        )
                     ) {
                         ListItemView(
-                            product: product,
+                            product: $product,
+                            rating: product.ratings.first ?? Rating(score: 0, comment: nil),
                             isLiked: viewModel.isLiked(product: product),
                             onLikeToggle: { viewModel.toggleLike(for: product) }
                         )
@@ -33,12 +37,16 @@ struct ListRowView: View {
                 }
             }
         }
+        .onAppear {
+            viewModel.updateAverageRatings()
+        }
     }
 }
 
+
 // MARK: - Preview
 #Preview {
-    let sampleProducts: [Product] = [
+    @State var sampleProducts: [Product] = [
         Product(
             id: 1,
             picture: Picture(
@@ -48,7 +56,7 @@ struct ListRowView: View {
             name: "Pull torsadé",
             category: .tops,
             likes: 18,
-            ratings: [ // Ajout de ratings
+            ratings: [
                 Rating(score: 5, comment: "Super produit!"),
                 Rating(score: 4, comment: nil)
             ],
@@ -64,7 +72,7 @@ struct ListRowView: View {
             name: "Jean slim",
             category: .bottoms,
             likes: 34,
-            ratings: [ // Ajout de ratings
+            ratings: [
                 Rating(score: 4, comment: "Très confortable"),
                 Rating(score: 3, comment: nil)
             ],
@@ -72,18 +80,17 @@ struct ListRowView: View {
             originalPrice: 65.00
         )
     ]
-
+    
     @State var selectedClothes: Product? = nil
 
     let mockViewModel = ProductListViewModel(
-        productService: RemoteProductService(),
         products: sampleProducts,
         persistenceService: UserDefaultsManager()
     )
-
+    
     ListRowView(
-        products: sampleProducts,
-        selectedClothes: $selectedClothes,
+        products: $sampleProducts,
+        selectedProduct: $selectedClothes,
         viewModel: mockViewModel
     )
 }

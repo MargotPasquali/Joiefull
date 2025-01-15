@@ -11,12 +11,14 @@ import JoiefullModels
 struct ListItemView: View {
     
     // MARK: - Constants
-    private let product: Product
+    @Binding var product: Product
+    private let rating: Rating
     private let isLiked: Bool
     private let onLikeToggle: () -> Void
     
-    init(product: Product, isLiked: Bool, onLikeToggle: @escaping () -> Void) {
-        self.product = product
+    init(product: Binding<Product>, rating: Rating, isLiked: Bool, onLikeToggle: @escaping () -> Void) {
+        self._product = product
+        self.rating = rating
         self.isLiked = isLiked
         self.onLikeToggle = onLikeToggle
     }
@@ -85,7 +87,7 @@ struct ListItemView: View {
                     Image(systemName: "star.fill")
                         .foregroundStyle(Color.yellow)
                         .frame(width: 12, height: 12)
-                    Text("0")
+                    Text(String(format: "%.1f", product.averageRating))
                         .font(.caption)
                         .fontWeight(.regular)
                         .foregroundStyle(Color.black)
@@ -113,29 +115,28 @@ struct ListItemView: View {
 
     // MARK: - Preview
 #Preview {
-    let samplePicture = Picture(
-        url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
-        description: "Image de test"
-    )
-
-    let sampleRatings = [
-        Rating(score: 5, comment: "Très bon produit !"),
-        Rating(score: 4, comment: nil)
-    ]
-
-    let sampleProduct = Product(
+    @Previewable @State var sampleProduct = Product(
         id: 1,
-        picture: samplePicture,
+        picture: Picture(
+            url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
+            description: "Sac à main orange posé sur une poignée de porte"
+        ),
         name: "Pull torsadé",
         category: .tops,
         likes: 18,
-        ratings: sampleRatings,
+        ratings: [
+            Rating(score: 5, comment: "Très bon produit !"),
+            Rating(score: 4, comment: nil)
+        ],
         price: 69.99,
         originalPrice: 95.00
     )
-
-    ListItemView(
-        product: sampleProduct,
+    
+    let sampleRating = Rating(score: 5, comment: "Très bon produit !")
+    
+    return ListItemView(
+        product: $sampleProduct, // Passez le produit comme @Binding
+        rating: sampleRating,
         isLiked: true,
         onLikeToggle: { print("Toggled like for product \(sampleProduct.name)") }
     )

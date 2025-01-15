@@ -12,7 +12,7 @@ import JoiefullPersistenceService
 struct RatingView: View {
     @ObservedObject var viewModel: ProductDetailsViewModel
     @State private var userComment: String = ""
-    @State private var isEditing: Bool = false 
+    @State private var isEditing: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -101,9 +101,30 @@ struct RatingView: View {
 
 // MARK: - Preview
 #Preview {
+    let samplePicture = Picture(
+        url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
+        description: "Image de test"
+    )
+    
+    let sampleRatings = [
+        Rating(score: 5, comment: "Super produit!"),
+        Rating(score: 4, comment: "Très bon rapport qualité-prix.")
+    ]
+    
+    @State var sampleProduct = Product(
+        id: 1,
+        picture: samplePicture,
+        name: "Pull torsadé",
+        category: .tops,
+        likes: 42,
+        ratings: sampleRatings,
+        price: 69.99,
+        originalPrice: 95.00
+    )
+    
     RatingView(
         viewModel: ProductDetailsViewModel(
-            productID: 1,
+            product: sampleProduct,
             persistenceService: UserDefaultsManager()
         )
     )

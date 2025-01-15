@@ -8,10 +8,12 @@
 import Foundation
 
 public struct Rating: Hashable, Equatable {
+    public var userID: String? 
     public var score: Int
     public let comment: String?
 
-    public init(score: Int = 0, comment: String? = nil) {
+    public init(userID: String? = nil, score: Int = 0, comment: String? = nil) {
+        self.userID = userID
         if score == 0 {
             self.score = 0
         } else {
@@ -19,8 +21,5 @@ public struct Rating: Hashable, Equatable {
         }
         self.comment = comment
     }
-    
-    public var isRated: Bool {
-        return score != 0
-    }
 }
+

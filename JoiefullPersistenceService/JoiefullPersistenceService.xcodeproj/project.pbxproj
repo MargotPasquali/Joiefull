@@ -7,12 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE14C0332D3570FB0059EAE2 /* JoiefullModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */; };
+		AE14C0342D3570FB0059EAE2 /* JoiefullModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AE6869502D2977E000152305 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE68694E2D2977E000152305 /* UserDefaultsManager.swift */; };
 		AE6869512D2977E000152305 /* UserDefaultsManager+PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE68694F2D2977E000152305 /* UserDefaultsManager+PersistenceService.swift */; };
 		AE6869562D29780D00152305 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6869552D29780D00152305 /* PersistenceService.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		AE14C0352D3570FB0059EAE2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AE14C0342D3570FB0059EAE2 /* JoiefullModels.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE6869432D2977C300152305 /* JoiefullPersistenceService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JoiefullPersistenceService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE68694E2D2977E000152305 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		AE68694F2D2977E000152305 /* UserDefaultsManager+PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaultsManager+PersistenceService.swift"; sourceTree = "<group>"; };
@@ -24,18 +41,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE14C0332D3570FB0059EAE2 /* JoiefullModels.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE14C0312D3570FB0059EAE2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AE6869392D2977C300152305 = {
 			isa = PBXGroup;
 			children = (
 				AE6869552D29780D00152305 /* PersistenceService.swift */,
 				AE68694E2D2977E000152305 /* UserDefaultsManager.swift */,
 				AE68694F2D2977E000152305 /* UserDefaultsManager+PersistenceService.swift */,
+				AE14C0312D3570FB0059EAE2 /* Frameworks */,
 				AE6869442D2977C300152305 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -69,6 +96,7 @@
 				AE68693F2D2977C300152305 /* Sources */,
 				AE6869402D2977C300152305 /* Frameworks */,
 				AE6869412D2977C300152305 /* Resources */,
+				AE14C0352D3570FB0059EAE2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
