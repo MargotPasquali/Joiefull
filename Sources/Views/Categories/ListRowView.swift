@@ -11,27 +11,31 @@ import JoiefullService
 import JoiefullPersistenceService
 
 struct ListRowView: View {
+    
+    // MARK: - Properties
     @Binding var products: [Product]
-    @Binding var selectedProduct: Product?
-    let viewModel: ProductListViewModel
+    @Binding var selectedProductID: Int?
+    
+    // MARK: - Constants
+    let category: Product.Category
+    let viewModel: ProductViewModel
 
+    // MARK: - View
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach($products, id: \.id) { $product in
+                ForEach($products.filter { $0.wrappedValue.category == category }) { $product in
                     NavigationLink(
                         destination: ProductDetailsView(
                             product: $product,
-                            isLiked: viewModel.isLiked(product: product),
-                            onLikeToggle: { viewModel.toggleLike(for: product) },
-                            persistenceService: UserDefaultsManager()
-                        )
+                            viewModel: viewModel
+                        ),
+                        tag: product.id,
+                        selection: $selectedProductID
                     ) {
                         ListItemView(
                             product: $product,
-                            rating: product.ratings.first ?? Rating(score: 0, comment: nil),
-                            isLiked: viewModel.isLiked(product: product),
-                            onLikeToggle: { viewModel.toggleLike(for: product) }
+                            viewModel: viewModel
                         )
                     }
                 }
@@ -39,58 +43,7 @@ struct ListRowView: View {
         }
         .onAppear {
             viewModel.updateAverageRatings()
+            }
         }
     }
-}
 
-
-// MARK: - Preview
-#Preview {
-    @State var sampleProducts: [Product] = [
-        Product(
-            id: 1,
-            picture: Picture(
-                url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/tops/1.jpg",
-                description: "Image de test"
-            ),
-            name: "Pull torsadé",
-            category: .tops,
-            likes: 18,
-            ratings: [
-                Rating(score: 5, comment: "Super produit!"),
-                Rating(score: 4, comment: nil)
-            ],
-            price: 69.99,
-            originalPrice: 95.00
-        ),
-        Product(
-            id: 2,
-            picture: Picture(
-                url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/bottoms/1.jpg",
-                description: "Image de test"
-            ),
-            name: "Jean slim",
-            category: .bottoms,
-            likes: 34,
-            ratings: [
-                Rating(score: 4, comment: "Très confortable"),
-                Rating(score: 3, comment: nil)
-            ],
-            price: 49.99,
-            originalPrice: 65.00
-        )
-    ]
-    
-    @State var selectedClothes: Product? = nil
-
-    let mockViewModel = ProductListViewModel(
-        products: sampleProducts,
-        persistenceService: UserDefaultsManager()
-    )
-    
-    ListRowView(
-        products: $sampleProducts,
-        selectedProduct: $selectedClothes,
-        viewModel: mockViewModel
-    )
-}

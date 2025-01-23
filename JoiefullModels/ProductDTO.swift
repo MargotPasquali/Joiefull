@@ -32,7 +32,6 @@ public struct ProductDTO: Decodable {
     }
 }
 
-
 extension ProductDTO {
     public func toDomainModel() -> Product {
         Product(
@@ -44,7 +43,6 @@ extension ProductDTO {
             name: name,
             category: Product.Category(rawValue: category.lowercased()) ?? .accessories,
             likes: likes,
-            ratings: [],
             price: price,
             originalPrice: originalPrice ?? price
         )

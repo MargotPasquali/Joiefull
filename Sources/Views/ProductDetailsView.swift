@@ -9,23 +9,21 @@ import SwiftUI
 import JoiefullModels
 import JoiefullPersistenceService
 
-@MainActor
 struct ProductDetailsView: View {
-    @Binding var product: Product
-    private let isLiked: Bool
-    private let onLikeToggle: () -> Void
     
-    @StateObject private var viewModel: ProductDetailsViewModel
+    // MARK: - Properties
+    @Binding var product: Product
+    @StateObject private var viewModel: ProductViewModel
     @State private var isLoading: Bool = true
     
     // MARK: - Initializer
-    init(product: Binding<Product>, isLiked: Bool, onLikeToggle: @escaping () -> Void, persistenceService: UserDefaultsManager) {
-        self._product = product
-        self.isLiked = isLiked
-        self.onLikeToggle = onLikeToggle
-        _viewModel = StateObject(wrappedValue: ProductDetailsViewModel(product: product.wrappedValue, persistenceService: persistenceService))
-    }
+
+    init(product: Binding<Product>, viewModel: ProductViewModel) {
+            self._product = product
+            _viewModel = StateObject(wrappedValue: viewModel)
+        }
     
+    // MARK: - View
     var body: some View {
         ScrollView {
             if isLoading {
@@ -71,15 +69,15 @@ struct ProductDetailsView: View {
                         }.offset(x: -10, y: -190)
                         
                         Button(action: {
-                            onLikeToggle()
+                            viewModel.toggleLike(for: product.id)
                         }) {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.white)
                                 .frame(width: 51, height: 27)
                                 .overlay(
                                     HStack {
-                                        Image(systemName: isLiked ? "heart.fill" : "heart")
-                                            .foregroundColor(isLiked ? .red : .black)
+                                        Image(systemName: viewModel.isLiked(product: product) ? "heart.fill" : "heart")
+                                            .foregroundColor(viewModel.isLiked(product: product) ? .red : .black)
                                             .frame(width: 14, height: 12)
                                         Text(String(product.likes))
                                             .fontWeight(.semibold)
@@ -103,7 +101,7 @@ struct ProductDetailsView: View {
                         Image(systemName: "star.fill")
                             .foregroundStyle(Color.yellow)
                             .frame(width: 12, height: 12)
-                        Text(String(format: "%.1f", viewModel.product.averageRating))
+                        Text(String(format: "%.1f", product.averageRating))
                             .font(.title3)
                             .fontWeight(.regular)
                             .foregroundStyle(Color.black)
@@ -135,46 +133,16 @@ struct ProductDetailsView: View {
                     }
                     
                     // MARK: - Rating Section
-                    RatingView(viewModel: viewModel)
+                    RatingView(viewModel: viewModel, product: $product)
                 }
             }
         }
         .onAppear {
             Task {
-                await viewModel.loadPersistedData()
-                    isLoading = false
+                await viewModel.loadProductData(for: product.id)
+                isLoading = false
                 
             }
         }
     }
 }
-
-
-// MARK: - Preview
-#Preview {
-    @Previewable @State var sampleClothes = Product(
-        id: 1,
-        picture: Picture(
-            url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
-            description: "Sac à main orange posé sur une poignée de porte"
-        ),
-        name: "Pull torsadé",
-        category: .tops,
-        likes: 56,
-        ratings: [
-            Rating(score: 5, comment: "Parfait !"),
-            Rating(score: 4, comment: "Très bon produit."),
-            Rating(score: 3, comment: nil)
-        ],
-        price: 69.99,
-        originalPrice: 95.00
-    )
-    
-    ProductDetailsView(
-        product: $sampleClothes,
-        isLiked: true,
-        onLikeToggle: { print("Toggled like for product \(sampleClothes.name)") },
-        persistenceService: UserDefaultsManager()
-    )
-}
-

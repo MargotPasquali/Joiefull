@@ -80,10 +80,10 @@
 		AE8F8B302D109F6800CF8102 = {
 			isa = PBXGroup;
 			children = (
-				AE8F8B4A2D109F8600CF8102 /* Resources */,
-				AE8F8B3B2D109F6800CF8102 /* Sources */,
 				AE42EB032D14575500BA41BD /* Frameworks */,
 				AE8F8B3A2D109F6800CF8102 /* Products */,
+				AE8F8B4A2D109F8600CF8102 /* Resources */,
+				AE8F8B3B2D109F6800CF8102 /* Sources */,
 			);
 			sourceTree = "<group>";
 		};

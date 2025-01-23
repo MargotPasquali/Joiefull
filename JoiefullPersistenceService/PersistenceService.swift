@@ -9,13 +9,11 @@ import JoiefullModels
 
 public protocol PersistenceService {
     func getLikedProductIDs() -> [Int]
-    func likeProduct(productID: Int)
-    func unlikeProduct(productID: Int)
+    func toggleLike(productID: Int)
     func isProductLiked(productID: Int) -> Bool
-    func addOrUpdateRating(for productID: Int, rating: Int)
-    func getComment(for productID: Int) -> String?
-    func getRating(for productID: Int) -> Int?
-    func getAverageRating(for productID: Int) -> Double
-    
+    func getUserRating(for productID: Int) -> Int?
+    func saveRating(for productID: Int, rating: Int)
+    func getUserComment(for productID: Int) -> String?
+    func saveComment(for productID: Int, comment: String)
     
 }

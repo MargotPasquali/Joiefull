@@ -7,14 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE1AE73F2D299F7E00AB973E /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1AE73E2D299F7E00AB973E /* Rating.swift */; };
 		AE42EAF12D14539100BA41BD /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EAF02D14539100BA41BD /* Product.swift */; };
 		AE42EB5A2D2306F000BA41BD /* ProductDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EB592D2306F000BA41BD /* ProductDTO.swift */; };
 		AE42EB5C2D230A9200BA41BD /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EB5B2D230A9200BA41BD /* Picture.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AE1AE73E2D299F7E00AB973E /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		AE42EAE52D14537200BA41BD /* JoiefullModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JoiefullModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE42EAF02D14539100BA41BD /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		AE42EB182D14772400BA41BD /* JoiefullService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,7 +34,6 @@
 		AE42EADB2D14537200BA41BD = {
 			isa = PBXGroup;
 			children = (
-				AE1AE73E2D299F7E00AB973E /* Rating.swift */,
 				AE42EB5B2D230A9200BA41BD /* Picture.swift */,
 				AE42EB592D2306F000BA41BD /* ProductDTO.swift */,
 				AE42EAF02D14539100BA41BD /* Product.swift */,
@@ -143,7 +140,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE1AE73F2D299F7E00AB973E /* Rating.swift in Sources */,
 				AE42EB5C2D230A9200BA41BD /* Picture.swift in Sources */,
 				AE42EAF12D14539100BA41BD /* Product.swift in Sources */,
 				AE42EB5A2D2306F000BA41BD /* ProductDTO.swift in Sources */,

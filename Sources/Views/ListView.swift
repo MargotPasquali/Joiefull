@@ -10,14 +10,13 @@ import JoiefullPersistenceService
 
 @MainActor
 struct ListView: View {
-    @StateObject private var viewModel = ProductListViewModel(
+    @StateObject private var viewModel = ProductViewModel(
         products: [],
-        persistenceService: UserDefaultsManager()
+        ratingRepository: RatingRepository(persistenceService: UserDefaultsManager())
     )
-    @State private var selectedProduct: Product? = nil
+    @State private var selectedProductID: Int? = nil
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-
-    // MARK: - View
+    
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             sidebarContent
@@ -25,7 +24,7 @@ struct ListView: View {
             detailContent
         }
         .task {
-            await viewModel.fetchProductList()
+            await viewModel.fetchProducts()
         }
         .onAppear {
             viewModel.updateAverageRatings()
@@ -34,8 +33,7 @@ struct ListView: View {
             loadingOverlay
         }
     }
-
-    // MARK: - Sidebar Content
+    
     private var sidebarContent: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
@@ -47,64 +45,45 @@ struct ListView: View {
         }
         .navigationSplitViewColumnWidth(min: 600, ideal: 700, max: 800)
     }
-
-    // MARK: - Category Section
+    
     private func categorySection(_ category: Product.Category) -> some View {
-        VStack(alignment: .leading) {
-            if let items = viewModel.categories[category] {
-                Text(category.rawValue.capitalized)
-                    .font(.body)
-                    .fontWeight(.semibold)
-                    .padding(.leading, 15)
-                
-                ListRowView(
-                    products: Binding(
-                        get: { items },
-                        set: { newItems in
-                            if let categoryIndex = viewModel.products.firstIndex(where: { $0.category == category }) {
-                                viewModel.products[categoryIndex] = newItems.first ?? viewModel.products[categoryIndex]
-                            }
-                        }
-                    ),
-                    selectedProduct: $selectedProduct,
-                    viewModel: viewModel
-                )
-                .padding(.horizontal, 15)
-            }
+        let items = viewModel.products.filter { $0.category == category }
+        return VStack(alignment: .leading) {
+            Text(category.rawValue.capitalized)
+                .font(.body)
+                .fontWeight(.semibold)
+                .padding(.leading, 15)
+            
+            ListRowView(
+                products: $viewModel.products,
+                selectedProductID: $selectedProductID,
+                category: category,
+                viewModel: viewModel
+            )
+            .padding(.horizontal, 15)
         }
     }
-
-    // MARK: - Detail Content
+    
     private var detailContent: some View {
         Group {
-            if let selectedProduct = selectedProduct {
+            if let selectedProductID = selectedProductID,
+               let index = viewModel.products.firstIndex(where: { $0.id == selectedProductID }) {
                 ProductDetailsView(
-                    product: Binding(
-                        get: { selectedProduct },
-                        set: { newValue in
-                            if let index = viewModel.products.firstIndex(where: { $0.id == newValue.id }) {
-                                viewModel.products[index] = newValue
-                                viewModel.updateAverageRatings()
-                            }
-                        }
-                    ),
-                    isLiked: viewModel.isLiked(product: selectedProduct),
-                    onLikeToggle: { viewModel.toggleLike(for: selectedProduct) },
-                    persistenceService: UserDefaultsManager()
+                    product: $viewModel.products[index],
+                    viewModel: viewModel
                 )
             } else {
-                Text("Choisissez un article")
+                Text("Select a product to view details.")
                     .foregroundColor(.gray)
                     .font(.headline)
             }
         }
     }
-
-    // MARK: - Loading Overlay
+    
     private var loadingOverlay: some View {
         Group {
             if viewModel.isLoading {
-                ProgressView("Chargement...")
+                ProgressView("Loading...")
             } else if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
                     .foregroundColor(.red)
@@ -112,48 +91,8 @@ struct ListView: View {
             }
         }
     }
-
-    // MARK: - Helper Properties
-    private var sortedCategories: [Product.Category] {
-            viewModel.categories.keys.sorted()
-        }
-}
-
-#Preview {
-    let sampleProducts: [Product] = [
-        Product(
-            id: 1,
-            picture: Picture(
-                url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/tops/1.jpg",
-                description: "Image de test"
-            ),
-            name: "Pull torsadé",
-            category: .tops,
-            likes: 18,
-            ratings: [
-                Rating(score: 5, comment: "Très beau produit!"),
-                Rating(score: 4, comment: "Bon rapport qualité-prix")
-            ],
-            price: 69.99,
-            originalPrice: 95.00
-        ),
-        Product(
-            id: 2,
-            picture: Picture(
-                url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/bottoms/1.jpg",
-                description: "Image de test"
-            ),
-            name: "Jean slim",
-            category: .bottoms,
-            likes: 34,
-            ratings: [
-                Rating(score: 4, comment: "Très confortable"),
-                Rating(score: 3, comment: nil)
-            ],
-            price: 49.99,
-            originalPrice: 65.00
-        )
-    ]
     
-    ListView()
+    private var sortedCategories: [Product.Category] {
+        Array(Set(viewModel.products.map { $0.category })).sorted()
+    }
 }

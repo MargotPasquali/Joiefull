@@ -17,112 +17,89 @@ public final class UserDefaultsManager {
     private let commentsKey = "productComments"
     private let userID = "101"
     
-    // MARK: - Initializer
-    /// Initializes `UserDefaultsManager` with a `UserDefaults` instance.
+    // MARK: - Init
     public init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
     }
     
-    // MARK: - Like Management
-    /// Fetches the list of liked product IDs.
-    public func getLikedProductIDs() -> [Int] {
-        userDefaults.array(forKey: likesKey) as? [Int] ?? []
-    }
-    
-    /// Adds a product ID to the liked products list.
-    public func likeProduct(productID: Int) {
-        var likedProductIDs = getLikedProductIDs()
-        if !likedProductIDs.contains(productID) {
-            likedProductIDs.append(productID)
-            userDefaults.set(likedProductIDs, forKey: likesKey)
-        }
-    }
-    
-    /// Removes a product ID from the liked products list.
-    public func unlikeProduct(productID: Int) {
-        var likedProductIDs = getLikedProductIDs()
-        likedProductIDs.removeAll { $0 == productID }
-        userDefaults.set(likedProductIDs, forKey: likesKey)
-    }
-    
-    /// Checks if a product is liked.
-    public func isProductLiked(productID: Int) -> Bool {
-        getLikedProductIDs().contains(productID)
-    }
-    
-    // MARK: - Rating Management
-    /// Adds or updates a rating for a specific product.
-    public func addOrUpdateRating(for productID: Int, rating: Int) {
-        guard (1...5).contains(rating) else { return } // Ensure rating is valid
-        
-        var allRatings = getAllRatings()
-        var productRatings = allRatings[productID] ?? [:]
-        productRatings[userID] = rating
-        allRatings[productID] = productRatings
+    // MARK: - Likes
 
+    /// Retrieves a list of product IDs that the user has liked.
+    public func getLikedProductIDs() -> [Int] {
+        let ids = userDefaults.array(forKey: likesKey) as? [Int] ?? []
+        print("💾 [UserDefaults] Got liked IDs: \(ids)")
+        return ids
+    }
+    
+    /// Toggles the like state for a specific product by ID.
+    public func toggleLike(productID: Int) {
+        print("💾 [UserDefaults] Toggling like for product \(productID)")
+        var likedIDs = getLikedProductIDs()
+        print("💾 [UserDefaults] Before toggle: \(likedIDs)")
+        if likedIDs.contains(productID) {
+            likedIDs.removeAll { $0 == productID }
+        } else {
+            likedIDs.append(productID)
+        }
+        print("💾 [UserDefaults] After toggle: \(likedIDs)")
+        userDefaults.set(likedIDs, forKey: likesKey)
+    }
+    
+    /// Checks if a product is liked by the user.
+    public func isProductLiked(productID: Int) -> Bool {
+        return getLikedProductIDs().contains(productID)
+    }
+    
+    // MARK: - Ratings
+
+    /// Retrieves the user's rating for a specific product by ID.
+    public func getUserRating(for productID: Int) -> Int? {
+        getAllRatings()[productID]?[userID]
+    }
+    
+    /// Saves the user's rating for a specific product by ID.
+    public func saveRating(for productID: Int, rating: Int) {
+        guard (1...5).contains(rating) else { return }
+        var allRatings = getAllRatings()
+        allRatings[productID, default: [:]][userID] = rating
         saveData(allRatings, forKey: ratingsKey)
     }
     
-    /// Fetches the current user's rating for a specific product.
-    public func getRating(for productID: Int) -> Int? {
-        let allRatings = getAllRatings()
-        return allRatings[productID]?[userID]
-    }
-    
-    /// Calculates the average rating for a specific product.
-    public func getAverageRating(for productID: Int) -> Double {
-        let allRatings = getAllRatings()
-        guard let productRatings = allRatings[productID] else { return 0.0 }
-        
-        let total = productRatings.values.reduce(0, +)
-        return Double(total) / Double(productRatings.count)
-    }
-    
-    // MARK: - Comment Management
-    /// Adds or updates a comment for a specific product.
-    public func addOrUpdateComment(for productID: Int, comment: String) {
-        var allComments = getAllComments()
-        var productComments = allComments[productID] ?? [:]
-        productComments[userID] = comment
-        allComments[productID] = productComments
+    // MARK: - Comments
 
+    /// Retrieves the user's comment for a specific product by ID.
+    public func getUserComment(for productID: Int) -> String? {
+        getAllComments()[productID]?[userID]
+    }
+    
+    /// Saves the user's comment for a specific product by ID.
+    public func saveComment(for productID: Int, comment: String) {
+        var allComments = getAllComments()
+        allComments[productID, default: [:]][userID] = comment
         saveData(allComments, forKey: commentsKey)
     }
     
-    /// Fetches the current user's comment for a specific product.
-    public func getComment(for productID: Int) -> String? {
-        let allComments = getAllComments()
-        return allComments[productID]?[userID]
-    }
-    
-    // MARK: - Private Helper Methods
-    /// Retrieves all ratings from persistent storage.
-    private func getAllRatings() -> [Int: [String: Int]] {
+    // MARK: - Helpers
+
+    /// Retrieves all product ratings for all users.
+    public func getAllRatings() -> [Int: [String: Int]] {
         fetchData(forKey: ratingsKey, defaultValue: [:])
     }
     
-    /// Retrieves all comments from persistent storage.
+    /// Retrieves all product comments for all users.
     private func getAllComments() -> [Int: [String: String]] {
         fetchData(forKey: commentsKey, defaultValue: [:])
     }
     
-    /// Fetches data for a specific key or returns a default value.
+    /// Fetches and decodes data from UserDefaults for a given key.
     private func fetchData<T: Decodable>(forKey key: String, defaultValue: T) -> T {
         guard let data = userDefaults.data(forKey: key) else { return defaultValue }
-        do {
-            return try JSONDecoder().decode(T.self, from: data)
-        } catch {
-            return defaultValue
-        }
+        return (try? JSONDecoder().decode(T.self, from: data)) ?? defaultValue
     }
     
-    /// Saves data for a specific key.
+    /// Encodes and saves data to UserDefaults for a given key.
     private func saveData<T: Encodable>(_ data: T, forKey key: String) {
-        do {
-            let encodedData = try JSONEncoder().encode(data)
-            userDefaults.set(encodedData, forKey: key)
-        } catch {
-            print("Error saving data: \(error)")
-        }
+        let encodedData = try? JSONEncoder().encode(data)
+        userDefaults.set(encodedData, forKey: key)
     }
 }

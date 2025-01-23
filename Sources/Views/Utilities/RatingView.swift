@@ -10,10 +10,14 @@ import JoiefullModels
 import JoiefullPersistenceService
 
 struct RatingView: View {
-    @ObservedObject var viewModel: ProductDetailsViewModel
+    
+    // MARK: - Properties
+    @ObservedObject var viewModel: ProductViewModel
+    @Binding var product: Product
     @State private var userComment: String = ""
     @State private var isEditing: Bool = false
     
+    // MARK: - View
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             // MARK: - Stars Rating Section
@@ -27,11 +31,11 @@ struct RatingView: View {
                 ForEach(1...5, id: \.self) { star in
                     Button(action: {
                         isEditing = true
-                        viewModel.currentRating = star
+                        viewModel.userRating = star
                     }) {
-                        Image(systemName: star <= viewModel.currentRating ? "star.fill" : "star")
+                        Image(systemName: star <= viewModel.userRating ? "star.fill" : "star")
                             .resizable()
-                            .foregroundStyle(star <= viewModel.currentRating ? Color.yellow : Color.gray)
+                            .foregroundStyle(star <= viewModel.userRating ? Color.yellow : Color.gray)
                             .frame(width: 25, height: 25)
                             .padding(.trailing, 3.0)
                     }
@@ -55,25 +59,25 @@ struct RatingView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        viewModel.updateRatingAndComment(rating: viewModel.currentRating, comment: userComment)
+                        viewModel.saveUserFeedback(for: product.id, rating: viewModel.userRating, comment: userComment)
                         isEditing = false
                     }) {
                         Text("Submit")
                             .frame(maxWidth: 100)
                             .padding()
-                            .background(viewModel.currentRating > 0 && !userComment.isEmpty ? Color("Custom Orange") : Color.gray)
+                            .background(viewModel.userRating > 0 && !userComment.isEmpty ? Color("Custom Orange") : Color.gray)
                             .foregroundColor(.white)
                             .cornerRadius(15)
                     }
-                    .disabled(viewModel.currentRating == 0 || userComment.isEmpty)
+                    .disabled(viewModel.userRating == 0 || userComment.isEmpty)
                 }
             } else {
                 // MARK: - Display Current Comment
                 Button(action: {
                     isEditing = true
                 }) {
-                    if !viewModel.comment.isEmpty {
-                        Text("Your comment: \(viewModel.comment)")
+                    if !viewModel.userComment.isEmpty {
+                        Text("Your comment: \(viewModel.userComment)")
                             .font(.body)
                             .fontWeight(.medium)
                             .foregroundColor(.gray)
@@ -94,38 +98,7 @@ struct RatingView: View {
         }
         .padding(.horizontal, 15)
         .onAppear {
-            userComment = viewModel.comment
+            userComment = viewModel.userComment
         }
     }
-}
-
-// MARK: - Preview
-#Preview {
-    let samplePicture = Picture(
-        url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
-        description: "Image de test"
-    )
-    
-    let sampleRatings = [
-        Rating(score: 5, comment: "Super produit!"),
-        Rating(score: 4, comment: "Très bon rapport qualité-prix.")
-    ]
-    
-    @State var sampleProduct = Product(
-        id: 1,
-        picture: samplePicture,
-        name: "Pull torsadé",
-        category: .tops,
-        likes: 42,
-        ratings: sampleRatings,
-        price: 69.99,
-        originalPrice: 95.00
-    )
-    
-    RatingView(
-        viewModel: ProductDetailsViewModel(
-            product: sampleProduct,
-            persistenceService: UserDefaultsManager()
-        )
-    )
 }
