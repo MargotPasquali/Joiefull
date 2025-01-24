@@ -11,6 +11,10 @@
 		AE42EADA2D1452D400BA41BD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EAD92D1452D400BA41BD /* NetworkManager.swift */; };
 		AE42EAFD2D14559000BA41BD /* JoiefullModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EAFC2D14559000BA41BD /* JoiefullModels.framework */; };
 		AE42EAFE2D14559000BA41BD /* JoiefullModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EAFC2D14559000BA41BD /* JoiefullModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AE9AD6692D42B5CB0065963D /* LikeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9AD6682D42B5CB0065963D /* LikeManager.swift */; };
+		AE9AD66B2D42B5DC0065963D /* RatingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9AD66A2D42B5DC0065963D /* RatingManager.swift */; };
+		AE9AD6782D43DCAB0065963D /* JoiefullPersistenceService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE9AD6772D43DCAB0065963D /* JoiefullPersistenceService.framework */; };
+		AE9AD6792D43DCAB0065963D /* JoiefullPersistenceService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE9AD6772D43DCAB0065963D /* JoiefullPersistenceService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -20,6 +24,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				AE9AD6792D43DCAB0065963D /* JoiefullPersistenceService.framework in Embed Frameworks */,
 				AE42EAFE2D14559000BA41BD /* JoiefullModels.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -32,6 +37,9 @@
 		AE42EAD72D14522400BA41BD /* ProductService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductService.swift; sourceTree = "<group>"; };
 		AE42EAD92D1452D400BA41BD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		AE42EAFC2D14559000BA41BD /* JoiefullModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE9AD6682D42B5CB0065963D /* LikeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeManager.swift; sourceTree = "<group>"; };
+		AE9AD66A2D42B5DC0065963D /* RatingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingManager.swift; sourceTree = "<group>"; };
+		AE9AD6772D43DCAB0065963D /* JoiefullPersistenceService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullPersistenceService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE9AD6782D43DCAB0065963D /* JoiefullPersistenceService.framework in Frameworks */,
 				AE42EAFD2D14559000BA41BD /* JoiefullModels.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,6 +58,8 @@
 		AE42EAC22D1451E300BA41BD = {
 			isa = PBXGroup;
 			children = (
+				AE9AD66A2D42B5DC0065963D /* RatingManager.swift */,
+				AE9AD6682D42B5CB0065963D /* LikeManager.swift */,
 				AE42EAD92D1452D400BA41BD /* NetworkManager.swift */,
 				AE42EAD72D14522400BA41BD /* ProductService.swift */,
 				AE42EAFB2D14559000BA41BD /* Frameworks */,
@@ -67,6 +78,7 @@
 		AE42EAFB2D14559000BA41BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE9AD6772D43DCAB0065963D /* JoiefullPersistenceService.framework */,
 				AE42EAFC2D14559000BA41BD /* JoiefullModels.framework */,
 			);
 			name = Frameworks;
@@ -157,6 +169,8 @@
 			files = (
 				AE42EADA2D1452D400BA41BD /* NetworkManager.swift in Sources */,
 				AE42EAD82D14522400BA41BD /* ProductService.swift in Sources */,
+				AE9AD66B2D42B5DC0065963D /* RatingManager.swift in Sources */,
+				AE9AD6692D42B5CB0065963D /* LikeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

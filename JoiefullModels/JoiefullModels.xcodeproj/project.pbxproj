@@ -10,6 +10,7 @@
 		AE42EAF12D14539100BA41BD /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EAF02D14539100BA41BD /* Product.swift */; };
 		AE42EB5A2D2306F000BA41BD /* ProductDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EB592D2306F000BA41BD /* ProductDTO.swift */; };
 		AE42EB5C2D230A9200BA41BD /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE42EB5B2D230A9200BA41BD /* Picture.swift */; };
+		AE9AD6722D42B9C00065963D /* ProductRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9AD6712D42B9C00065963D /* ProductRating.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +19,8 @@
 		AE42EB182D14772400BA41BD /* JoiefullService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE42EB592D2306F000BA41BD /* ProductDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDTO.swift; sourceTree = "<group>"; };
 		AE42EB5B2D230A9200BA41BD /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		AE9AD6712D42B9C00065963D /* ProductRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRating.swift; sourceTree = "<group>"; };
+		AE9AD6732D43DC990065963D /* JoiefullPersistenceService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullPersistenceService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +37,7 @@
 		AE42EADB2D14537200BA41BD = {
 			isa = PBXGroup;
 			children = (
+				AE9AD6712D42B9C00065963D /* ProductRating.swift */,
 				AE42EB5B2D230A9200BA41BD /* Picture.swift */,
 				AE42EB592D2306F000BA41BD /* ProductDTO.swift */,
 				AE42EAF02D14539100BA41BD /* Product.swift */,
@@ -53,6 +57,7 @@
 		AE42EB172D14772400BA41BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE9AD6732D43DC990065963D /* JoiefullPersistenceService.framework */,
 				AE42EB182D14772400BA41BD /* JoiefullService.framework */,
 			);
 			name = Frameworks;
@@ -140,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE9AD6722D42B9C00065963D /* ProductRating.swift in Sources */,
 				AE42EB5C2D230A9200BA41BD /* Picture.swift in Sources */,
 				AE42EAF12D14539100BA41BD /* Product.swift in Sources */,
 				AE42EB5A2D2306F000BA41BD /* ProductDTO.swift in Sources */,

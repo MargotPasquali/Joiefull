@@ -14,6 +14,7 @@
 		AE6869532D2977F300152305 /* JoiefullPersistenceService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE6869522D2977F300152305 /* JoiefullPersistenceService.framework */; };
 		AE6869542D2977F300152305 /* JoiefullPersistenceService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE6869522D2977F300152305 /* JoiefullPersistenceService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AE8F8B412D109F6900CF8102 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE8F8B402D109F6900CF8102 /* Assets.xcassets */; };
+		AE9AD6702D42B6F50065963D /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = AE9AD66F2D42B6F50065963D /* TODO.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +39,7 @@
 		AE6869522D2977F300152305 /* JoiefullPersistenceService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullPersistenceService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE8F8B392D109F6800CF8102 /* Joiefull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Joiefull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE8F8B402D109F6900CF8102 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AE9AD66F2D42B6F50065963D /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -80,6 +82,7 @@
 		AE8F8B302D109F6800CF8102 = {
 			isa = PBXGroup;
 			children = (
+				AE9AD66F2D42B6F50065963D /* TODO.md */,
 				AE42EB032D14575500BA41BD /* Frameworks */,
 				AE8F8B3A2D109F6800CF8102 /* Products */,
 				AE8F8B4A2D109F8600CF8102 /* Resources */,
@@ -170,6 +173,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE9AD6702D42B6F50065963D /* TODO.md in Resources */,
 				AE8F8B412D109F6900CF8102 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

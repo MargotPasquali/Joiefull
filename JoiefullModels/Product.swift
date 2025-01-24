@@ -15,7 +15,6 @@ public struct Product: Identifiable, Hashable {
     public var likes: Int
     public let price: Double
     public let originalPrice: Double
-    public var averageRating: Double
     
     // MARK: - Initializer
     public init(
@@ -25,8 +24,7 @@ public struct Product: Identifiable, Hashable {
         category: Category,
         likes: Int,
         price: Double,
-        originalPrice: Double,
-        averageRating: Double = 0.0
+        originalPrice: Double
     ) {
         self.id = id
         self.picture = picture
@@ -35,7 +33,6 @@ public struct Product: Identifiable, Hashable {
         self.likes = likes
         self.price = price
         self.originalPrice = originalPrice
-        self.averageRating = averageRating
     }
 
     // MARK: - Category Enum

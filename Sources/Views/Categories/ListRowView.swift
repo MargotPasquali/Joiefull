@@ -18,7 +18,7 @@ struct ListRowView: View {
     
     // MARK: - Constants
     let category: Product.Category
-    let viewModel: ProductViewModel
+    let viewModel: ProductListViewModel
 
     // MARK: - View
     var body: some View {
@@ -28,7 +28,11 @@ struct ListRowView: View {
                     NavigationLink(
                         destination: ProductDetailsView(
                             product: $product,
-                            viewModel: viewModel
+                            viewModel: ProductDetailsViewModel(
+                                        product: product,
+                                        ratingManager: viewModel.ratingManager,
+                                        likeManager: viewModel.likeManager
+                                    )
                         ),
                         tag: product.id,
                         selection: $selectedProductID

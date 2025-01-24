@@ -13,12 +13,12 @@ struct ProductDetailsView: View {
     
     // MARK: - Properties
     @Binding var product: Product
-    @StateObject private var viewModel: ProductViewModel
+    @StateObject private var viewModel: ProductDetailsViewModel
     @State private var isLoading: Bool = true
     
     // MARK: - Initializer
 
-    init(product: Binding<Product>, viewModel: ProductViewModel) {
+    init(product: Binding<Product>, viewModel: ProductDetailsViewModel) {
             self._product = product
             _viewModel = StateObject(wrappedValue: viewModel)
         }
@@ -69,15 +69,15 @@ struct ProductDetailsView: View {
                         }.offset(x: -10, y: -190)
                         
                         Button(action: {
-                            viewModel.toggleLike(for: product.id)
+                            viewModel.toggleLike()
                         }) {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.white)
                                 .frame(width: 51, height: 27)
                                 .overlay(
                                     HStack {
-                                        Image(systemName: viewModel.isLiked(product: product) ? "heart.fill" : "heart")
-                                            .foregroundColor(viewModel.isLiked(product: product) ? .red : .black)
+                                        Image(systemName: viewModel.isLiked(product) ? "heart.fill" : "heart")
+                                            .foregroundColor(viewModel.isLiked(product) ? .red : .black)
                                             .frame(width: 14, height: 12)
                                         Text(String(product.likes))
                                             .fontWeight(.semibold)
@@ -101,7 +101,7 @@ struct ProductDetailsView: View {
                         Image(systemName: "star.fill")
                             .foregroundStyle(Color.yellow)
                             .frame(width: 12, height: 12)
-                        Text(String(format: "%.1f", product.averageRating))
+                        Text(String(format: "%.1f", viewModel.averageRating(for: product)))
                             .font(.title3)
                             .fontWeight(.regular)
                             .foregroundStyle(Color.black)
@@ -138,11 +138,7 @@ struct ProductDetailsView: View {
             }
         }
         .onAppear {
-            Task {
-                await viewModel.loadProductData(for: product.id)
-                isLoading = false
-                
-            }
+            viewModel.updateLikesAndRatings()
         }
     }
 }

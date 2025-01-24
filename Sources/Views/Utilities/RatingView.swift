@@ -12,7 +12,7 @@ import JoiefullPersistenceService
 struct RatingView: View {
     
     // MARK: - Properties
-    @ObservedObject var viewModel: ProductViewModel
+    @ObservedObject var viewModel: ProductDetailsViewModel
     @Binding var product: Product
     @State private var userComment: String = ""
     @State private var isEditing: Bool = false
@@ -59,7 +59,7 @@ struct RatingView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        viewModel.saveUserFeedback(for: product.id, rating: viewModel.userRating, comment: userComment)
+                        viewModel.saveUserFeedback(score: viewModel.userRating, comment: viewModel.userComment)
                         isEditing = false
                     }) {
                         Text("Submit")

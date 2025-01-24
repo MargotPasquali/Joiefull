@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		AE14C0332D3570FB0059EAE2 /* JoiefullModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */; };
 		AE14C0342D3570FB0059EAE2 /* JoiefullModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AE6869502D2977E000152305 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE68694E2D2977E000152305 /* UserDefaultsManager.swift */; };
+		AE6869502D2977E000152305 /* OLDUserdefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE68694E2D2977E000152305 /* OLDUserdefaultsManager.swift */; };
 		AE6869512D2977E000152305 /* UserDefaultsManager+PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE68694F2D2977E000152305 /* UserDefaultsManager+PersistenceService.swift */; };
 		AE6869562D29780D00152305 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6869552D29780D00152305 /* PersistenceService.swift */; };
+		AE9AD66E2D42B62A0065963D /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9AD66D2D42B62A0065963D /* UserDefaultsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,9 +32,10 @@
 /* Begin PBXFileReference section */
 		AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE6869432D2977C300152305 /* JoiefullPersistenceService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JoiefullPersistenceService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE68694E2D2977E000152305 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		AE68694E2D2977E000152305 /* OLDUserdefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OLDUserdefaultsManager.swift; sourceTree = "<group>"; };
 		AE68694F2D2977E000152305 /* UserDefaultsManager+PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaultsManager+PersistenceService.swift"; sourceTree = "<group>"; };
 		AE6869552D29780D00152305 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		AE9AD66D2D42B62A0065963D /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,8 +61,9 @@
 		AE6869392D2977C300152305 = {
 			isa = PBXGroup;
 			children = (
+				AE9AD66D2D42B62A0065963D /* UserDefaultsManager.swift */,
+				AE9AD66C2D42B6120065963D /* OLD */,
 				AE6869552D29780D00152305 /* PersistenceService.swift */,
-				AE68694E2D2977E000152305 /* UserDefaultsManager.swift */,
 				AE68694F2D2977E000152305 /* UserDefaultsManager+PersistenceService.swift */,
 				AE14C0312D3570FB0059EAE2 /* Frameworks */,
 				AE6869442D2977C300152305 /* Products */,
@@ -73,6 +76,14 @@
 				AE6869432D2977C300152305 /* JoiefullPersistenceService.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AE9AD66C2D42B6120065963D /* OLD */ = {
+			isa = PBXGroup;
+			children = (
+				AE68694E2D2977E000152305 /* OLDUserdefaultsManager.swift */,
+			);
+			path = OLD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,8 +169,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE6869502D2977E000152305 /* UserDefaultsManager.swift in Sources */,
+				AE6869502D2977E000152305 /* OLDUserdefaultsManager.swift in Sources */,
 				AE6869562D29780D00152305 /* PersistenceService.swift in Sources */,
+				AE9AD66E2D42B62A0065963D /* UserDefaultsManager.swift in Sources */,
 				AE6869512D2977E000152305 /* UserDefaultsManager+PersistenceService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

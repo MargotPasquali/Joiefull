@@ -14,7 +14,7 @@ struct ListItemView: View {
     
     // MARK: - Constants
     let imageSize: CGFloat = 198
-    let viewModel: ProductViewModel
+    let viewModel: ProductListViewModel
 
     // MARK: - View
     var body: some View {
@@ -46,15 +46,15 @@ struct ListItemView: View {
                 // MARK: - Likes Badge
                 ZStack {
                     Button(action: {
-                        viewModel.toggleLike(for: product.id)
+                        viewModel.toggleLike(for: product)
                     }) {
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color.white)
                             .frame(width: 51, height: 27)
                             .offset(x: 51, y: 4)
                         HStack {
-                            Image(systemName: viewModel.isLiked(product: product) ? "heart.fill" : "heart")
-                                .foregroundColor(viewModel.isLiked(product: product) ? .red : .black)
+                            Image(systemName: viewModel.isLiked(product) ? "heart.fill" : "heart")
+                                .foregroundColor(viewModel.isLiked(product) ? .red : .black)
                                 .frame(width: 14, height: 12)
                             Text(String(product.likes))
                                 .fontWeight(.semibold)
@@ -79,7 +79,7 @@ struct ListItemView: View {
                 Image(systemName: "star.fill")
                     .foregroundStyle(Color.yellow)
                     .frame(width: 12, height: 12)
-                Text(String(format: "%.1f", product.averageRating))
+                Text(String(format: "%.1f", viewModel.averageRating(for: product)))
                     .font(.caption)
                     .fontWeight(.regular)
                     .foregroundStyle(Color.black)

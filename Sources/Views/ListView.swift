@@ -7,12 +7,15 @@
 import SwiftUI
 import JoiefullModels
 import JoiefullPersistenceService
+import JoiefullService
 
 @MainActor
 struct ListView: View {
-    @StateObject private var viewModel = ProductViewModel(
-        products: [],
-        ratingRepository: RatingRepository(persistenceService: UserDefaultsManager())
+    @StateObject private var viewModel = ProductListViewModel(
+       products: [],
+       service: RemoteProductService(networkManager: NetworkManager()),
+       likeManager: LikeManager(products: [], UserDefaultsManager: UserDefaultsManager()),
+       ratingManager: RatingManager(UserDefaultsManager: UserDefaultsManager())
     )
     @State private var selectedProductID: Int? = nil
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
@@ -70,7 +73,7 @@ struct ListView: View {
                let index = viewModel.products.firstIndex(where: { $0.id == selectedProductID }) {
                 ProductDetailsView(
                     product: $viewModel.products[index],
-                    viewModel: viewModel
+                    viewModel: ProductDetailsViewModel(product: viewModel.products[index], ratingManager: viewModel.ratingManager, likeManager: viewModel.likeManager)
                 )
             } else {
                 Text("Select a product to view details.")
