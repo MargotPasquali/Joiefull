@@ -6,71 +6,32 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		AE14C0332D3570FB0059EAE2 /* JoiefullModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */; };
-		AE14C0342D3570FB0059EAE2 /* JoiefullModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AE6869512D2977E000152305 /* UserDefaultsManager+PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE68694F2D2977E000152305 /* UserDefaultsManager+PersistenceService.swift */; };
-		AE6869562D29780D00152305 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6869552D29780D00152305 /* PersistenceService.swift */; };
-		AE9AD66E2D42B62A0065963D /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9AD66D2D42B62A0065963D /* UserDefaultsManager.swift */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		AE14C0352D3570FB0059EAE2 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				AE14C0342D3570FB0059EAE2 /* JoiefullModels.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE6869432D2977C300152305 /* JoiefullPersistenceService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JoiefullPersistenceService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE68694F2D2977E000152305 /* UserDefaultsManager+PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaultsManager+PersistenceService.swift"; sourceTree = "<group>"; };
-		AE6869552D29780D00152305 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
-		AE9AD66D2D42B62A0065963D /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		AEC101A62D47E5DA002DCEA9 /* JoiefullTestUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JoiefullTestUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		AE6869402D2977C300152305 /* Frameworks */ = {
+		AEC101A32D47E5DA002DCEA9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE14C0332D3570FB0059EAE2 /* JoiefullModels.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AE14C0312D3570FB0059EAE2 /* Frameworks */ = {
+		AEC1019C2D47E5DA002DCEA9 = {
 			isa = PBXGroup;
 			children = (
-				AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		AE6869392D2977C300152305 = {
-			isa = PBXGroup;
-			children = (
-				AE9AD66D2D42B62A0065963D /* UserDefaultsManager.swift */,
-				AE6869552D29780D00152305 /* PersistenceService.swift */,
-				AE68694F2D2977E000152305 /* UserDefaultsManager+PersistenceService.swift */,
-				AE14C0312D3570FB0059EAE2 /* Frameworks */,
-				AE6869442D2977C300152305 /* Products */,
+				AEC101A72D47E5DA002DCEA9 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		AE6869442D2977C300152305 /* Products */ = {
+		AEC101A72D47E5DA002DCEA9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AE6869432D2977C300152305 /* JoiefullPersistenceService.framework */,
+				AEC101A62D47E5DA002DCEA9 /* JoiefullTestUtilities.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,7 +39,7 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		AE68693E2D2977C300152305 /* Headers */ = {
+		AEC101A12D47E5DA002DCEA9 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -88,63 +49,61 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		AE6869422D2977C300152305 /* JoiefullPersistenceService */ = {
+		AEC101A52D47E5DA002DCEA9 /* JoiefullTestUtilities */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AE6869492D2977C300152305 /* Build configuration list for PBXNativeTarget "JoiefullPersistenceService" */;
+			buildConfigurationList = AEC101AC2D47E5DA002DCEA9 /* Build configuration list for PBXNativeTarget "JoiefullTestUtilities" */;
 			buildPhases = (
-				AE68693E2D2977C300152305 /* Headers */,
-				AE68693F2D2977C300152305 /* Sources */,
-				AE6869402D2977C300152305 /* Frameworks */,
-				AE6869412D2977C300152305 /* Resources */,
-				AE14C0352D3570FB0059EAE2 /* Embed Frameworks */,
+				AEC101A12D47E5DA002DCEA9 /* Headers */,
+				AEC101A22D47E5DA002DCEA9 /* Sources */,
+				AEC101A32D47E5DA002DCEA9 /* Frameworks */,
+				AEC101A42D47E5DA002DCEA9 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = JoiefullPersistenceService;
+			name = JoiefullTestUtilities;
 			packageProductDependencies = (
 			);
-			productName = JoiefullPersistenceService;
-			productReference = AE6869432D2977C300152305 /* JoiefullPersistenceService.framework */;
+			productName = JoiefullTestUtilities;
+			productReference = AEC101A62D47E5DA002DCEA9 /* JoiefullTestUtilities.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		AE68693A2D2977C300152305 /* Project object */ = {
+		AEC1019D2D47E5DA002DCEA9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
-					AE6869422D2977C300152305 = {
+					AEC101A52D47E5DA002DCEA9 = {
 						CreatedOnToolsVersion = 16.1;
-						LastSwiftMigration = 1610;
 					};
 				};
 			};
-			buildConfigurationList = AE68693D2D2977C300152305 /* Build configuration list for PBXProject "JoiefullPersistenceService" */;
+			buildConfigurationList = AEC101A02D47E5DA002DCEA9 /* Build configuration list for PBXProject "JoiefullTestUtilities" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = AE6869392D2977C300152305;
+			mainGroup = AEC1019C2D47E5DA002DCEA9;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = AE6869442D2977C300152305 /* Products */;
+			productRefGroup = AEC101A72D47E5DA002DCEA9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AE6869422D2977C300152305 /* JoiefullPersistenceService */,
+				AEC101A52D47E5DA002DCEA9 /* JoiefullTestUtilities */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		AE6869412D2977C300152305 /* Resources */ = {
+		AEC101A42D47E5DA002DCEA9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -154,24 +113,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		AE68693F2D2977C300152305 /* Sources */ = {
+		AEC101A22D47E5DA002DCEA9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE6869562D29780D00152305 /* PersistenceService.swift in Sources */,
-				AE9AD66E2D42B62A0065963D /* UserDefaultsManager.swift in Sources */,
-				AE6869512D2977E000152305 /* UserDefaultsManager+PersistenceService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		AE68694A2D2977C300152305 /* Debug */ = {
+		AEC101AD2D47E5DA002DCEA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -191,22 +146,20 @@
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = com.openclassrooms.JoiefullPersistenceService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.openclassrooms.JoiefullTestUtilities;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		AE68694B2D2977C300152305 /* Release */ = {
+		AEC101AE2D47E5DA002DCEA9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -226,7 +179,7 @@
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = com.openclassrooms.JoiefullPersistenceService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.openclassrooms.JoiefullTestUtilities;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -236,7 +189,7 @@
 			};
 			name = Release;
 		};
-		AE68694C2D2977C300152305 /* Debug */ = {
+		AEC101AF2D47E5DA002DCEA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -302,7 +255,7 @@
 			};
 			name = Debug;
 		};
-		AE68694D2D2977C300152305 /* Release */ = {
+		AEC101B02D47E5DA002DCEA9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -364,25 +317,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AE68693D2D2977C300152305 /* Build configuration list for PBXProject "JoiefullPersistenceService" */ = {
+		AEC101A02D47E5DA002DCEA9 /* Build configuration list for PBXProject "JoiefullTestUtilities" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AE68694C2D2977C300152305 /* Debug */,
-				AE68694D2D2977C300152305 /* Release */,
+				AEC101AF2D47E5DA002DCEA9 /* Debug */,
+				AEC101B02D47E5DA002DCEA9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AE6869492D2977C300152305 /* Build configuration list for PBXNativeTarget "JoiefullPersistenceService" */ = {
+		AEC101AC2D47E5DA002DCEA9 /* Build configuration list for PBXNativeTarget "JoiefullTestUtilities" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AE68694A2D2977C300152305 /* Debug */,
-				AE68694B2D2977C300152305 /* Release */,
+				AEC101AD2D47E5DA002DCEA9 /* Debug */,
+				AEC101AE2D47E5DA002DCEA9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = AE68693A2D2977C300152305 /* Project object */;
+	rootObject = AEC1019D2D47E5DA002DCEA9 /* Project object */;
 }

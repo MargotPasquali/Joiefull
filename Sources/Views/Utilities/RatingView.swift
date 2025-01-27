@@ -59,7 +59,7 @@ struct RatingView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        viewModel.saveUserFeedback(score: viewModel.userRating, comment: viewModel.userComment)
+                        viewModel.saveUserFeedback(score: viewModel.userRating, comment: userComment)
                         isEditing = false
                     }) {
                         Text("Submit")

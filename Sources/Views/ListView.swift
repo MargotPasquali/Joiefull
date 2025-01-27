@@ -14,7 +14,7 @@ struct ListView: View {
     @StateObject private var viewModel = ProductListViewModel(
        products: [],
        service: RemoteProductService(networkManager: NetworkManager()),
-       likeManager: LikeManager(products: [], UserDefaultsManager: UserDefaultsManager()),
+       likeManager: LikeManager(UserDefaultsManager: UserDefaultsManager()),
        ratingManager: RatingManager(UserDefaultsManager: UserDefaultsManager())
     )
     @State private var selectedProductID: Int? = nil

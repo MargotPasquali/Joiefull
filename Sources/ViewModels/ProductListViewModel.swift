@@ -45,7 +45,9 @@ final class ProductListViewModel: ObservableObject {
     
     func toggleLike(for product: Product) {
         let result = likeManager.toggleLike(for: product)
+        print("Toggle result: isLiked=\(result.isLiked), updatedLikes=\(result.updatedLikes)")
         if let index = products.firstIndex(of: product) {
+            print("Updating product at index \(index)")
             products[index] = Product(
                 id: product.id,
                 picture: product.picture,
@@ -55,6 +57,7 @@ final class ProductListViewModel: ObservableObject {
                 price: product.price,
                 originalPrice: product.originalPrice
             )
+            print("Updated likes: \(products[index].likes)")
         }
     }
     
@@ -80,4 +83,5 @@ final class ProductListViewModel: ObservableObject {
            )
        }
     }
+    
 }

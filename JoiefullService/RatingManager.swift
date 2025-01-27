@@ -30,11 +30,12 @@ public final class RatingManager {
     
     public func averageRating(for product: Product) -> Double {
         let ratings = ratings(for: product)
-        return Double(ratings.reduce(0) { $0 + $1.score }) / Double(ratings.count)
+        return ratings.isEmpty ? 0.0 : Double(ratings.reduce(0) { $0 + $1.score }) / Double(ratings.count)
     }
     
     public func addOrUpdaterating(for product: Product, rating: ProductRating) {
         UserDefaultsManager.saveRating(rating, forProductId: String(product.id))
     }
+    
 }
 

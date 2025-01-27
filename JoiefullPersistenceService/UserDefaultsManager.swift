@@ -21,18 +21,15 @@ public final class UserDefaultsManager {
     
     public func saveRating(_ rating: ProductRating, forProductId id: String) {
        if let encoded = try? JSONEncoder().encode(rating) {
-           print("Saving rating for product \(id): score=\(rating.score), comment=\(rating.comment)")
            UserDefaults.standard.set(encoded, forKey: ratingKey + id)
        }
     }
 
     public func getRating(forProductId id: String) -> ProductRating? {
        guard let data = UserDefaults.standard.data(forKey: ratingKey + id) else {
-           print("No rating found for product \(id)")
            return nil
        }
        let rating = try? JSONDecoder().decode(ProductRating.self, from: data)
-       print("Retrieved rating for product \(id): \(String(describing: rating))")
        return rating
     }
 

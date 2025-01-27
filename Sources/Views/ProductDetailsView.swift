@@ -139,6 +139,7 @@ struct ProductDetailsView: View {
         }
         .onAppear {
             viewModel.updateLikesAndRatings()
+            isLoading = false
         }
     }
 }
