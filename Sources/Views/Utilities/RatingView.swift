@@ -10,12 +10,18 @@ import JoiefullModels
 import JoiefullPersistenceService
 
 struct RatingView: View {
-    
+
     // MARK: - Properties
+
     @ObservedObject var viewModel: ProductDetailsViewModel
-    @Binding var product: Product
-    @State private var isEditing: Bool = false
-    
+    @State private var isEditing = false
+
+    // MARK: - Initialisation
+
+    init(viewModel: ProductDetailsViewModel) {
+        self.viewModel = viewModel
+    }
+
     // MARK: - View
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -97,10 +103,7 @@ struct RatingView: View {
         }
         .padding(.horizontal, 15)
         .onAppear {
-        if let rating = viewModel.ratingManager.ratings(for: viewModel.product).first {
-            viewModel.userRating = rating.score
-            viewModel.userComment = rating.comment
+            viewModel.updateLikesAndRatings()
         }
-    }
     }
 }

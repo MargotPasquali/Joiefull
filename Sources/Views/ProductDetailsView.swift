@@ -12,16 +12,21 @@ import JoiefullPersistenceService
 struct ProductDetailsView: View {
     
     // MARK: - Properties
-    @Binding var product: Product
-    @StateObject private var viewModel: ProductDetailsViewModel
-    @State private var isLoading: Bool = true
-    
+    private let product: Product
+
+    @StateObject
+    private var viewModel: ProductDetailsViewModel
+
+    @State
+    private var isLoading = true
+
     // MARK: - Initializer
 
-    init(product: Binding<Product>, viewModel: ProductDetailsViewModel) {
-            self._product = product
-            _viewModel = StateObject(wrappedValue: viewModel)
-        }
+    init(product: Product, viewModel: ProductDetailsViewModel) {
+        self.product = product
+
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     // MARK: - View
     var body: some View {
@@ -76,8 +81,8 @@ struct ProductDetailsView: View {
                                 .frame(width: 51, height: 27)
                                 .overlay(
                                     HStack {
-                                        Image(systemName: viewModel.isLiked(product) ? "heart.fill" : "heart")
-                                            .foregroundColor(viewModel.isLiked(product) ? .red : .black)
+                                        Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
+                                            .foregroundColor(viewModel.isLiked ? .red : .black)
                                             .frame(width: 14, height: 12)
                                         Text(String(product.likes))
                                             .fontWeight(.semibold)
@@ -133,7 +138,7 @@ struct ProductDetailsView: View {
                     }
                     
                     // MARK: - Rating Section
-                    RatingView(viewModel: viewModel, product: $product)
+                    RatingView(viewModel: viewModel)
                 }
             }
         }

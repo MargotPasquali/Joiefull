@@ -14,14 +14,19 @@ import JoiefullService
 final class ProductDetailsViewModel: ObservableObject {
     
     // MARK: - Properties
-    @Published private(set) var product: Product
-    @Published var userRating: Int = 0
-    @Published var userComment: String = ""
+
+    let product: Product
+
+    @Published var isLiked = false
+    @Published var averageRating = 0.0
+    @Published var userRating = 0
+    @Published var userComment = ""
     
     // MARK: - Constants
-    let ratingManager: RatingManager
-    let likeManager: LikeManager
-    
+
+    private let ratingManager: RatingManager
+    private let likeManager: LikeManager
+
     // MARK: - Init
     
     init(product: Product, ratingManager: RatingManager, likeManager: LikeManager) {
@@ -42,31 +47,18 @@ final class ProductDetailsViewModel: ObservableObject {
     }
     
     func updateLikesAndRatings() {
-        let avgRating = ratingManager.averageRating(for: product)
-        let isLiked = likeManager.isLiked(for: product)
-        
-        product = Product(
-            id: product.id,
-            picture: product.picture,
-            name: product.name,
-            category: product.category,
-            likes: product.likes,
-            price: product.price,
-            originalPrice: product.originalPrice
-        )
+        averageRating = ratingManager.averageRating(for: product)
+
+        if let rating = ratingManager.ratings(for: product).first {
+            userRating = rating.score
+            userComment = rating.comment
+        }
+
+        isLiked = likeManager.isLiked(for: product)
     }
     
     func toggleLike() {
-        let result = likeManager.toggleLike(for: product)
-        product = Product(
-            id: product.id,
-            picture: product.picture,
-            name: product.name,
-            category: product.category,
-            likes: result.updatedLikes,
-            price: product.price,
-            originalPrice: product.originalPrice
-        )
+        isLiked = likeManager.toggleLike(for: product).isLiked
     }
     
     func isLiked(_ product: Product) -> Bool {

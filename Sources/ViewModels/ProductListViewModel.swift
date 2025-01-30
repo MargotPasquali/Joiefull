@@ -16,16 +16,19 @@ final class ProductListViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     @Published var products: [Product] = []
-    
+
     // MARK: - Constants
     let service: RemoteProductService
     let likeManager: LikeManager
     let ratingManager: RatingManager
     
     // MARK: - Init
-    init(isLoading: Bool = false, errorMessage: String? = nil, products: [Product], service: RemoteProductService, likeManager: LikeManager, ratingManager: RatingManager) {
-        self.isLoading = isLoading
-        self.errorMessage = errorMessage
+    init(
+        products: [Product] = [],
+        service: RemoteProductService = RemoteProductService(),
+        likeManager: LikeManager = LikeManager(),
+        ratingManager: RatingManager = RatingManager()
+    ) {
         self.products = products
         self.service = service
         self.likeManager = likeManager
@@ -44,21 +47,9 @@ final class ProductListViewModel: ObservableObject {
     }
     
     func toggleLike(for product: Product) {
-        let result = likeManager.toggleLike(for: product)
-        print("Toggle result: isLiked=\(result.isLiked), updatedLikes=\(result.updatedLikes)")
-        if let index = products.firstIndex(of: product) {
-            print("Updating product at index \(index)")
-            products[index] = Product(
-                id: product.id,
-                picture: product.picture,
-                name: product.name,
-                category: product.category,
-                likes: result.updatedLikes,
-                price: product.price,
-                originalPrice: product.originalPrice
-            )
-            print("Updated likes: \(products[index].likes)")
-        }
+        _ = likeManager.toggleLike(for: product)
+
+        objectWillChange.send()
     }
     
     func isLiked(_ product: Product) -> Bool {
@@ -70,18 +61,17 @@ final class ProductListViewModel: ObservableObject {
     }
     
     func updateAverageRatings() {
-       products = products.map { product in
-           let avgRating = ratingManager.averageRating(for: product)
-           return Product(
-               id: product.id,
-               picture: product.picture,
-               name: product.name,
-               category: product.category,
-               likes: product.likes,
-               price: product.price,
-               originalPrice: product.originalPrice
-           )
-       }
+//       products = products.map { product in
+//           let avgRating = ratingManager.averageRating(for: product)
+//           return Product(
+//               id: product.id,
+//               picture: product.picture,
+//               name: product.name,
+//               category: product.category,
+//               likes: product.likes,
+//               price: product.price,
+//               originalPrice: product.originalPrice
+//           )
+//       }
     }
-    
 }

@@ -11,12 +11,7 @@ import JoiefullService
 
 @MainActor
 struct ListView: View {
-    @StateObject private var viewModel = ProductListViewModel(
-       products: [],
-       service: RemoteProductService(networkManager: NetworkManager()),
-       likeManager: LikeManager(UserDefaultsManager: UserDefaultsManager()),
-       ratingManager: RatingManager(UserDefaultsManager: UserDefaultsManager())
-    )
+    @StateObject private var viewModel = ProductListViewModel()
     @State private var selectedProductID: Int? = nil
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     
@@ -38,7 +33,7 @@ struct ListView: View {
     }
     
     private var sidebarContent: some View {
-        ScrollView {
+        List(selection: $selectedProductID) {
             VStack(alignment: .leading, spacing: 20) {
                 ForEach(sortedCategories, id: \.self) { category in
                     categorySection(category)
@@ -46,22 +41,21 @@ struct ListView: View {
             }
             .padding(.vertical, 10)
         }
+        .listStyle(.plain)
         .navigationSplitViewColumnWidth(min: 600, ideal: 700, max: 800)
     }
     
     private func categorySection(_ category: Product.Category) -> some View {
-        let items = viewModel.products.filter { $0.category == category }
-        return VStack(alignment: .leading) {
+        VStack(alignment: .leading) {
             Text(category.rawValue.capitalized)
                 .font(.body)
                 .fontWeight(.semibold)
                 .padding(.leading, 15)
             
             ListRowView(
-                products: $viewModel.products,
-                selectedProductID: $selectedProductID,
                 category: category,
-                viewModel: viewModel
+                viewModel: viewModel,
+                selectedProductID: $selectedProductID
             )
             .padding(.horizontal, 15)
         }
@@ -72,7 +66,7 @@ struct ListView: View {
             if let selectedProductID = selectedProductID,
                let index = viewModel.products.firstIndex(where: { $0.id == selectedProductID }) {
                 ProductDetailsView(
-                    product: $viewModel.products[index],
+                    product: viewModel.products[index],
                     viewModel: ProductDetailsViewModel(product: viewModel.products[index], ratingManager: viewModel.ratingManager, likeManager: viewModel.likeManager)
                 )
             } else {

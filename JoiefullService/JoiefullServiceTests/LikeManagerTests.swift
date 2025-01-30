@@ -5,24 +5,25 @@
 //  Created by Margot Pasquali on 29/01/2025.
 //
 
-import XCTest
+import Testing
 import JoiefullTestUtilities
 import JoiefullModels
 import JoiefullPersistenceService
 @testable import JoiefullService
 
-final class LikeManagerTests: XCTestCase {
+@Suite("LikeManager")
+final class LikeManagerTests {
     
     var likeManager: LikeManager!
     var mockUserDefaultsManager: MockUserDefaultsManager!
-    
-    override func setUp() {
-        super.setUp()
+
+    init() {
         mockUserDefaultsManager = MockUserDefaultsManager()
         likeManager = LikeManager(UserDefaultsManager: mockUserDefaultsManager)
     }
-    
-    func testGetLikedProducts() {
+
+    @Test
+    func getLikedProducts() {
         // Given
         let expectedLikedProducts: [Product] = []
         
@@ -30,10 +31,11 @@ final class LikeManagerTests: XCTestCase {
         let likedProducts = likeManager.getLikedProducts(from: [])
         
         // Then
-        XCTAssertEqual(likedProducts, expectedLikedProducts)
+        #expect(likedProducts == expectedLikedProducts)
     }
-        
-    func testToggleLikeProductReturnsTrueorFalse() {
+
+    @Test
+    func toggleLikeProductReturnsTrueorFalse() {
         // Given
         let fakeProduct = FakeResponseData.fakeProduct
         
@@ -42,11 +44,9 @@ final class LikeManagerTests: XCTestCase {
         let toggle2 = likeManager.toggleLike(for: fakeProduct)
         
         // Then
-        XCTAssertTrue(toggle1.isLiked, "The product should be liked after first toggle")
-        XCTAssertEqual(toggle1.updatedLikes, fakeProduct.likes + 1, "Likes should increase by 1")
-        
-        XCTAssertFalse(toggle2.isLiked, "The product should be unliked after second toggle")
-//        XCTAssertEqual(toggle2.updatedLikes, fakeProduct.likes, "Likes should return to original count")
-    }
-    
+        #expect(toggle1.isLiked, "The product should be liked after first toggle")
+        #expect(toggle1.updatedLikes == fakeProduct.likes + 1, "Likes should increase by 1")
+
+        #expect(!toggle2.isLiked, "The product should be unliked after second toggle")
+    }    
 }

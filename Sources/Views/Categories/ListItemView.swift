@@ -9,14 +9,25 @@ import SwiftUI
 import JoiefullModels
 
 struct ListItemView: View {
-    // MARK: - Properties
-    @Binding var product: Product
-    @State private var isLiked: Bool = false
-    
+
     // MARK: - Constants
-    let imageSize: CGFloat = 198
-    let viewModel: ProductListViewModel
-    
+
+    private let product: Product
+    private let imageSize: CGFloat = 198
+    private let viewModel: ProductListViewModel
+
+    // MARK: - Properties
+
+    @State
+    private var isLiked = false
+
+    // MARK: - Initialisation
+
+    init(product: Product, viewModel: ProductListViewModel) {
+        self.product = product
+        self.viewModel = viewModel
+    }
+
     // MARK: - View
     var body: some View {
         VStack(alignment: .leading) {
@@ -48,10 +59,7 @@ struct ListItemView: View {
                 ZStack {
                     Button(action: {
                         viewModel.toggleLike(for: product)
-                        if let updatedProduct = viewModel.products.first(where: { $0.id == product.id }) {
-                            product = updatedProduct
-                        }
-                        isLiked.toggle()
+
                         print("Likes after toggle: \(product.likes)")
                     }) {
                         RoundedRectangle(cornerRadius: 20)

@@ -13,16 +13,16 @@ public final class RatingManager {
     
     // MARK: - Constants
     
-    let UserDefaultsManager: PersistenceService
-    
-    public init(UserDefaultsManager: PersistenceService) {
-        self.UserDefaultsManager = UserDefaultsManager
+    let userDefaultsManager: PersistenceService
+
+    public init(userDefaultsManager: PersistenceService = UserDefaultsManager()) {
+        self.userDefaultsManager = userDefaultsManager
     }
     
     // MARK: - Functions
     
     public func ratings(for product: Product) -> [ProductRating] {
-        guard let rating = UserDefaultsManager.getRating(forProductId: String(product.id)) else {
+        guard let rating = userDefaultsManager.getRating(forProductId: String(product.id)) else {
             return []
         }
         return [rating]
@@ -34,7 +34,7 @@ public final class RatingManager {
     }
     
     public func addOrUpdaterating(for product: Product, rating: ProductRating) {
-        UserDefaultsManager.saveRating(rating, forProductId: String(product.id))
+        userDefaultsManager.saveRating(rating, forProductId: String(product.id))
     }
     
 }

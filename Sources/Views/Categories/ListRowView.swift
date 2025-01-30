@@ -11,34 +11,44 @@ import JoiefullService
 import JoiefullPersistenceService
 
 struct ListRowView: View {
-    
-    // MARK: - Properties
-    @Binding var products: [Product]
-    @Binding var selectedProductID: Int?
-    
+
     // MARK: - Constants
-    let category: Product.Category
-    let viewModel: ProductListViewModel
+
+    private let category: Product.Category
+    private let viewModel: ProductListViewModel
+
+    // MARK: - Properties
+
+    @Binding
+    var selectedProductID: Int?
+
+    // MARK: - Initialisation
+
+    init(category: Product.Category, viewModel: ProductListViewModel, selectedProductID: Binding<Int?>) {
+        self.category = category
+        self.viewModel = viewModel
+        self._selectedProductID = selectedProductID
+    }
 
     // MARK: - View
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach($products.filter { $0.wrappedValue.category == category }) { $product in
+                ForEach(viewModel.products.filter { $0.category == category }) { product in
                     NavigationLink(
                         destination: ProductDetailsView(
-                            product: $product,
+                            product: product,
                             viewModel: ProductDetailsViewModel(
-                                        product: product,
-                                        ratingManager: viewModel.ratingManager,
-                                        likeManager: viewModel.likeManager
-                                    )
+                                product: product,
+                                ratingManager: viewModel.ratingManager,
+                                likeManager: viewModel.likeManager
+                            )
                         ),
                         tag: product.id,
                         selection: $selectedProductID
                     ) {
                         ListItemView(
-                            product: $product,
+                            product: product,
                             viewModel: viewModel
                         )
                     }
@@ -47,7 +57,7 @@ struct ListRowView: View {
         }
         .onAppear {
             viewModel.updateAverageRatings()
-            }
         }
     }
+}
 
