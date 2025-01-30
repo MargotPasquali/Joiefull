@@ -33,9 +33,11 @@ final class ProductDetailsViewModel: ObservableObject {
     // MARK: - Functions
     
     func saveUserFeedback(score: Int, comment: String) {
+        print("📝 Saving feedback - Score: \(score), Comment: \(comment)")
         userRating = score
         userComment = comment
         let rating = ProductRating(score: score, comment: comment)
+        print("🔄 Created ProductRating: score=\(rating.score), comment=\(rating.comment)")
         ratingManager.addOrUpdaterating(for: product, rating: rating)
     }
     

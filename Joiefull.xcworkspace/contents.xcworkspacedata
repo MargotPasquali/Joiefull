@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:JoiefullTestPlan.xctestplan">
+   </FileRef>
+   <FileRef
       location = "group:JoiefullTestUtilities/JoiefullTestUtilities.xcodeproj">
    </FileRef>
    <FileRef

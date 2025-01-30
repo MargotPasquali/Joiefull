@@ -13,9 +13,9 @@ public final class RatingManager {
     
     // MARK: - Constants
     
-    let UserDefaultsManager: UserDefaultsManager
+    let UserDefaultsManager: PersistenceService
     
-    public init(UserDefaultsManager: UserDefaultsManager) {
+    public init(UserDefaultsManager: PersistenceService) {
         self.UserDefaultsManager = UserDefaultsManager
     }
     

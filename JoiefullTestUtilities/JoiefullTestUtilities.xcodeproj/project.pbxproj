@@ -6,8 +6,36 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		AE966F8F2D491A60009F9954 /* JoiefullService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE966F8E2D491A60009F9954 /* JoiefullService.framework */; };
+		AE966F902D491A60009F9954 /* JoiefullService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE966F8E2D491A60009F9954 /* JoiefullService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AEC101B22D47E6D3002DCEA9 /* FakeResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC101B12D47E6D3002DCEA9 /* FakeResponseData.swift */; };
+		AEC101B52D47E6DD002DCEA9 /* JoiefullModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEC101B42D47E6DD002DCEA9 /* JoiefullModels.framework */; };
+		AEC101B62D47E6DD002DCEA9 /* JoiefullModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AEC101B42D47E6DD002DCEA9 /* JoiefullModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AEC101B92D47E9EC002DCEA9 /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC101B82D47E9EC002DCEA9 /* MockNetworkManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AEC101B72D47E6DD002DCEA9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AE966F902D491A60009F9954 /* JoiefullService.framework in Embed Frameworks */,
+				AEC101B62D47E6DD002DCEA9 /* JoiefullModels.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		AE966F8E2D491A60009F9954 /* JoiefullService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEC101A62D47E5DA002DCEA9 /* JoiefullTestUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JoiefullTestUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEC101B12D47E6D3002DCEA9 /* FakeResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeResponseData.swift; sourceTree = "<group>"; };
+		AEC101B42D47E6DD002DCEA9 /* JoiefullModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEC101B82D47E9EC002DCEA9 /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -15,6 +43,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE966F8F2D491A60009F9954 /* JoiefullService.framework in Frameworks */,
+				AEC101B52D47E6DD002DCEA9 /* JoiefullModels.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -24,6 +54,9 @@
 		AEC1019C2D47E5DA002DCEA9 = {
 			isa = PBXGroup;
 			children = (
+				AEC101B82D47E9EC002DCEA9 /* MockNetworkManager.swift */,
+				AEC101B12D47E6D3002DCEA9 /* FakeResponseData.swift */,
+				AEC101B32D47E6DD002DCEA9 /* Frameworks */,
 				AEC101A72D47E5DA002DCEA9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -34,6 +67,15 @@
 				AEC101A62D47E5DA002DCEA9 /* JoiefullTestUtilities.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AEC101B32D47E6DD002DCEA9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AE966F8E2D491A60009F9954 /* JoiefullService.framework */,
+				AEC101B42D47E6DD002DCEA9 /* JoiefullModels.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -57,6 +99,7 @@
 				AEC101A22D47E5DA002DCEA9 /* Sources */,
 				AEC101A32D47E5DA002DCEA9 /* Frameworks */,
 				AEC101A42D47E5DA002DCEA9 /* Resources */,
+				AEC101B72D47E6DD002DCEA9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -80,6 +123,7 @@
 				TargetAttributes = {
 					AEC101A52D47E5DA002DCEA9 = {
 						CreatedOnToolsVersion = 16.1;
+						LastSwiftMigration = 1610;
 					};
 				};
 			};
@@ -117,6 +161,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEC101B92D47E9EC002DCEA9 /* MockNetworkManager.swift in Sources */,
+				AEC101B22D47E6D3002DCEA9 /* FakeResponseData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +173,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -151,6 +198,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -160,6 +208,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;

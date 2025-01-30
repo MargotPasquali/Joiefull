@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "75FB3EE8-75E6-481E-9A6E-BBCE6DD8F545",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:JoiefullService.xcodeproj",
+        "identifier" : "AE966F942D491C1E009F9954",
+        "name" : "JoiefullServiceTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ProductDTO: Decodable {
+public struct ProductDTO: Decodable, Encodable {
     public let id: Int
     public let picture: PictureDTO
     public let name: String
@@ -16,6 +16,17 @@ public struct ProductDTO: Decodable {
     public let price: Double
     public let originalPrice: Double?
 
+    public init(id: Int, picture: PictureDTO, name: String, category: String, likes: Int, price: Double, originalPrice: Double?) {
+        self.id = id
+        self.picture = picture
+        self.name = name
+        self.category = category
+        self.likes = likes
+        self.price = price
+        self.originalPrice = originalPrice
+    }
+    
+    
     private enum CodingKeys: String, CodingKey {
         case id
         case picture
@@ -26,9 +37,14 @@ public struct ProductDTO: Decodable {
         case originalPrice = "original_price"
     }
     
-    public struct PictureDTO: Decodable {
+    public struct PictureDTO: Decodable, Encodable {
         public let url: String
         public let description: String
+        
+        public init(url: String, description: String) {
+            self.url = url
+            self.description = description
+        }
     }
 }
 

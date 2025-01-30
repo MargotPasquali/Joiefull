@@ -6,7 +6,7 @@
 //
 import Foundation
 
-public struct Product: Identifiable, Hashable {
+public struct Product: Identifiable, Hashable, Encodable {
     // MARK: - Properties
     public let id: Int
     public let picture: Picture
@@ -36,7 +36,7 @@ public struct Product: Identifiable, Hashable {
     }
 
     // MARK: - Category Enum
-    public enum Category: String, Comparable, Hashable {
+    public enum Category: String, Comparable, Hashable, Encodable {
         case shoes
         case bottoms
         case tops

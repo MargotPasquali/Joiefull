@@ -7,4 +7,4 @@
 
 import Foundation
 
-extension OLDUserdefaultsManager: PersistenceService {}
+extension UserDefaultsManager: PersistenceService {}

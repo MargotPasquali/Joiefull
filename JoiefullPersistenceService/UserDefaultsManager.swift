@@ -8,7 +8,7 @@
 import Foundation
 import JoiefullModels
 
-public final class UserDefaultsManager {
+public class UserDefaultsManager {
     
     // MARK: - Constants
     private let ratingKey = "rating_user_101_product_"
@@ -19,13 +19,13 @@ public final class UserDefaultsManager {
     
     // MARK: - Rating
     
-    public func saveRating(_ rating: ProductRating, forProductId id: String) {
+    open func saveRating(_ rating: ProductRating, forProductId id: String) {
        if let encoded = try? JSONEncoder().encode(rating) {
            UserDefaults.standard.set(encoded, forKey: ratingKey + id)
        }
     }
 
-    public func getRating(forProductId id: String) -> ProductRating? {
+    open func getRating(forProductId id: String) -> ProductRating? {
        guard let data = UserDefaults.standard.data(forKey: ratingKey + id) else {
            return nil
        }
@@ -33,20 +33,20 @@ public final class UserDefaultsManager {
        return rating
     }
 
-    public func isProductLiked(_ productId: String) -> Bool {
+    open func isProductLiked(_ productId: String) -> Bool {
        let isLiked = UserDefaults.standard.bool(forKey: likesKey + productId)
        print("Product \(productId) liked status: \(isLiked)")
        return isLiked
     }
 
-    public func toggleProductLike(forProductId id: String) -> Bool {
+    open func toggleProductLike(forProductId id: String) -> Bool {
        let newValue = !isProductLiked(id)
        print("Toggling like for product \(id) to \(newValue)")
        UserDefaults.standard.set(newValue, forKey: likesKey + id)
        return newValue
     }
 
-    public func getLikedProductIds() -> [String] {
+    open func getLikedProductIds() -> [String] {
        let ids = UserDefaults.standard.dictionaryRepresentation()
            .filter { $0.key.starts(with: likesKey) && $0.value as? Bool == true }
            .map { $0.key.replacingOccurrences(of: likesKey, with: "") }

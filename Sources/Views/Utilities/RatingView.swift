@@ -14,7 +14,6 @@ struct RatingView: View {
     // MARK: - Properties
     @ObservedObject var viewModel: ProductDetailsViewModel
     @Binding var product: Product
-    @State private var userComment: String = ""
     @State private var isEditing: Bool = false
     
     // MARK: - View
@@ -48,7 +47,7 @@ struct RatingView: View {
                 RoundedRectangle(cornerRadius: 15)
                     .stroke(Color.gray, lineWidth: 1)
                     .overlay(
-                        TextField("Write your comment here ...", text: $userComment)
+                        TextField("Write your comment here ...", text: $viewModel.userComment)
                             .font(.body)
                             .foregroundColor(.black)
                             .padding(.horizontal, 10)
@@ -59,17 +58,17 @@ struct RatingView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        viewModel.saveUserFeedback(score: viewModel.userRating, comment: userComment)
+                        viewModel.saveUserFeedback(score: viewModel.userRating, comment: viewModel.userComment)
                         isEditing = false
                     }) {
                         Text("Submit")
                             .frame(maxWidth: 100)
                             .padding()
-                            .background(viewModel.userRating > 0 && !userComment.isEmpty ? Color("Custom Orange") : Color.gray)
+                            .background(viewModel.userRating > 0 && !viewModel.userComment.isEmpty ? Color("Custom Orange") : Color.gray)
                             .foregroundColor(.white)
                             .cornerRadius(15)
                     }
-                    .disabled(viewModel.userRating == 0 || userComment.isEmpty)
+                    .disabled(viewModel.userRating == 0 || viewModel.userComment.isEmpty)
                 }
             } else {
                 // MARK: - Display Current Comment
@@ -98,7 +97,10 @@ struct RatingView: View {
         }
         .padding(.horizontal, 15)
         .onAppear {
-            userComment = viewModel.userComment
+        if let rating = viewModel.ratingManager.ratings(for: viewModel.product).first {
+            viewModel.userRating = rating.score
+            viewModel.userComment = rating.comment
         }
+    }
     }
 }
