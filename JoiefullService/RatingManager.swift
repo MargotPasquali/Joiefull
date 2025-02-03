@@ -4,7 +4,6 @@
 //
 //  Created by Margot Pasquali on 23/01/2025.
 //
-
 import Foundation
 import JoiefullModels
 import JoiefullPersistenceService
@@ -13,16 +12,16 @@ public final class RatingManager {
     
     // MARK: - Constants
     
-    let UserDefaultsManager: PersistenceService
+    let userDefaultsManager: PersistenceService
     
-    public init(UserDefaultsManager: PersistenceService) {
-        self.UserDefaultsManager = UserDefaultsManager
+    public init(userDefaultsManager: PersistenceService = UserDefaultsManager()) {
+        self.userDefaultsManager = userDefaultsManager
     }
     
     // MARK: - Functions
     
     public func ratings(for product: Product) -> [ProductRating] {
-        guard let rating = UserDefaultsManager.getRating(forProductId: String(product.id)) else {
+        guard let rating = userDefaultsManager.getRating(forProductId: String(product.id)) else {
             return []
         }
         return [rating]
@@ -30,12 +29,15 @@ public final class RatingManager {
     
     public func averageRating(for product: Product) -> Double {
         let ratings = ratings(for: product)
-        return ratings.isEmpty ? 0.0 : Double(ratings.reduce(0) { $0 + $1.score }) / Double(ratings.count)
+        if ratings.isEmpty {
+            return 0.0
+        }
+        
+        let avgRating = Double(ratings.reduce(0) { $0 + $1.score }) / Double(ratings.count)
+        return avgRating
     }
     
     public func addOrUpdaterating(for product: Product, rating: ProductRating) {
-        UserDefaultsManager.saveRating(rating, forProductId: String(product.id))
+        userDefaultsManager.saveRating(rating, forProductId: String(product.id))
     }
-    
 }
-

@@ -14,9 +14,23 @@
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:JoiefullService.xcodeproj",
+        "containerPath" : "container:JoiefullPersistenceService\/JoiefullPersistenceService.xcodeproj",
+        "identifier" : "AE27C1E82D4A744A0084F9EA",
+        "name" : "JoiefullPersistenceServiceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:JoiefullService\/JoiefullService.xcodeproj",
         "identifier" : "AE966F942D491C1E009F9954",
         "name" : "JoiefullServiceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Joiefull.xcodeproj",
+        "identifier" : "AE028D662D4AA13A00BBB631",
+        "name" : "JoiefullTests"
       }
     }
   ],

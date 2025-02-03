@@ -9,14 +9,27 @@ import SwiftUI
 import JoiefullModels
 
 struct ListItemView: View {
-    // MARK: - Properties
-    @Binding var product: Product
-    @State private var isLiked: Bool = false
-    
+
     // MARK: - Constants
-    let imageSize: CGFloat = 198
-    let viewModel: ProductListViewModel
+
+    private let product: Product
+    private let imageSize: CGFloat = 198
+    @ObservedObject
+    private var viewModel: ProductListViewModel
+
+    // MARK: - Properties
+
+    @State
+    private var isLiked = false
     
+    // MARK: - Initialisation
+
+    init(product: Product, viewModel: ProductListViewModel) {
+        self.product = product
+        self.viewModel = viewModel
+        print("[ListItemView] [init] ✅ Initialized for product ID: \(product.id), Name: \(product.name)")
+    }
+
     // MARK: - View
     var body: some View {
         VStack(alignment: .leading) {
@@ -48,11 +61,7 @@ struct ListItemView: View {
                 ZStack {
                     Button(action: {
                         viewModel.toggleLike(for: product)
-                        if let updatedProduct = viewModel.products.first(where: { $0.id == product.id }) {
-                            product = updatedProduct
-                        }
                         isLiked.toggle()
-                        print("Likes after toggle: \(product.likes)")
                     }) {
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color.white)
@@ -62,13 +71,13 @@ struct ListItemView: View {
                             Image(systemName: viewModel.isLiked(product) ? "heart.fill" : "heart")
                                 .foregroundColor(viewModel.isLiked(product) ? .red : .black)
                                 .frame(width: 14, height: 12)
-                            Text(String(product.likes))
+                            Text(String(viewModel.productLikes[product.id] ?? product.likes))
                                 .fontWeight(.semibold)
                                 .foregroundStyle(Color.black)
                                 .font(.caption)
                         }.offset(x: 0, y: 4)
-                    }.onChange(of: isLiked) { _ in
-                        print("isLiked changed to: \(isLiked)")
+                    }
+                    .onChange(of: isLiked) { newValue in
                     }
                     .padding(6)
                 }
@@ -87,7 +96,7 @@ struct ListItemView: View {
                 Image(systemName: "star.fill")
                     .foregroundStyle(Color.yellow)
                     .frame(width: 12, height: 12)
-                Text(String(format: "%.1f", viewModel.averageRating(for: product)))
+                Text(String(format: "%.1f", viewModel.productRatings[product.id] ?? 0.0))
                     .font(.caption)
                     .fontWeight(.regular)
                     .foregroundStyle(Color.black)
@@ -110,6 +119,9 @@ struct ListItemView: View {
             }
         }
         .frame(width: 198, height: 242)
+        .onAppear {
+            isLiked = viewModel.isLiked(product)
+            print("[ListItemView] [onAppear] 🟢 View appeared for product ID: \(product.id). isLiked: \(isLiked)")
+        }
     }
 }
-

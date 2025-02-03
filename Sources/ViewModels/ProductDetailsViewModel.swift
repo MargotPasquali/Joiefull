@@ -4,7 +4,6 @@
 //
 //  Created by Margot Pasquali on 23/01/2025.
 //
-
 import Foundation
 import JoiefullModels
 import JoiefullPersistenceService
@@ -14,13 +13,19 @@ import JoiefullService
 final class ProductDetailsViewModel: ObservableObject {
     
     // MARK: - Properties
-    @Published private(set) var product: Product
-    @Published var userRating: Int = 0
-    @Published var userComment: String = ""
+    
+    let product: Product
+    
+    @Published var isLiked = false
+    @Published var averageRating = 0.0
+    @Published var userRating = 0
+    @Published var userComment = ""
+    @Published var currentLikes: Int
     
     // MARK: - Constants
-    let ratingManager: RatingManager
-    let likeManager: LikeManager
+    
+    private let ratingManager: RatingManager
+    private let likeManager: LikeManager
     
     // MARK: - Init
     
@@ -28,52 +33,53 @@ final class ProductDetailsViewModel: ObservableObject {
         self.product = product
         self.ratingManager = ratingManager
         self.likeManager = likeManager
+        self.currentLikes = likeManager.getUpdatedLikes(forProductId: product.id)
+        
     }
     
     // MARK: - Functions
     
     func saveUserFeedback(score: Int, comment: String) {
-        print("📝 Saving feedback - Score: \(score), Comment: \(comment)")
         userRating = score
         userComment = comment
+        
         let rating = ProductRating(score: score, comment: comment)
-        print("🔄 Created ProductRating: score=\(rating.score), comment=\(rating.comment)")
         ratingManager.addOrUpdaterating(for: product, rating: rating)
+        
     }
     
     func updateLikesAndRatings() {
-        let avgRating = ratingManager.averageRating(for: product)
-        let isLiked = likeManager.isLiked(for: product)
+        // Get ratings
+        let ratings = ratingManager.ratings(for: product)
         
-        product = Product(
-            id: product.id,
-            picture: product.picture,
-            name: product.name,
-            category: product.category,
-            likes: product.likes,
-            price: product.price,
-            originalPrice: product.originalPrice
-        )
+        // Average calculation
+        if !ratings.isEmpty {
+            averageRating = Double(ratings.reduce(0) { $0 + $1.score }) / Double(ratings.count)
+        } else {
+            averageRating = 0.0
+        }
+        
+        // Properties update
+        userRating = ratings.first?.score ?? 0
+        userComment = ratings.first?.comment ?? ""
+        currentLikes = likeManager.getUpdatedLikes(forProductId: product.id)
+        isLiked = likeManager.isLiked(for: product)
+        
     }
     
     func toggleLike() {
         let result = likeManager.toggleLike(for: product)
-        product = Product(
-            id: product.id,
-            picture: product.picture,
-            name: product.name,
-            category: product.category,
-            likes: result.updatedLikes,
-            price: product.price,
-            originalPrice: product.originalPrice
-        )
+        isLiked = result.isLiked
+        currentLikes = result.updatedLikes
     }
     
     func isLiked(_ product: Product) -> Bool {
-        likeManager.isLiked(for: product)
+        let liked = likeManager.isLiked(for: product)
+        return liked
     }
     
     func averageRating(for product: Product) -> Double {
-        ratingManager.averageRating(for: product)
+        let avgRating = ratingManager.averageRating(for: product)
+        return avgRating
     }
 }

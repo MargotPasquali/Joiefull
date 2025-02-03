@@ -4,7 +4,6 @@
 //
 //  Created by Margot Pasquali on 23/01/2025.
 //
-
 import Foundation
 import JoiefullModels
 import JoiefullService
@@ -16,20 +15,28 @@ final class ProductListViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     @Published var products: [Product] = []
-    
+    @Published var productRatings: [Int: Double] = [:]
+    @Published var refreshTrigger = false
+    @Published var productLikes: [Int: Int] = [:]
+
+
     // MARK: - Constants
     let service: RemoteProductService
     let likeManager: LikeManager
     let ratingManager: RatingManager
     
     // MARK: - Init
-    init(isLoading: Bool = false, errorMessage: String? = nil, products: [Product], service: RemoteProductService, likeManager: LikeManager, ratingManager: RatingManager) {
-        self.isLoading = isLoading
-        self.errorMessage = errorMessage
+    init(
+        products: [Product] = [],
+        service: RemoteProductService = RemoteProductService(),
+        likeManager: LikeManager = LikeManager(),
+        ratingManager: RatingManager = RatingManager()
+    ) {
         self.products = products
         self.service = service
         self.likeManager = likeManager
         self.ratingManager = ratingManager
+        updateLikes()
     }
     
     // MARK: - Functions
@@ -45,43 +52,27 @@ final class ProductListViewModel: ObservableObject {
     
     func toggleLike(for product: Product) {
         let result = likeManager.toggleLike(for: product)
-        print("Toggle result: isLiked=\(result.isLiked), updatedLikes=\(result.updatedLikes)")
-        if let index = products.firstIndex(of: product) {
-            print("Updating product at index \(index)")
-            products[index] = Product(
-                id: product.id,
-                picture: product.picture,
-                name: product.name,
-                category: product.category,
-                likes: result.updatedLikes,
-                price: product.price,
-                originalPrice: product.originalPrice
-            )
-            print("Updated likes: \(products[index].likes)")
-        }
+        productLikes[product.id] = result.updatedLikes
+        objectWillChange.send()
     }
     
     func isLiked(_ product: Product) -> Bool {
-        likeManager.isLiked(for: product)
+        let liked = likeManager.isLiked(for: product)
+        return liked
     }
     
     func averageRating(for product: Product) -> Double {
-        ratingManager.averageRating(for: product)
+        let avgRating = ratingManager.averageRating(for: product)
+        return avgRating
     }
     
     func updateAverageRatings() {
-       products = products.map { product in
-           let avgRating = ratingManager.averageRating(for: product)
-           return Product(
-               id: product.id,
-               picture: product.picture,
-               name: product.name,
-               category: product.category,
-               likes: product.likes,
-               price: product.price,
-               originalPrice: product.originalPrice
-           )
-       }
+        productRatings = products.reduce(into: [:]) { $0[$1.id] = ratingManager.averageRating(for: $1) }
     }
     
+    func updateLikes() {
+        for product in products {
+            productLikes[product.id] = likeManager.getUpdatedLikes(forProductId: product.id)
+        }
+    }
 }

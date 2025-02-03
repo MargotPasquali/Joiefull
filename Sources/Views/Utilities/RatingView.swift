@@ -4,18 +4,24 @@
 //
 //  Created by Margot Pasquali on 04/01/2025.
 //
-
 import SwiftUI
 import JoiefullModels
 import JoiefullPersistenceService
 
 struct RatingView: View {
-    
+
     // MARK: - Properties
+
     @ObservedObject var viewModel: ProductDetailsViewModel
-    @Binding var product: Product
-    @State private var isEditing: Bool = false
-    
+    @State private var isEditing = false
+
+    // MARK: - Initialisation
+
+    init(viewModel: ProductDetailsViewModel) {
+        self.viewModel = viewModel
+        print("[View] [init] ✅ RatingView initialized for product ID: \(viewModel.product.id)")
+    }
+
     // MARK: - View
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -31,6 +37,7 @@ struct RatingView: View {
                     Button(action: {
                         isEditing = true
                         viewModel.userRating = star
+                        print("[View] [Stars] ⭐️ Selected rating: \(star) for product ID: \(viewModel.product.id)")
                     }) {
                         Image(systemName: star <= viewModel.userRating ? "star.fill" : "star")
                             .resizable()
@@ -51,6 +58,9 @@ struct RatingView: View {
                             .font(.body)
                             .foregroundColor(.black)
                             .padding(.horizontal, 10)
+                            .onChange(of: viewModel.userComment) { newValue in
+                                print("[View] [TextField] 📝 Comment updated: \(newValue)")
+                            }
                     )
                     .frame(height: 48)
                 
@@ -60,6 +70,7 @@ struct RatingView: View {
                     Button(action: {
                         viewModel.saveUserFeedback(score: viewModel.userRating, comment: viewModel.userComment)
                         isEditing = false
+                        print("[View] [Submit] 📩 Feedback submitted - Rating: \(viewModel.userRating), Comment: \(viewModel.userComment)")
                     }) {
                         Text("Submit")
                             .frame(maxWidth: 100)
@@ -69,11 +80,15 @@ struct RatingView: View {
                             .cornerRadius(15)
                     }
                     .disabled(viewModel.userRating == 0 || viewModel.userComment.isEmpty)
+                    .onChange(of: viewModel.userRating) { _ in
+                        print("[View] [Submit] 🔄 Button state changed - Enabled: \(!viewModel.userComment.isEmpty && viewModel.userRating > 0)")
+                    }
                 }
             } else {
                 // MARK: - Display Current Comment
                 Button(action: {
                     isEditing = true
+                    print("[View] [Comment] ✏️ Editing comment for product ID: \(viewModel.product.id)")
                 }) {
                     if !viewModel.userComment.isEmpty {
                         Text("Your comment: \(viewModel.userComment)")
@@ -97,10 +112,9 @@ struct RatingView: View {
         }
         .padding(.horizontal, 15)
         .onAppear {
-        if let rating = viewModel.ratingManager.ratings(for: viewModel.product).first {
-            viewModel.userRating = rating.score
-            viewModel.userComment = rating.comment
+            print("[View] [onAppear] 🚀 RatingView appeared for product ID: \(viewModel.product.id)")
+            viewModel.updateLikesAndRatings()
+            print("[View] [onAppear] 🔄 Called updateLikesAndRatings()")
         }
-    }
     }
 }
