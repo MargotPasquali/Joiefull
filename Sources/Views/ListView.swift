@@ -30,8 +30,13 @@ struct ListView: View {
             await viewModel.fetchProducts()
         }
         .onAppear {
-            viewModel.updateAverageRatings()
-            viewModel.updateLikes()
+            viewModel.refreshData()
+        }
+        .onChange(of: selectedProductID) { oldValue, newValue in
+            if oldValue != nil && newValue == nil {
+                // When returning from detail view (deselecting a product)
+                viewModel.refreshData()
+            }
         }
         .overlay {
             loadingOverlay

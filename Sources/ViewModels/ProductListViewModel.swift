@@ -73,5 +73,11 @@ final class ProductListViewModel: ObservableObject {
         for product in products {
             productLikes[product.id] = likeManager.getUpdatedLikes(for: product)
         }
+        objectWillChange.send()
+    }
+    
+    func refreshData() {
+        updateLikes()
+        updateAverageRatings()
     }
 }
