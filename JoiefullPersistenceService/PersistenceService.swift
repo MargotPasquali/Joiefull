@@ -13,7 +13,6 @@ public protocol PersistenceService {
     func isProductLiked(_ productId: String) -> Bool
     func toggleProductLike(forProductId id: String) -> Bool
     func getLikedProductIds() -> [String]
-//    func isLiked(_ product: Product) -> Bool
     func getLikesCount(forProductId id: String) -> Int
     func saveLikesCount(_ count: Int, forProductId id: String)
 }

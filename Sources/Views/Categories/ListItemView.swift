@@ -27,7 +27,6 @@ struct ListItemView: View {
     init(product: Product, viewModel: ProductListViewModel) {
         self.product = product
         self.viewModel = viewModel
-        print("[ListItemView] [init] ✅ Initialized for product ID: \(product.id), Name: \(product.name)")
     }
 
     // MARK: - View
@@ -77,8 +76,6 @@ struct ListItemView: View {
                                 .font(.caption)
                         }.offset(x: 0, y: 4)
                     }
-                    .onChange(of: isLiked) { newValue in
-                    }
                     .padding(6)
                 }
                 .padding(10)
@@ -119,9 +116,5 @@ struct ListItemView: View {
             }
         }
         .frame(width: 198, height: 242)
-        .onAppear {
-            isLiked = viewModel.isLiked(product)
-            print("[ListItemView] [onAppear] 🟢 View appeared for product ID: \(product.id). isLiked: \(isLiked)")
-        }
     }
 }

@@ -16,7 +16,6 @@ final class ProductListViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var products: [Product] = []
     @Published var productRatings: [Int: Double] = [:]
-    @Published var refreshTrigger = false
     @Published var productLikes: [Int: Int] = [:]
 
 
@@ -72,7 +71,7 @@ final class ProductListViewModel: ObservableObject {
     
     func updateLikes() {
         for product in products {
-            productLikes[product.id] = likeManager.getUpdatedLikes(forProductId: product.id)
+            productLikes[product.id] = likeManager.getUpdatedLikes(for: product)
         }
     }
 }

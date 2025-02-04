@@ -61,7 +61,5 @@ struct ListRowView: View {
         .onAppear {
             viewModel.updateAverageRatings()
         }
-        .onChange(of: selectedProductID) { newValue in
-        }
     }
 }

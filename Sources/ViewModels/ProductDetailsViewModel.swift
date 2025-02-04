@@ -33,7 +33,7 @@ final class ProductDetailsViewModel: ObservableObject {
         self.product = product
         self.ratingManager = ratingManager
         self.likeManager = likeManager
-        self.currentLikes = likeManager.getUpdatedLikes(forProductId: product.id)
+        self.currentLikes = likeManager.getUpdatedLikes(for: product)
         
     }
     
@@ -62,7 +62,7 @@ final class ProductDetailsViewModel: ObservableObject {
         // Properties update
         userRating = ratings.first?.score ?? 0
         userComment = ratings.first?.comment ?? ""
-        currentLikes = likeManager.getUpdatedLikes(forProductId: product.id)
+        currentLikes = likeManager.getUpdatedLikes(for: product)
         isLiked = likeManager.isLiked(for: product)
         
     }

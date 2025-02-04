@@ -33,24 +33,10 @@ struct ListView: View {
             viewModel.updateAverageRatings()
             viewModel.updateLikes()
         }
-        .onChange(of: viewModel.refreshTrigger) { _ in
-        }
         .overlay {
             loadingOverlay
         }
     }
-    
-//    private var sidebarContent: some View {
-//        ScrollView {
-//            VStack(alignment: .leading, spacing: 20) {
-//                ForEach(sortedCategories, id: \.self) { category in
-//                    categorySection(category)
-//                }
-//            }
-//            .padding(.vertical, 10)
-//        }
-//        .navigationSplitViewColumnWidth(min: 600, ideal: 700, max: 800)
-//    }
     
     private var sidebarContent: some View {
             List(selection: $selectedProductID) {

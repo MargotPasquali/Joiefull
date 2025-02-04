@@ -12,6 +12,7 @@ public class UserDefaultsManager {
     // MARK: - Constants
     private let ratingKey = "rating_user_101_product_"
     private let likesKey = "likes_user_101_product_"
+    private let likeCountKey = "like_count_user_101_product_"
     
     // MARK: - Init
     public init() {}
@@ -33,39 +34,29 @@ public class UserDefaultsManager {
 
     open func isProductLiked(_ productId: String) -> Bool {
         let isLiked = UserDefaults.standard.bool(forKey: likesKey + productId)
-        print("[Storage] [isProductLiked] 💡 Checking if product \(productId) is liked: \(isLiked)")
         return isLiked
     }
 
     open func toggleProductLike(forProductId id: String) -> Bool {
         let newValue = !isProductLiked(id)
-        print("[Storage] [toggleProductLike] 🔘 Toggling like for product \(id) to \(newValue)")
-        
         UserDefaults.standard.set(newValue, forKey: likesKey + id)
-        print("[Storage] [toggleProductLike] ✅ Like status updated successfully")
-        
         return newValue
     }
 
     open func getLikedProductIds() -> [String] {
-        print("[Storage] [getLikedProductIds] 🔍 Retrieving liked product IDs")
-
         let ids = UserDefaults.standard.dictionaryRepresentation()
             .filter { $0.key.starts(with: likesKey) && $0.value as? Bool == true }
             .map { $0.key.replacingOccurrences(of: likesKey, with: "") }
-
-        print("[Storage] [getLikedProductIds] ✅ Liked product IDs: \(ids)")
         return ids
     }
     
     open func getLikesCount(forProductId id: String) -> Int {
-        let likes = UserDefaults.standard.integer(forKey: "likes_count_" + id)
-        print("[Storage] [getLikesCount] 🔢 Retrieved \(likes) likes for product \(id)")
+        let likes = UserDefaults.standard.integer(forKey: likeCountKey + id)
         return likes
     }
 
     open func saveLikesCount(_ count: Int, forProductId id: String) {
-        UserDefaults.standard.set(count, forKey: "likes_count_" + id)
-        print("[Storage] [saveLikesCount] 💾 Saved \(count) likes for product \(id)")
+        UserDefaults.standard.set(count, forKey: likeCountKey + id)
     }
+    
 }
