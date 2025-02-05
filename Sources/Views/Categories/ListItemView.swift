@@ -19,9 +19,6 @@ struct ListItemView: View {
 
     // MARK: - Properties
 
-    @State
-    private var isLiked = false
-    
     // MARK: - Initialisation
 
     init(product: Product, viewModel: ProductListViewModel) {
@@ -60,7 +57,6 @@ struct ListItemView: View {
                 ZStack {
                     Button(action: {
                         viewModel.toggleLike(for: product)
-                        isLiked.toggle()
                     }) {
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color.white)

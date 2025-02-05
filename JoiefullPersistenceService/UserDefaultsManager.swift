@@ -40,6 +40,7 @@ public class UserDefaultsManager {
     open func toggleProductLike(forProductId id: String) -> Bool {
         let newValue = !isProductLiked(id)
         UserDefaults.standard.set(newValue, forKey: likesKey + id)
+        UserDefaults.standard.synchronize()
         return newValue
     }
 
@@ -57,6 +58,7 @@ public class UserDefaultsManager {
 
     open func saveLikesCount(_ count: Int, forProductId id: String) {
         UserDefaults.standard.set(count, forKey: likeCountKey + id)
+        UserDefaults.standard.synchronize()
     }
     
 }

@@ -43,6 +43,8 @@ final class ProductListViewModel: ObservableObject {
         isLoading = true
         do {
             products = try await service.fetchClothesData()
+            // Fetch changes with likes and ratings
+            refreshData()
         } catch {
             errorMessage = "Failed to fetch products: \(error.localizedDescription)"
         }

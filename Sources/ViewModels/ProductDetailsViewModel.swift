@@ -29,12 +29,15 @@ final class ProductDetailsViewModel: ObservableObject {
     
     // MARK: - Init
     
-    init(product: Product, ratingManager: RatingManager, likeManager: LikeManager) {
+    private let onLikeUpdated: (Int) -> Void
+    
+    init(product: Product, ratingManager: RatingManager, likeManager: LikeManager, onLikeUpdated: @escaping (Int) -> Void) {
         self.product = product
         self.ratingManager = ratingManager
         self.likeManager = likeManager
+        self.onLikeUpdated = onLikeUpdated
         self.currentLikes = likeManager.getUpdatedLikes(for: product)
-        
+        self.isLiked = likeManager.isLiked(for: product)
     }
     
     // MARK: - Functions
@@ -71,6 +74,7 @@ final class ProductDetailsViewModel: ObservableObject {
         let result = likeManager.toggleLike(for: product)
         isLiked = result.isLiked
         currentLikes = result.updatedLikes
+        onLikeUpdated(result.updatedLikes)
     }
     
     func isLiked(_ product: Product) -> Bool {

@@ -80,7 +80,16 @@ struct ListView: View {
                    let index = viewModel.products.firstIndex(where: { $0.id == selectedProductID }) {
                     ProductDetailsView(
                         product: viewModel.products[index],
-                        viewModel: ProductDetailsViewModel(product: viewModel.products[index], ratingManager: viewModel.ratingManager, likeManager: viewModel.likeManager)
+                        viewModel: ProductDetailsViewModel(
+                            product: viewModel.products[index],
+                            ratingManager: viewModel.ratingManager,
+                            likeManager: viewModel.likeManager,
+                            onLikeUpdated: { updatedLikes in
+                                // Update the product's likes in the list
+                                viewModel.productLikes[selectedProductID] = updatedLikes
+                                viewModel.objectWillChange.send()
+                            }
+                        )
                     )
                 } else {
                     Text("Select a product to view details.")

@@ -13,7 +13,7 @@ struct ProductDetailsView: View {
     // MARK: - Properties
     private let product: Product
 
-    @StateObject
+    @ObservedObject
     private var viewModel: ProductDetailsViewModel
 
     @State
@@ -23,7 +23,7 @@ struct ProductDetailsView: View {
 
     init(product: Product, viewModel: ProductDetailsViewModel) {
         self.product = product
-        _viewModel = StateObject(wrappedValue: viewModel)
+        self.viewModel = viewModel
     }
     
     // MARK: - View

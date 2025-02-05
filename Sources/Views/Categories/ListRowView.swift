@@ -43,7 +43,11 @@ struct ListRowView: View {
                                 viewModel: ProductDetailsViewModel(
                                     product: product,
                                     ratingManager: viewModel.ratingManager,
-                                    likeManager: viewModel.likeManager
+                                    likeManager: viewModel.likeManager,
+                                    onLikeUpdated: { updatedLikes in
+                                        viewModel.productLikes[product.id] = updatedLikes
+                                        viewModel.objectWillChange.send()
+                                    }
                                 )
                             )
                         }(),
