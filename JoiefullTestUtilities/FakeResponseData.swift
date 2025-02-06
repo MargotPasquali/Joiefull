@@ -54,6 +54,21 @@ public final class FakeResponseData {
         )
     }
     
+    public static var fakeProduct2: Product {
+        return Product(
+            id: 2,
+            picture: Picture(
+                url: "url",
+                description: "description"
+            ),
+            name: "Blue Sweater",
+            category: .tops,
+            likes: 20,
+            price: 40.00,
+            originalPrice: 60.00
+        )
+    }
+    
     public static var fakeProductDTO: ProductDTO {
         return ProductDTO(
             id: 0,

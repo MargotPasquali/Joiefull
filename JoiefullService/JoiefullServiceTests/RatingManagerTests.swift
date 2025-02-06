@@ -19,7 +19,7 @@ final class RatingManagerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         mockUserDefaultsManager = MockUserDefaultsManager()
-        ratingManager = RatingManager(UserDefaultsManager: mockUserDefaultsManager)
+        ratingManager = RatingManager(userDefaultsManager: mockUserDefaultsManager)
     }
     
     func testSaveAndRetrieveRating() {
