@@ -52,10 +52,11 @@ struct ListView: View {
                 }
                 .padding(.vertical, 10)
                 .listRowInsets(EdgeInsets())
-
             }
+            .accessibilityIdentifier("productsList")
             .listStyle(.plain)
             .navigationSplitViewColumnWidth(min: 600, ideal: 700, max: 800)
+            .accessibilityLabel("Products catalog")
         }
     
     private func categorySection(_ category: Product.Category) -> some View {
@@ -64,6 +65,7 @@ struct ListView: View {
                     .font(.body)
                     .fontWeight(.semibold)
                     .padding(.leading, 15)
+                    .accessibilityLabel("\(category.rawValue) category")
                 
                 ListRowView(
                     category: category,
@@ -72,6 +74,7 @@ struct ListView: View {
                 )
                 .padding(.horizontal, 15)
             }
+            .accessibilityElement(children: .contain)
         }
     
     private var detailContent: some View {
@@ -95,6 +98,8 @@ struct ListView: View {
                     Text("Select a product to view details.")
                         .foregroundColor(.gray)
                         .font(.headline)
+                        .accessibilityLabel("No product selected")
+                        .accessibilityIdentifier("noSelectionText")
                 }
             }
         }
@@ -103,10 +108,13 @@ struct ListView: View {
         Group {
             if viewModel.isLoading {
                 ProgressView("Loading...")
+                    .accessibilityLabel("Loading products")
             } else if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
                     .foregroundColor(.red)
                     .padding()
+                    .accessibilityLabel("Error loading products")
+                    .accessibilityValue(errorMessage)
             }
         }
     }

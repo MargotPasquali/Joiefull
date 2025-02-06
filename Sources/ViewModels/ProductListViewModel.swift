@@ -20,7 +20,7 @@ final class ProductListViewModel: ObservableObject {
 
 
     // MARK: - Constants
-    let service: RemoteProductService
+    private let service: RemoteProductService
     let likeManager: LikeManager
     let ratingManager: RatingManager
     
@@ -52,8 +52,11 @@ final class ProductListViewModel: ObservableObject {
     }
     
     func toggleLike(for product: Product) {
+        
         let result = likeManager.toggleLike(for: product)
+        
         productLikes[product.id] = result.updatedLikes
+        
         objectWillChange.send()
     }
     

@@ -9,18 +9,18 @@ import JoiefullModels
 import JoiefullPersistenceService
 
 struct RatingView: View {
-
+    
     // MARK: - Properties
-
+    
     @ObservedObject var viewModel: ProductDetailsViewModel
     @State private var isEditing = false
-
+    
     // MARK: - Initialisation
-
+    
     init(viewModel: ProductDetailsViewModel) {
         self.viewModel = viewModel
     }
-
+    
     // MARK: - View
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -43,6 +43,8 @@ struct RatingView: View {
                             .frame(width: 25, height: 25)
                             .padding(.trailing, 3.0)
                     }
+                    .accessibilityLabel("Rate \(star) stars")
+                    .accessibilityValue(star <= viewModel.userRating ? "Selected" : "Not selected")
                 }
                 Spacer()
             }
@@ -57,7 +59,8 @@ struct RatingView: View {
                             .foregroundColor(.black)
                             .padding(.horizontal, 10)
                             .onChange(of: viewModel.userComment) { newValue in
-                            }
+                            }.accessibilityLabel("Comment field")
+                            .accessibilityHint("Enter your review comment")
                     )
                     .frame(height: 48)
                 
@@ -102,6 +105,8 @@ struct RatingView: View {
                     }
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel("Submit review")
+                .accessibilityHint("Single tap to submit your rating and comment")
             }
         }
         .padding(.horizontal, 15)

@@ -12,15 +12,15 @@ struct ProductDetailsView: View {
     
     // MARK: - Properties
     private let product: Product
-
+    
     @ObservedObject
     private var viewModel: ProductDetailsViewModel
-
+    
     @State
     private var isLoading = true
-
+    
     // MARK: - Initializer
-
+    
     init(product: Product, viewModel: ProductDetailsViewModel) {
         self.product = product
         self.viewModel = viewModel
@@ -58,6 +58,7 @@ struct ProductDetailsView: View {
                                     EmptyView()
                                 }
                             }
+                            .accessibilityLabel(product.picture.description)
                         }
                         
                         ShareLink(
@@ -70,6 +71,9 @@ struct ProductDetailsView: View {
                                 .foregroundColor(Color("Custom Orange"))
                         }
                         .offset(x: -10, y: -190)
+                        .accessibilityLabel("Share product")
+                        .accessibilityHint("Single tap to share \(product.name)")
+                        .accessibilityIdentifier("shareButton")
                         
                         Button(action: {
                             viewModel.toggleLike()
@@ -91,6 +95,10 @@ struct ProductDetailsView: View {
                         }
                         .buttonStyle(.plain)
                         .offset(x: -10, y: 190)
+                        .accessibilityLabel("Like button")
+                        .accessibilityValue("\(viewModel.currentLikes) likes")
+                        .accessibilityHint("Single tap to \(viewModel.isLiked ? "unlike" : "like")")
+                        .accessibilityIdentifier("likeButton")
                     }
                     
                     // MARK: - Product Name and Rating
