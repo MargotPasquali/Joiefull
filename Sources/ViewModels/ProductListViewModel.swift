@@ -52,12 +52,9 @@ final class ProductListViewModel: ObservableObject {
     }
     
     func toggleLike(for product: Product) {
-        
         let result = likeManager.toggleLike(for: product)
-        
         productLikes[product.id] = result.updatedLikes
-        
-        objectWillChange.send()
+        refreshData()
     }
     
     func isLiked(_ product: Product) -> Bool {
@@ -78,7 +75,6 @@ final class ProductListViewModel: ObservableObject {
         for product in products {
             productLikes[product.id] = likeManager.getUpdatedLikes(for: product)
         }
-        objectWillChange.send()
     }
     
     func refreshData() {

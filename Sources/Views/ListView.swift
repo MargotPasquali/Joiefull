@@ -36,6 +36,9 @@ struct ListView: View {
             if oldValue != nil && newValue == nil {
                 // When returning from detail view (deselecting a product)
                 viewModel.refreshData()
+            } else if newValue != nil {
+                // When selecting a new product
+                viewModel.refreshData()
             }
         }
         .overlay {
@@ -44,77 +47,73 @@ struct ListView: View {
     }
     
     private var sidebarContent: some View {
-            List(selection: $selectedProductID) {
-                VStack(alignment: .leading, spacing: 20) {
-                    ForEach(sortedCategories, id: \.self) { category in
-                        categorySection(category)
-                    }
+        List(selection: $selectedProductID) {
+            VStack(alignment: .leading, spacing: 20) {
+                ForEach(sortedCategories, id: \.self) { category in
+                    categorySection(category)
                 }
-                .padding(.vertical, 10)
-                .listRowInsets(EdgeInsets())
             }
-            .accessibilityIdentifier("productsList")
-            .listStyle(.plain)
-            .navigationSplitViewColumnWidth(min: 600, ideal: 700, max: 800)
-            .accessibilityLabel("Products catalog")
+            .padding(.vertical, 10)
+            .listRowInsets(EdgeInsets())
         }
+        .listStyle(.plain)
+        .navigationSplitViewColumnWidth(min: 600, ideal: 700, max: 800)
+    }
     
     private func categorySection(_ category: Product.Category) -> some View {
-            VStack(alignment: .leading) {
-                Text(category.rawValue.capitalized)
-                    .font(.body)
-                    .fontWeight(.semibold)
-                    .padding(.leading, 15)
-                    .accessibilityLabel("\(category.rawValue) category")
-                
-                ListRowView(
-                    category: category,
-                    viewModel: viewModel,
-                    selectedProductID: $selectedProductID
-                )
-                .padding(.horizontal, 15)
-            }
-            .accessibilityElement(children: .contain)
+        VStack(alignment: .leading) {
+            Text(category.rawValue.capitalized)
+                .font(.body)
+                .fontWeight(.semibold)
+                .padding(.leading, 15)
+                .accessibilityAddTraits(.isHeader)
+            
+            ListRowView(
+                category: category,
+                viewModel: viewModel,
+                selectedProductID: $selectedProductID
+            )
+            .padding(.horizontal, 15)
         }
+    }
     
     private var detailContent: some View {
-            Group {
-                if let selectedProductID = selectedProductID,
-                   let index = viewModel.products.firstIndex(where: { $0.id == selectedProductID }) {
-                    ProductDetailsView(
+        Group {
+            if let selectedProductID = selectedProductID,
+               let index = viewModel.products.firstIndex(where: { $0.id == selectedProductID }) {
+                ProductDetailsView(
+                    product: viewModel.products[index],
+                    viewModel: ProductDetailsViewModel(
                         product: viewModel.products[index],
-                        viewModel: ProductDetailsViewModel(
-                            product: viewModel.products[index],
-                            ratingManager: viewModel.ratingManager,
-                            likeManager: viewModel.likeManager,
-                            onLikeUpdated: { updatedLikes in
-                                // Update the product's likes in the list
-                                viewModel.productLikes[selectedProductID] = updatedLikes
-                                viewModel.objectWillChange.send()
-                            }
-                        )
+                        ratingManager: viewModel.ratingManager,
+                        likeManager: viewModel.likeManager,
+                        onLikeUpdated: { updatedLikes in
+                            // Update the product's likes in the list
+                            viewModel.productLikes[selectedProductID] = updatedLikes
+                            viewModel.refreshData()
+                        },
+                        onRatingUpdated: {
+                            viewModel.refreshData()
+                        }
                     )
-                } else {
-                    Text("Select a product to view details.")
-                        .foregroundColor(.gray)
-                        .font(.headline)
-                        .accessibilityLabel("No product selected")
-                        .accessibilityIdentifier("noSelectionText")
-                }
+                )
+            } else {
+                Text("Select a product to view details.")
+                    .foregroundColor(.gray)
+                    .font(.headline)
+                    .accessibilityLabel("Sélectionnez un produit pour voir ses détails")
             }
         }
+    }
     
     private var loadingOverlay: some View {
         Group {
             if viewModel.isLoading {
                 ProgressView("Loading...")
-                    .accessibilityLabel("Loading products")
             } else if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
                     .foregroundColor(.red)
                     .padding()
-                    .accessibilityLabel("Error loading products")
-                    .accessibilityValue(errorMessage)
             }
         }
     }

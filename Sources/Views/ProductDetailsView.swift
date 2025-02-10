@@ -42,23 +42,26 @@ struct ProductDetailsView: View {
                                 switch phase {
                                 case .empty:
                                     ProgressView()
+                                .accessibilityLabel("Chargement de l'image")
                                 case .success(let image):
                                     image
                                         .resizable()
                                         .scaledToFill()
                                         .frame(width: 369, height: 431)
                                         .cornerRadius(20)
+                                        .accessibilityLabel("Image du produit \(product.name)")
                                 case .failure:
                                     Image(systemName: "photo")
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 369, height: 431)
                                         .foregroundColor(.gray)
+                                        .accessibilityLabel("Image non disponible")
                                 @unknown default:
                                     EmptyView()
                                 }
                             }
-                            .accessibilityLabel(product.picture.description)
+//                            .accessibilityLabel(product.picture.description)
                         }
                         
                         ShareLink(
@@ -71,9 +74,8 @@ struct ProductDetailsView: View {
                                 .foregroundColor(Color("Custom Orange"))
                         }
                         .offset(x: -10, y: -190)
-                        .accessibilityLabel("Share product")
-                        .accessibilityHint("Single tap to share \(product.name)")
-                        .accessibilityIdentifier("shareButton")
+                        .accessibilityLabel("Partager le produit")
+                        .accessibilityHint("Appuyez pour partager \(product.name)")
                         
                         Button(action: {
                             viewModel.toggleLike()
@@ -95,10 +97,8 @@ struct ProductDetailsView: View {
                         }
                         .buttonStyle(.plain)
                         .offset(x: -10, y: 190)
-                        .accessibilityLabel("Like button")
-                        .accessibilityValue("\(viewModel.currentLikes) likes")
-                        .accessibilityHint("Single tap to \(viewModel.isLiked ? "unlike" : "like")")
-                        .accessibilityIdentifier("likeButton")
+                        .accessibilityLabel(viewModel.isLiked ? "Retirer le j'aime" : "Ajouter un j'aime")
+                        .accessibilityValue("\(viewModel.currentLikes) mention\(viewModel.currentLikes > 1 ? "s" : "") j'aime")
                     }
                     
                     // MARK: - Product Name and Rating
@@ -109,15 +109,22 @@ struct ProductDetailsView: View {
                             .lineLimit(1)
                             .foregroundStyle(Color.black)
                         Spacer()
-                        Image(systemName: "star.fill")
-                            .foregroundStyle(Color.yellow)
-                            .frame(width: 12, height: 12)
-                        Text(String(format: "%.1f", viewModel.averageRating(for: product)))
-                            .font(.title3)
-                            .fontWeight(.regular)
-                            .foregroundStyle(Color.black)
-                            .font(.caption)
+                        HStack {
+                            Image(systemName: "star.fill")
+                                .foregroundStyle(Color.yellow)
+                                .frame(width: 12, height: 12)
+                            Text(String(format: "%.1f", viewModel.averageRating(for: product)))
+                                .font(.title3)
+                                .fontWeight(.regular)
+                                .foregroundStyle(Color.black)
+                                .font(.caption)
+                        }
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel("Note moyenne")
+                        .accessibilityValue(String(format: "%.1f sur 5", viewModel.averageRating(for: product)))
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(product.name)
                     .padding(.horizontal, 15.0)
                     
                     // MARK: - Price Section
@@ -135,6 +142,10 @@ struct ProductDetailsView: View {
                                 .strikethrough()
                         }
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(product.originalPrice != product.price ? 
+                        "Prix en promotion \(String(format: "%.2f €", product.price)), au lieu de \(String(format: "%.2f €", product.originalPrice))" :
+                        "Prix \(String(format: "%.2f €", product.price))")
                     .padding(.horizontal, 15.0)
                     
                     HStack {
@@ -142,6 +153,7 @@ struct ProductDetailsView: View {
                             .padding(.leading)
                         Spacer()
                     }
+                    .accessibilityLabel("Description du produit")
                     
                     // MARK: - Rating Section
                     RatingView(viewModel: viewModel)

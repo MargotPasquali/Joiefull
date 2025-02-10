@@ -31,21 +31,27 @@ struct RatingView: View {
                     .scaledToFill()
                     .clipShape(Circle())
                     .frame(width: 40, height: 40)
+                    .accessibilityHidden(true)
                 
-                ForEach(1...5, id: \.self) { star in
-                    Button(action: {
-                        isEditing = true
-                        viewModel.userRating = star
-                    }) {
-                        Image(systemName: star <= viewModel.userRating ? "star.fill" : "star")
-                            .resizable()
-                            .foregroundStyle(star <= viewModel.userRating ? Color.yellow : Color.gray)
-                            .frame(width: 25, height: 25)
-                            .padding(.trailing, 3.0)
+                HStack {
+                    ForEach(1...5, id: \.self) { star in
+                        Button(action: {
+                            isEditing = true
+                            viewModel.userRating = star
+                        }) {
+                            Image(systemName: star <= viewModel.userRating ? "star.fill" : "star")
+                                .resizable()
+                                .foregroundStyle(star <= viewModel.userRating ? Color.yellow : Color.gray)
+                                .frame(width: 25, height: 25)
+                                .padding(.trailing, 3.0)
+                        }
+                        .accessibilityLabel("\(star) étoile\(star > 1 ? "s" : "")")
+                        .accessibilityHint("Appuyez pour donner une note de \(star) étoile\(star > 1 ? "s" : "")")
+                        .accessibilityAddTraits(star <= viewModel.userRating ? [.isSelected] : [])
                     }
-                    .accessibilityLabel("Rate \(star) stars")
-                    .accessibilityValue(star <= viewModel.userRating ? "Selected" : "Not selected")
                 }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel("Système de notation")
                 Spacer()
             }
             
@@ -59,8 +65,8 @@ struct RatingView: View {
                             .foregroundColor(.black)
                             .padding(.horizontal, 10)
                             .onChange(of: viewModel.userComment) { newValue in
-                            }.accessibilityLabel("Comment field")
-                            .accessibilityHint("Enter your review comment")
+                            }
+                            .accessibilityLabel("Champ de commentaire")
                     )
                     .frame(height: 48)
                 
@@ -79,6 +85,7 @@ struct RatingView: View {
                             .cornerRadius(15)
                     }
                     .disabled(viewModel.userRating == 0 || viewModel.userComment.isEmpty)
+                    .accessibilityLabel("Envoyer l'avis")
                     .onChange(of: viewModel.userRating) { _ in
                     }
                 }
@@ -95,6 +102,7 @@ struct RatingView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.vertical, 5)
                             .background(Color.clear)
+                            .accessibilityLabel("Votre commentaire : \(viewModel.userComment)")
                     } else {
                         Text("Add a comment")
                             .font(.body)
@@ -105,13 +113,9 @@ struct RatingView: View {
                     }
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Submit review")
-                .accessibilityHint("Single tap to submit your rating and comment")
+                .accessibilityLabel("Ajouter un commentaire")
             }
         }
         .padding(.horizontal, 15)
-        .onAppear {
-            viewModel.updateLikesAndRatings()
-        }
     }
 }

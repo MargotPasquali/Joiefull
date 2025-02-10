@@ -46,7 +46,10 @@ struct ListRowView: View {
                                     likeManager: viewModel.likeManager,
                                     onLikeUpdated: { updatedLikes in
                                         viewModel.productLikes[product.id] = updatedLikes
-                                        viewModel.objectWillChange.send()
+                                        viewModel.refreshData()
+                                    },
+                                    onRatingUpdated: {
+                                        viewModel.refreshData()
                                     }
                                 )
                             )

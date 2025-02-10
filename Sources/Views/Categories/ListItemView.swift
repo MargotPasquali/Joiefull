@@ -36,21 +36,18 @@ struct ListItemView: View {
                     case .empty:
                         ProgressView()
                             .frame(width: imageSize, height: imageSize)
-                            .accessibilityLabel("Loading image")
                     case .success(let image):
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: imageSize, height: imageSize)
                             .cornerRadius(20)
-                            .accessibilityLabel(product.picture.description)
                     case .failure:
                         Image(systemName: "photo")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: imageSize, height: imageSize)
                             .cornerRadius(20)
-                            .accessibilityLabel("Image unavailable")
                     @unknown default:
                         EmptyView()
                     }
@@ -79,9 +76,7 @@ struct ListItemView: View {
                 }
                 .padding(10)
                 .buttonStyle(PlainButtonStyle())
-                .accessibilityLabel("Like button")
-                .accessibilityValue("\(viewModel.productLikes[product.id] ?? product.likes) likes")
-                .accessibilityHint("Single tap to \(viewModel.isLiked(product) ? "unlike" : "like")")
+                .accessibilityLabel("Bouton j'aime, \(viewModel.productLikes[product.id] ?? product.likes) mentions j'aime")
             }
             
             // MARK: - Product Name and Rating
@@ -91,17 +86,22 @@ struct ListItemView: View {
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .foregroundStyle(Color.black)
-                    .accessibilityLabel("Product name")
-                    .accessibilityValue(product.name)
                 Spacer()
-                Image(systemName: "star.fill")
-                    .foregroundStyle(Color.yellow)
-                    .frame(width: 12, height: 12)
-                Text(String(format: "%.1f", viewModel.productRatings[product.id] ?? 0.0))
-                    .font(.caption)
-                    .fontWeight(.regular)
-                    .foregroundStyle(Color.black)
+                HStack {
+                    Image(systemName: "star.fill")
+                        .foregroundStyle(Color.yellow)
+                        .frame(width: 12, height: 12)
+                    Text(String(format: "%.1f", viewModel.productRatings[product.id] ?? 0.0))
+                        .font(.caption)
+                        .fontWeight(.regular)
+                        .foregroundStyle(Color.black)
+                }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel("Note moyenne")
+                .accessibilityValue(String(format: "%.1f sur 5", viewModel.productRatings[product.id] ?? 0.0))
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("\(product.name)")
             
             // MARK: - Price Section
             HStack {
@@ -109,8 +109,7 @@ struct ListItemView: View {
                     .font(.caption)
                     .fontWeight(.regular)
                     .foregroundStyle(Color.black)
-                    .accessibilityLabel("Price")
-                    .accessibilityValue("\(product.price) euros")
+                
                 Spacer()
                 if product.originalPrice != product.price {
                     Text(String(format: "%.2f €", product.originalPrice))
@@ -118,14 +117,14 @@ struct ListItemView: View {
                         .fontWeight(.regular)
                         .foregroundStyle(Color.gray)
                         .strikethrough()
-                        .accessibilityLabel("Original price")
-                        .accessibilityValue("\(product.originalPrice) euros")
                 }
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(product.originalPrice != product.price ? 
+                "Prix en promotion \(String(format: "%.2f €", product.price)), au lieu de \(String(format: "%.2f €", product.originalPrice))" :
+                "Prix \(String(format: "%.2f €", product.price))")
         }
         .frame(width: 198, height: 242)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(product.name), \(product.price) euros")
-        .accessibilityHint("Single tap to view details of a product")
+        .accessibilityElement(children: .contain)
     }
 }

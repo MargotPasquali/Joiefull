@@ -10,9 +10,9 @@ import JoiefullModels
 public class UserDefaultsManager {
     
     // MARK: - Constants
-    private let ratingKey = "rating_user_101_product_"
-    private let likesKey = "likes_user_101_product_"
-    private let likeCountKey = "like_count_user_101_product_"
+    private let ratingKey = "rating_"
+    private let likesKey = "likes_"
+    private let likeCountKey = "like_count_"
     
     // MARK: - Init
     public init() {}
@@ -21,16 +21,17 @@ public class UserDefaultsManager {
     
     open func saveRating(_ rating: ProductRating, forProductId id: String) {
         let encoded = try? JSONEncoder().encode(rating)
-            UserDefaults.standard.set(encoded, forKey: ratingKey + id)
+        UserDefaults.standard.set(encoded, forKey: ratingKey + id)
+        UserDefaults.standard.synchronize()
     }
 
     open func getRating(forProductId id: String) -> ProductRating? {
-           guard let data = UserDefaults.standard.data(forKey: ratingKey + id) else {
-               return nil
-           }
-           let rating = try? JSONDecoder().decode(ProductRating.self, from: data)
-           return rating
+        guard let data = UserDefaults.standard.data(forKey: ratingKey + id) else {
+            return nil
         }
+        let rating = try? JSONDecoder().decode(ProductRating.self, from: data)
+        return rating
+    }
 
     open func isProductLiked(_ productId: String) -> Bool {
         let isLiked = UserDefaults.standard.bool(forKey: likesKey + productId)
@@ -60,5 +61,4 @@ public class UserDefaultsManager {
         UserDefaults.standard.set(count, forKey: likeCountKey + id)
         UserDefaults.standard.synchronize()
     }
-    
 }

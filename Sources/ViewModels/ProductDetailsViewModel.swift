@@ -30,25 +30,38 @@ final class ProductDetailsViewModel: ObservableObject {
     // MARK: - Init
     
     private let onLikeUpdated: (Int) -> Void
+    private let onRatingUpdated: () -> Void
     
-    init(product: Product, ratingManager: RatingManager, likeManager: LikeManager, onLikeUpdated: @escaping (Int) -> Void) {
+    init(product: Product, ratingManager: RatingManager, likeManager: LikeManager, onLikeUpdated: @escaping (Int) -> Void, onRatingUpdated: @escaping () -> Void = {}) {
         self.product = product
         self.ratingManager = ratingManager
         self.likeManager = likeManager
         self.onLikeUpdated = onLikeUpdated
+        self.onRatingUpdated = onRatingUpdated
         self.currentLikes = likeManager.getUpdatedLikes(for: product)
         self.isLiked = likeManager.isLiked(for: product)
+        
+        // Charger les ratings dès l'initialisation
+        if let rating = ratingManager.ratings(for: product).first {
+            self.userRating = rating.score
+            self.userComment = rating.comment
+            self.averageRating = Double(rating.score)
+        }
     }
     
     // MARK: - Functions
     
     func saveUserFeedback(score: Int, comment: String) {
-        userRating = score
-        userComment = comment
-        
         let rating = ProductRating(score: score, comment: comment)
         ratingManager.addOrUpdaterating(for: product, rating: rating)
         
+        // Update UI
+        userRating = rating.score
+        userComment = rating.comment
+        averageRating = Double(rating.score)
+        
+        // Notify list to refresh
+        onRatingUpdated()
     }
     
     func updateLikesAndRatings() {
@@ -67,7 +80,6 @@ final class ProductDetailsViewModel: ObservableObject {
         userComment = ratings.first?.comment ?? ""
         currentLikes = likeManager.getUpdatedLikes(for: product)
         isLiked = likeManager.isLiked(for: product)
-        
     }
     
     func toggleLike() {
@@ -86,4 +98,5 @@ final class ProductDetailsViewModel: ObservableObject {
         let avgRating = ratingManager.averageRating(for: product)
         return avgRating
     }
+    
 }
