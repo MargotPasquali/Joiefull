@@ -8,74 +8,65 @@
 import SwiftUI
 import JoiefullModels
 import JoiefullService
-import JoiefullPersistence
+import JoiefullPersistenceService
 
 struct ListRowView: View {
-    let products: [Product]
-    @Binding var selectedClothes: Product?
-    let viewModel: ProductListViewModel
 
+    // MARK: - Constants
+
+    private let category: Product.Category
+    private let viewModel: ProductListViewModel
+
+    // MARK: - Properties
+
+    @Binding
+    var selectedProductID: Int?
+
+    // MARK: - Initialisation
+
+    init(category: Product.Category, viewModel: ProductListViewModel, selectedProductID: Binding<Int?>) {
+        self.category = category
+        self.viewModel = viewModel
+        self._selectedProductID = selectedProductID
+    }
+
+    // MARK: - View
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach(products, id: \.id) { product in
+                let filteredProducts = viewModel.products.filter { $0.category == category }
+                ForEach(filteredProducts) { product in
                     NavigationLink(
-                        destination: ProductDetailsView(product: product),
-                        tag: product,
-                        selection: $selectedClothes
+                        destination: {
+                            return ProductDetailsView(
+                                product: product,
+                                viewModel: ProductDetailsViewModel(
+                                    product: product,
+                                    ratingManager: viewModel.ratingManager,
+                                    likeManager: viewModel.likeManager,
+                                    onLikeUpdated: { updatedLikes in
+                                        viewModel.productLikes[product.id] = updatedLikes
+                                        viewModel.refreshData()
+                                    },
+                                    onRatingUpdated: {
+                                        viewModel.refreshData()
+                                    }
+                                )
+                            )
+                        }(),
+                        tag: product.id,
+                        selection: $selectedProductID
                     ) {
                         ListItemView(
                             product: product,
-                            isLiked: viewModel.isLiked(product: product),
-                            onLikeToggle: { viewModel.toggleLike(for: product) }
+                            viewModel: viewModel
                         )
                     }
                 }
             }
         }
+        .onAppear {
+            viewModel.updateAverageRatings()
+        }
     }
-}
-
-// MARK: - Preview
-#Preview {
-    let sampleProducts: [Product] = [
-        Product(
-            id: 1,
-            picture: Picture(
-                url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/tops/1.jpg",
-                description: "Image de test"
-            ),
-            name: "Pull torsadé",
-            category: .tops,
-            likes: 18,
-            price: 69.99,
-            originalPrice: 95.00
-        ),
-        Product(
-            id: 2,
-            picture: Picture(
-                url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/bottoms/1.jpg",
-                description: "Image de test"
-            ),
-            name: "Jean slim",
-            category: .bottoms,
-            likes: 34,
-            price: 49.99,
-            originalPrice: 65.00
-        )
-    ]
-
-    @State var selectedClothes: Product? = nil
-
-    let mockViewModel = ProductListViewModel(
-        productService: RemoteProductService(),
-        products: sampleProducts,
-        persistenceService: UserDefaultsManager()
-    )
-
-    ListRowView(
-        products: sampleProducts,
-        selectedClothes: $selectedClothes,
-        viewModel: mockViewModel
-    )
 }

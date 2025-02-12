@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Picture: Hashable {
+public struct Picture: Hashable, Encodable {
     public let url: String
     public let description: String
     
@@ -15,8 +15,7 @@ public struct Picture: Hashable {
         self.url = url
         self.description = description
     }
-    
-    // Propriété calculée pour retourner une URL
+
     public var imageURL: URL? {
         return URL(string: url)
     }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE028D742D4AA1ED00BBB631 /* JoiefullTestUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE028D732D4AA1ED00BBB631 /* JoiefullTestUtilities.framework */; };
+		AE028D752D4AA1ED00BBB631 /* JoiefullTestUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE028D732D4AA1ED00BBB631 /* JoiefullTestUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AE42EB052D14575500BA41BD /* JoiefullModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EB042D14575500BA41BD /* JoiefullModels.framework */; };
 		AE42EB062D14575500BA41BD /* JoiefullModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EB042D14575500BA41BD /* JoiefullModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AE42EB092D14575800BA41BD /* JoiefullService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE42EB082D14575800BA41BD /* JoiefullService.framework */; };
@@ -16,7 +18,28 @@
 		AE8F8B412D109F6900CF8102 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE8F8B402D109F6900CF8102 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AE028D6B2D4AA13A00BBB631 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE8F8B312D109F6800CF8102 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AE8F8B382D109F6800CF8102;
+			remoteInfo = Joiefull;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
+		AE028D762D4AA1EE00BBB631 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AE028D752D4AA1ED00BBB631 /* JoiefullTestUtilities.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AE42EB072D14575500BA41BD /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -33,17 +56,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AE028D672D4AA13A00BBB631 /* JoiefullTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JoiefullTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE028D732D4AA1ED00BBB631 /* JoiefullTestUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullTestUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE42EB042D14575500BA41BD /* JoiefullModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE42EB082D14575800BA41BD /* JoiefullService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE6869522D2977F300152305 /* JoiefullPersistenceService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullPersistenceService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE71183A2D283B0500C3FF07 /* JoiefullPersistence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullPersistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE7F35E32D29765200E54749 /* JoiefullPersistence2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullPersistence2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE7F35E62D29769200E54749 /* JoiefullPersistence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullPersistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE8F8B392D109F6800CF8102 /* Joiefull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Joiefull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE8F8B402D109F6900CF8102 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		AE028D682D4AA13A00BBB631 /* JoiefullTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = JoiefullTests;
+			sourceTree = "<group>";
+		};
 		AE8F8B3B2D109F6800CF8102 /* Sources */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Sources;
@@ -57,6 +84,14 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AE028D642D4AA13A00BBB631 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE028D742D4AA1ED00BBB631 /* JoiefullTestUtilities.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AE8F8B362D109F6800CF8102 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -73,10 +108,8 @@
 		AE42EB032D14575500BA41BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE028D732D4AA1ED00BBB631 /* JoiefullTestUtilities.framework */,
 				AE6869522D2977F300152305 /* JoiefullPersistenceService.framework */,
-				AE7F35E62D29769200E54749 /* JoiefullPersistence.framework */,
-				AE7F35E32D29765200E54749 /* JoiefullPersistence2.framework */,
-				AE71183A2D283B0500C3FF07 /* JoiefullPersistence.framework */,
 				AE42EB082D14575800BA41BD /* JoiefullService.framework */,
 				AE42EB042D14575500BA41BD /* JoiefullModels.framework */,
 			);
@@ -86,10 +119,11 @@
 		AE8F8B302D109F6800CF8102 = {
 			isa = PBXGroup;
 			children = (
-				AE8F8B4A2D109F8600CF8102 /* Resources */,
-				AE8F8B3B2D109F6800CF8102 /* Sources */,
+				AE028D682D4AA13A00BBB631 /* JoiefullTests */,
 				AE42EB032D14575500BA41BD /* Frameworks */,
 				AE8F8B3A2D109F6800CF8102 /* Products */,
+				AE8F8B4A2D109F8600CF8102 /* Resources */,
+				AE8F8B3B2D109F6800CF8102 /* Sources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				AE8F8B392D109F6800CF8102 /* Joiefull.app */,
+				AE028D672D4AA13A00BBB631 /* JoiefullTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -113,6 +148,30 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AE028D662D4AA13A00BBB631 /* JoiefullTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE028D6D2D4AA13A00BBB631 /* Build configuration list for PBXNativeTarget "JoiefullTests" */;
+			buildPhases = (
+				AE028D632D4AA13A00BBB631 /* Sources */,
+				AE028D642D4AA13A00BBB631 /* Frameworks */,
+				AE028D652D4AA13A00BBB631 /* Resources */,
+				AE028D762D4AA1EE00BBB631 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AE028D6C2D4AA13A00BBB631 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AE028D682D4AA13A00BBB631 /* JoiefullTests */,
+			);
+			name = JoiefullTests;
+			packageProductDependencies = (
+			);
+			productName = JoiefullTests;
+			productReference = AE028D672D4AA13A00BBB631 /* JoiefullTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		AE8F8B382D109F6800CF8102 /* Joiefull */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AE8F8B472D109F6900CF8102 /* Build configuration list for PBXNativeTarget "Joiefull" */;
@@ -147,6 +206,11 @@
 				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
+					AE028D662D4AA13A00BBB631 = {
+						CreatedOnToolsVersion = 16.1;
+						LastSwiftMigration = 1610;
+						TestTargetID = AE8F8B382D109F6800CF8102;
+					};
 					AE8F8B382D109F6800CF8102 = {
 						CreatedOnToolsVersion = 16.1;
 					};
@@ -167,11 +231,19 @@
 			projectRoot = "";
 			targets = (
 				AE8F8B382D109F6800CF8102 /* Joiefull */,
+				AE028D662D4AA13A00BBB631 /* JoiefullTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AE028D652D4AA13A00BBB631 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AE8F8B372D109F6800CF8102 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -183,6 +255,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AE028D632D4AA13A00BBB631 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AE8F8B352D109F6800CF8102 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -192,7 +271,54 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AE028D6C2D4AA13A00BBB631 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE8F8B382D109F6800CF8102 /* Joiefull */;
+			targetProxy = AE028D6B2D4AA13A00BBB631 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		AE028D6E2D4AA13A00BBB631 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FQJ5XK4959;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.openclassrooms.JoiefullTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Joiefull.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Joiefull";
+			};
+			name = Debug;
+		};
+		AE028D6F2D4AA13A00BBB631 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FQJ5XK4959;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.openclassrooms.JoiefullTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Joiefull.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Joiefull";
+			};
+			name = Release;
+		};
 		AE8F8B452D109F6900CF8102 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -326,8 +452,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -355,8 +481,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -373,6 +499,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AE028D6D2D4AA13A00BBB631 /* Build configuration list for PBXNativeTarget "JoiefullTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE028D6E2D4AA13A00BBB631 /* Debug */,
+				AE028D6F2D4AA13A00BBB631 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AE8F8B342D109F6800CF8102 /* Build configuration list for PBXProject "Joiefull" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

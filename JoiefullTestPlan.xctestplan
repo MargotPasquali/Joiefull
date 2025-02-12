@@ -1,0 +1,45 @@
+{
+  "configurations" : [
+    {
+      "id" : "75FB3EE8-75E6-481E-9A6E-BBCE6DD8F545",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:JoiefullService\/JoiefullService.xcodeproj",
+        "identifier" : "AE966F942D491C1E009F9954",
+        "name" : "JoiefullServiceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:JoiefullPersistenceService\/JoiefullPersistenceService.xcodeproj",
+        "identifier" : "AE27C1E82D4A744A0084F9EA",
+        "name" : "JoiefullPersistenceServiceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:JoiefullModels\/JoiefullModels.xcodeproj",
+        "identifier" : "AE8E9CAA2D53B94F0048C262",
+        "name" : "JoiefullModelsTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Joiefull.xcodeproj",
+        "identifier" : "AE028D662D4AA13A00BBB631",
+        "name" : "JoiefullTests"
+      }
+    }
+  ],
+  "version" : 1
+}

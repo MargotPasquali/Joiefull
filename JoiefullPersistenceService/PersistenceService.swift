@@ -4,12 +4,15 @@
 //
 //  Created by Margot Pasquali on 04/01/2025.
 //
-
 import Foundation
+import JoiefullModels
 
 public protocol PersistenceService {
-    func getLikedProductIDs() -> [Int]
-    func likeProduct(productID: Int)
-    func unlikeProduct(productID: Int)
-    func isProductLiked(productID: Int) -> Bool
+    func saveRating(_ rating: ProductRating, forProductId id: String)
+    func getRating(forProductId id: String) -> ProductRating?
+    func isProductLiked(_ productId: String) -> Bool
+    func toggleProductLike(forProductId id: String) -> Bool
+    func getLikedProductIds() -> [String]
+    func getLikesCount(forProductId id: String) -> Int
+    func saveLikesCount(_ count: Int, forProductId id: String)
 }

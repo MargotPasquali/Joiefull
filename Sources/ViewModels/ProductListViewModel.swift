@@ -2,74 +2,83 @@
 //  ProductListViewModel.swift
 //  Joiefull
 //
-//  Created by Margot Pasquali on 19/12/2024.
+//  Created by Margot Pasquali on 23/01/2025.
 //
-
 import Foundation
 import JoiefullModels
 import JoiefullService
-import JoiefullPersistence
 
-// MARK: - ProductListViewModel
+@MainActor
 final class ProductListViewModel: ObservableObject {
     
     // MARK: - Properties
-    @Published var products = [Product]()
     @Published var isLoading = false
     @Published var errorMessage: String?
+    @Published var products: [Product] = []
+    @Published var productRatings: [Int: Double] = [:]
+    @Published var productLikes: [Int: Int] = [:]
+
+
+    // MARK: - Constants
+    private let service: RemoteProductService
+    let likeManager: LikeManager
+    let ratingManager: RatingManager
     
-    private let productService: ProductService
-    private let persistenceService: PersistenceService
-    
-    
-    // MARK: - Computed Properties
-    var categories: [Product.Category: [Product]] {
-        Dictionary(grouping: products, by: { $0.category })
-    }
-    
-    // MARK: - Initializer
-    init(productService: ProductService, products: [Product] = [], persistenceService: PersistenceService) {
-        self.productService = productService
+    // MARK: - Init
+    init(
+        products: [Product] = [],
+        service: RemoteProductService = RemoteProductService(),
+        likeManager: LikeManager = LikeManager(),
+        ratingManager: RatingManager = RatingManager()
+    ) {
         self.products = products
-        self.persistenceService = persistenceService
+        self.service = service
+        self.likeManager = likeManager
+        self.ratingManager = ratingManager
+        updateLikes()
     }
     
-    // MARK: - Methods
-    @MainActor
-    func fetchProductList() async {
-        print("Fetching product list...")
-        
+    // MARK: - Functions
+    func fetchProducts() async {
         isLoading = true
-        
         do {
-            products = try await productService.fetchClothesData()
-            isLoading = false
+            products = try await service.fetchClothesData()
+            // Fetch changes with likes and ratings
+            refreshData()
         } catch {
-            // Gestion des erreurs
-            if let serviceError = error as? ServiceError {
-                errorMessage = serviceError.localizedDescription
-            } else {
-                errorMessage = "An unknown error occurred: \(error.localizedDescription)"
-            }
-            isLoading = false
+            errorMessage = "Failed to fetch products: \(error.localizedDescription)"
+        }
+        isLoading = false
+    }
+    
+    func toggleLike(for product: Product) {
+        let result = likeManager.toggleLike(for: product)
+        productLikes[product.id] = result.updatedLikes
+        refreshData()
+    }
+    
+    func isLiked(_ product: Product) -> Bool {
+        let liked = likeManager.isLiked(for: product)
+        return liked
+    }
+    
+    func averageRating(for product: Product) -> Double {
+        let avgRating = ratingManager.averageRating(for: product)
+        return avgRating
+    }
+    
+    func updateAverageRatings() {
+        productRatings = products.reduce(into: [:]) { $0[$1.id] = ratingManager.averageRating(for: $1) }
+    }
+    
+    func updateLikes() {
+        for product in products {
+            productLikes[product.id] = likeManager.getUpdatedLikes(for: product)
         }
     }
     
-        func toggleLike(for product: Product) {
-            if persistenceService.isProductLiked(productID: product.id) {
-                persistenceService.unlikeProduct(productID: product.id)
-            } else {
-                persistenceService.likeProduct(productID: product.id)
-            }
-            // local product update
-            if let index = products.firstIndex(where: { $0.id == product.id }) {
-                var updatedProduct = products[index]
-                updatedProduct.likes += persistenceService.isProductLiked(productID: product.id) ? 1 : -1
-                products[index] = updatedProduct
-            }
-        }
-        
-        func isLiked(product: Product) -> Bool {
-            persistenceService.isProductLiked(productID: product.id)
-        }
+    func refreshData() {
+        updateLikes()
+        updateAverageRatings()
+    }
 }

@@ -7,35 +7,94 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE6869502D2977E000152305 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE68694E2D2977E000152305 /* UserDefaultsManager.swift */; };
+		AE028D5E2D4A7E9F00BBB631 /* MockUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE028D3D2D4A7DAA00BBB631 /* MockUserDefaultsManager.swift */; };
+		AE14C0332D3570FB0059EAE2 /* JoiefullModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */; };
+		AE14C0342D3570FB0059EAE2 /* JoiefullModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AE27C1ED2D4A744A0084F9EA /* JoiefullPersistenceService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE6869432D2977C300152305 /* JoiefullPersistenceService.framework */; };
 		AE6869512D2977E000152305 /* UserDefaultsManager+PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE68694F2D2977E000152305 /* UserDefaultsManager+PersistenceService.swift */; };
 		AE6869562D29780D00152305 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6869552D29780D00152305 /* PersistenceService.swift */; };
+		AE9AD66E2D42B62A0065963D /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9AD66D2D42B62A0065963D /* UserDefaultsManager.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AE27C1EE2D4A744A0084F9EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE68693A2D2977C300152305 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AE6869422D2977C300152305;
+			remoteInfo = JoiefullPersistenceService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AE14C0352D3570FB0059EAE2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AE14C0342D3570FB0059EAE2 /* JoiefullModels.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		AE028D3D2D4A7DAA00BBB631 /* MockUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserDefaultsManager.swift; sourceTree = "<group>"; };
+		AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JoiefullModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE27C1E92D4A744A0084F9EA /* JoiefullPersistenceServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JoiefullPersistenceServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE6869432D2977C300152305 /* JoiefullPersistenceService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JoiefullPersistenceService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE68694E2D2977E000152305 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		AE68694F2D2977E000152305 /* UserDefaultsManager+PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaultsManager+PersistenceService.swift"; sourceTree = "<group>"; };
 		AE6869552D29780D00152305 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		AE9AD66D2D42B62A0065963D /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		AE27C1EA2D4A744A0084F9EA /* JoiefullPersistenceServiceTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = JoiefullPersistenceServiceTests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		AE27C1E62D4A744A0084F9EA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE27C1ED2D4A744A0084F9EA /* JoiefullPersistenceService.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AE6869402D2977C300152305 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE14C0332D3570FB0059EAE2 /* JoiefullModels.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE14C0312D3570FB0059EAE2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AE14C0322D3570FB0059EAE2 /* JoiefullModels.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AE6869392D2977C300152305 = {
 			isa = PBXGroup;
 			children = (
+				AE9AD66D2D42B62A0065963D /* UserDefaultsManager.swift */,
 				AE6869552D29780D00152305 /* PersistenceService.swift */,
-				AE68694E2D2977E000152305 /* UserDefaultsManager.swift */,
 				AE68694F2D2977E000152305 /* UserDefaultsManager+PersistenceService.swift */,
+				AE028D3D2D4A7DAA00BBB631 /* MockUserDefaultsManager.swift */,
+				AE27C1EA2D4A744A0084F9EA /* JoiefullPersistenceServiceTests */,
+				AE14C0312D3570FB0059EAE2 /* Frameworks */,
 				AE6869442D2977C300152305 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				AE6869432D2977C300152305 /* JoiefullPersistenceService.framework */,
+				AE27C1E92D4A744A0084F9EA /* JoiefullPersistenceServiceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +121,29 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		AE27C1E82D4A744A0084F9EA /* JoiefullPersistenceServiceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE27C1F22D4A744A0084F9EA /* Build configuration list for PBXNativeTarget "JoiefullPersistenceServiceTests" */;
+			buildPhases = (
+				AE27C1E52D4A744A0084F9EA /* Sources */,
+				AE27C1E62D4A744A0084F9EA /* Frameworks */,
+				AE27C1E72D4A744A0084F9EA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AE27C1EF2D4A744A0084F9EA /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AE27C1EA2D4A744A0084F9EA /* JoiefullPersistenceServiceTests */,
+			);
+			name = JoiefullPersistenceServiceTests;
+			packageProductDependencies = (
+			);
+			productName = JoiefullPersistenceServiceTests;
+			productReference = AE27C1E92D4A744A0084F9EA /* JoiefullPersistenceServiceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		AE6869422D2977C300152305 /* JoiefullPersistenceService */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AE6869492D2977C300152305 /* Build configuration list for PBXNativeTarget "JoiefullPersistenceService" */;
@@ -69,6 +152,7 @@
 				AE68693F2D2977C300152305 /* Sources */,
 				AE6869402D2977C300152305 /* Frameworks */,
 				AE6869412D2977C300152305 /* Resources */,
+				AE14C0352D3570FB0059EAE2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -88,8 +172,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
+					AE27C1E82D4A744A0084F9EA = {
+						CreatedOnToolsVersion = 16.1;
+						LastSwiftMigration = 1610;
+					};
 					AE6869422D2977C300152305 = {
 						CreatedOnToolsVersion = 16.1;
 						LastSwiftMigration = 1610;
@@ -111,11 +200,19 @@
 			projectRoot = "";
 			targets = (
 				AE6869422D2977C300152305 /* JoiefullPersistenceService */,
+				AE27C1E82D4A744A0084F9EA /* JoiefullPersistenceServiceTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AE27C1E72D4A744A0084F9EA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AE6869412D2977C300152305 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -126,19 +223,70 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AE27C1E52D4A744A0084F9EA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AE68693F2D2977C300152305 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE6869502D2977E000152305 /* UserDefaultsManager.swift in Sources */,
+				AE028D5E2D4A7E9F00BBB631 /* MockUserDefaultsManager.swift in Sources */,
 				AE6869562D29780D00152305 /* PersistenceService.swift in Sources */,
+				AE9AD66E2D42B62A0065963D /* UserDefaultsManager.swift in Sources */,
 				AE6869512D2977E000152305 /* UserDefaultsManager+PersistenceService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AE27C1EF2D4A744A0084F9EA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE6869422D2977C300152305 /* JoiefullPersistenceService */;
+			targetProxy = AE27C1EE2D4A744A0084F9EA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		AE27C1F02D4A744A0084F9EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FQJ5XK4959;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.openclassrooms.JoiefullPersistenceServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AE27C1F12D4A744A0084F9EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FQJ5XK4959;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.openclassrooms.JoiefullPersistenceServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		AE68694A2D2977C300152305 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -336,6 +484,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AE27C1F22D4A744A0084F9EA /* Build configuration list for PBXNativeTarget "JoiefullPersistenceServiceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE27C1F02D4A744A0084F9EA /* Debug */,
+				AE27C1F12D4A744A0084F9EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AE68693D2D2977C300152305 /* Build configuration list for PBXProject "JoiefullPersistenceService" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

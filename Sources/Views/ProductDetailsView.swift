@@ -4,88 +4,165 @@
 //
 //  Created by Margot Pasquali on 19/12/2024.
 //
-
 import SwiftUI
 import JoiefullModels
+import JoiefullPersistenceService
 
 struct ProductDetailsView: View {
-    var product: Product
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            // Nom du vêtement
-            Text(product.name)
-                .font(.title)
-                .fontWeight(.bold)
-
-            // Prix actuel et ancien prix
-            HStack {
-                Text(String(format: "%.2f €", product.price))
-                    .font(.headline)
-                    .foregroundColor(.green)
-                if product.price < product.originalPrice {
-                    Text(String(format: "%.2f €", product.originalPrice))
-                        .strikethrough()
-                        .foregroundColor(.gray)
-                }
-            }
-
-            // Chargement de l'image
-            if let url = product.picture.imageURL {
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 200)
-                            .cornerRadius(12)
-                    case .failure:
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 200)
-                            .foregroundColor(.gray)
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
-            }
-
-            // Catégorie et likes
-            HStack {
-                Text("Catégorie : \(product.category.rawValue.capitalized)")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                Spacer()
-                Text("❤️ \(product.likes) likes")
-                    .font(.subheadline)
-            }
-
-            Spacer()
-        }
-        .padding()
+    
+    // MARK: - Properties
+    private let product: Product
+    
+    @ObservedObject
+    private var viewModel: ProductDetailsViewModel
+    
+    @State
+    private var isLoading = true
+    
+    // MARK: - Initializer
+    
+    init(product: Product, viewModel: ProductDetailsViewModel) {
+        self.product = product
+        self.viewModel = viewModel
     }
-}
-
-// MARK: - Preview
-#Preview {
-    // Exemple de données pour la Preview
-    let samplePicture = Picture(
-        url:"https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
-        description: "Image de test"
-    )
-    let sampleClothes = Product(
-        id: 1,
-        picture: samplePicture,
-        name: "Pull torsadé",
-        category: .tops,
-        likes: 56,
-        price: 69.99,
-        originalPrice: 95.00
-    )
-
-    ProductDetailsView(product: sampleClothes)
+    
+    // MARK: - View
+    var body: some View {
+        ScrollView {
+            if isLoading {
+                ProgressView("Chargement des détails...")
+                    .font(.headline)
+                    .foregroundColor(.gray)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                VStack {
+                    ZStack(alignment: .trailing) {
+                        if let url = product.picture.imageURL {
+                            AsyncImage(url: url) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                .accessibilityLabel("Chargement de l'image")
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 369, height: 431)
+                                        .cornerRadius(20)
+                                        .accessibilityLabel("Image du produit \(product.name)")
+                                case .failure:
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 369, height: 431)
+                                        .foregroundColor(.gray)
+                                        .accessibilityLabel("Image non disponible")
+                                @unknown default:
+                                    EmptyView()
+                                }
+                            }
+//                            .accessibilityLabel(product.picture.description)
+                        }
+                        
+                        ShareLink(
+                            item: product.picture.imageURL!,
+                            subject: Text("Découvrez ce produit : \(product.name)")
+                        ) {
+                            Image(systemName:"square.and.arrow.up.circle.fill")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(Color("Custom Orange"))
+                        }
+                        .offset(x: -10, y: -190)
+                        .accessibilityLabel("Partager le produit")
+                        .accessibilityHint("Appuyez pour partager \(product.name)")
+                        
+                        Button(action: {
+                            viewModel.toggleLike()
+                        }) {
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.white)
+                                .frame(width: 51, height: 27)
+                                .overlay(
+                                    HStack {
+                                        Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
+                                            .foregroundColor(viewModel.isLiked ? .red : .black)
+                                            .frame(width: 14, height: 12)
+                                        Text(String(viewModel.currentLikes))
+                                            .fontWeight(.semibold)
+                                            .foregroundStyle(Color.black)
+                                            .font(.caption)
+                                    }
+                                )
+                        }
+                        .buttonStyle(.plain)
+                        .offset(x: -10, y: 190)
+                        .accessibilityLabel(viewModel.isLiked ? "Retirer le j'aime" : "Ajouter un j'aime")
+                        .accessibilityValue("\(viewModel.currentLikes) mention\(viewModel.currentLikes > 1 ? "s" : "") j'aime")
+                    }
+                    
+                    // MARK: - Product Name and Rating
+                    HStack {
+                        Text(product.name)
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .lineLimit(1)
+                            .foregroundStyle(Color.black)
+                        Spacer()
+                        HStack {
+                            Image(systemName: "star.fill")
+                                .foregroundStyle(Color.yellow)
+                                .frame(width: 12, height: 12)
+                            Text(String(format: "%.1f", viewModel.averageRating(for: product)))
+                                .font(.title3)
+                                .fontWeight(.regular)
+                                .foregroundStyle(Color.black)
+                                .font(.caption)
+                        }
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel("Note moyenne")
+                        .accessibilityValue(String(format: "%.1f sur 5", viewModel.averageRating(for: product)))
+                    }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(product.name)
+                    .padding(.horizontal, 15.0)
+                    
+                    // MARK: - Price Section
+                    HStack {
+                        Text(String(format: "%.2f €", product.price))
+                            .font(.title3)
+                            .fontWeight(.regular)
+                            .foregroundStyle(Color.black)
+                        Spacer()
+                        if product.originalPrice != product.price {
+                            Text(String(format: "%.2f €", product.originalPrice))
+                                .font(.title3)
+                                .fontWeight(.regular)
+                                .foregroundStyle(Color.gray)
+                                .strikethrough()
+                        }
+                    }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(product.originalPrice != product.price ? 
+                        "Prix en promotion \(String(format: "%.2f €", product.price)), au lieu de \(String(format: "%.2f €", product.originalPrice))" :
+                        "Prix \(String(format: "%.2f €", product.price))")
+                    .padding(.horizontal, 15.0)
+                    
+                    HStack {
+                        Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+                            .padding(.leading)
+                        Spacer()
+                    }
+                    .accessibilityLabel("Description du produit")
+                    
+                    // MARK: - Rating Section
+                    RatingView(viewModel: viewModel)
+                }
+            }
+        }
+        .onAppear {
+            viewModel.updateLikesAndRatings()
+            isLoading = false
+        }
+    }
 }

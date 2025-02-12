@@ -1,45 +1,64 @@
 //
 //  UserDefaultsManager.swift
-//  JoiefullPersistence
+//  JoiefullPersistenceService
 //
-//  Created by Margot Pasquali on 03/01/2025.
+//  Created by Margot Pasquali on 23/01/2025.
 //
-
 import Foundation
+import JoiefullModels
 
-public final class UserDefaultsManager {
+public class UserDefaultsManager {
     
     // MARK: - Constants
+    private let ratingKey = "rating_"
+    private let likesKey = "likes_"
+    private let likeCountKey = "like_count_"
     
-    private let userDefaults: UserDefaults
-    private let likesKey = "likedProducts"
+    // MARK: - Init
+    public init() {}
     
-    public init(userDefaults: UserDefaults = .standard) {
-        self.userDefaults = userDefaults
+    // MARK: - Rating
+    
+    open func saveRating(_ rating: ProductRating, forProductId id: String) {
+        let encoded = try? JSONEncoder().encode(rating)
+        UserDefaults.standard.set(encoded, forKey: ratingKey + id)
+        UserDefaults.standard.synchronize()
     }
-    
-    // MARK: - Like Methods
-    public func getLikedProductIDs() -> [Int] {
-        userDefaults.array(forKey: likesKey) as? [Int] ?? []
-    }
-    
-    public func likeProduct(productID: Int) {
-        var likedProductIDs = getLikedProductIDs()
-        if !likedProductIDs.contains(productID) {
-            likedProductIDs.append(productID)
-            userDefaults.set(likedProductIDs, forKey: likesKey)
+
+    open func getRating(forProductId id: String) -> ProductRating? {
+        guard let data = UserDefaults.standard.data(forKey: ratingKey + id) else {
+            return nil
         }
+        let rating = try? JSONDecoder().decode(ProductRating.self, from: data)
+        return rating
+    }
+
+    open func isProductLiked(_ productId: String) -> Bool {
+        let isLiked = UserDefaults.standard.bool(forKey: likesKey + productId)
+        return isLiked
+    }
+
+    open func toggleProductLike(forProductId id: String) -> Bool {
+        let newValue = !isProductLiked(id)
+        UserDefaults.standard.set(newValue, forKey: likesKey + id)
+        UserDefaults.standard.synchronize()
+        return newValue
+    }
+
+    open func getLikedProductIds() -> [String] {
+        let ids = UserDefaults.standard.dictionaryRepresentation()
+            .filter { $0.key.starts(with: likesKey) && $0.value as? Bool == true }
+            .map { $0.key.replacingOccurrences(of: likesKey, with: "") }
+        return ids
     }
     
-    public func unlikeProduct(productID: Int) {
-        var likedProductIDs = getLikedProductIDs()
-        if let index = likedProductIDs.firstIndex(of: productID) {
-            likedProductIDs.remove(at: index)
-            userDefaults.set(likedProductIDs, forKey: likesKey)
-        }
+    open func getLikesCount(forProductId id: String) -> Int {
+        let likes = UserDefaults.standard.integer(forKey: likeCountKey + id)
+        return likes
     }
-    
-    public func isProductLiked(productID: Int) -> Bool {
-        getLikedProductIDs().contains(productID)
+
+    open func saveLikesCount(_ count: Int, forProductId id: String) {
+        UserDefaults.standard.set(count, forKey: likeCountKey + id)
+        UserDefaults.standard.synchronize()
     }
 }

@@ -44,8 +44,10 @@ public final class RemoteProductService: ProductService {
             throw ServiceError.invalidResponse
         }
         
+        let request = URLRequest(url: url)
+        
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
+            let (data, _) = try await networkManager.data(for: request)
             
             // Décodage en ProductDTO
             guard let clothesDTOList = decodeClothes(from: data) else {
@@ -56,7 +58,7 @@ public final class RemoteProductService: ProductService {
             let clothesList = clothesDTOList.map { $0.toDomainModel() }
             return clothesList
         } catch {
-            throw ServiceError.networkError(error)
+            throw error
         }
     }
 
