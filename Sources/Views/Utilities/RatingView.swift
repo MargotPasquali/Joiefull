@@ -38,6 +38,7 @@ struct RatingView: View {
                         Button(action: {
                             isEditing = true
                             viewModel.userRating = star
+                            viewModel.saveUserFeedback(score: star, comment: viewModel.userComment)
                         }) {
                             Image(systemName: star <= viewModel.userRating ? "star.fill" : "star")
                                 .resizable()

@@ -42,11 +42,10 @@ final class ProductDetailsViewModel: ObservableObject {
         self.isLiked = likeManager.isLiked(for: product)
         
         // Charger les ratings dès l'initialisation
-        if let rating = ratingManager.ratings(for: product).first {
-            self.userRating = rating.score
-            self.userComment = rating.comment
-            self.averageRating = Double(rating.score)
-        }
+        let ratings = ratingManager.ratings(for: product)
+        self.userRating = ratings.first?.score ?? 0
+        self.userComment = ratings.first?.comment ?? ""
+        self.averageRating = ratingManager.averageRating(for: product)
     }
     
     // MARK: - Functions
@@ -58,7 +57,7 @@ final class ProductDetailsViewModel: ObservableObject {
         // Update UI
         userRating = rating.score
         userComment = rating.comment
-        averageRating = Double(rating.score)
+        averageRating = ratingManager.averageRating(for: product)
         
         // Notify list to refresh
         onRatingUpdated()
@@ -67,17 +66,11 @@ final class ProductDetailsViewModel: ObservableObject {
     func updateLikesAndRatings() {
         // Get ratings
         let ratings = ratingManager.ratings(for: product)
-        
-        // Average calculation
-        if !ratings.isEmpty {
-            averageRating = Double(ratings.reduce(0) { $0 + $1.score }) / Double(ratings.count)
-        } else {
-            averageRating = 0.0
-        }
-        
-        // Properties update
         userRating = ratings.first?.score ?? 0
         userComment = ratings.first?.comment ?? ""
+        averageRating = ratingManager.averageRating(for: product)
+        
+        // Update likes
         currentLikes = likeManager.getUpdatedLikes(for: product)
         isLiked = likeManager.isLiked(for: product)
     }

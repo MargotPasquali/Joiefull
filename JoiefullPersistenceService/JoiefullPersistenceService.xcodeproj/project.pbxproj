@@ -50,14 +50,6 @@
 		AE9AD66D2D42B62A0065963D /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		AE27C1EA2D4A744A0084F9EA /* JoiefullPersistenceServiceTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = JoiefullPersistenceServiceTests;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
 		AE27C1E62D4A744A0084F9EA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -93,7 +85,6 @@
 				AE6869552D29780D00152305 /* PersistenceService.swift */,
 				AE68694F2D2977E000152305 /* UserDefaultsManager+PersistenceService.swift */,
 				AE028D3D2D4A7DAA00BBB631 /* MockUserDefaultsManager.swift */,
-				AE27C1EA2D4A744A0084F9EA /* JoiefullPersistenceServiceTests */,
 				AE14C0312D3570FB0059EAE2 /* Frameworks */,
 				AE6869442D2977C300152305 /* Products */,
 			);
@@ -133,9 +124,6 @@
 			);
 			dependencies = (
 				AE27C1EF2D4A744A0084F9EA /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				AE27C1EA2D4A744A0084F9EA /* JoiefullPersistenceServiceTests */,
 			);
 			name = JoiefullPersistenceServiceTests;
 			packageProductDependencies = (
